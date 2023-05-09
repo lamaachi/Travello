@@ -40,7 +40,9 @@
                     <strong>Success!</strong>Travel Has Been Deleted Succussfully.</span>
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
+                <a th:href="@{/panel/admin/travels/addnew}" class="btn btn-primary">Add New Travel</a>
             </div>
+
             <div class="card-body">
                 <table class='table table-striped' id="table1">
                     <thead>
@@ -50,15 +52,19 @@
                         <th>destination</th>
                         <th>TravelType</th>
                         <th>price</th>
+                        <th>Image</th>
                         <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="travel:${travels}">
-                        <td th:text="${travel.id}"></td>
-                        <td th:text="${travel.title}"></td>
+                        <td th:text="${travel.id} "></td>
+                        <td th:text="${#strings.length(travel.title) le 10} ? ${travel.title} : ${#strings.substring(travel.title, 0, 10) + '...'}"></td>
                         <td th:text="${travel.travelType}"></td>
-                        <td th:text="${travel.destiantion}"></td>
+                        <td th:text="${#strings.length(travel.destiantion) le 10} ? ${travel.destiantion} : ${#strings.substring(travel.destiantion, 0, 10) + '...'}"></td>
+                        <td>
+                            <img th:src="@{|/travel-images/${travel.image}|}" class="img-responsive w-100" alt="Travel Image" />
+                        </td>
                         <td th:text="${travel.price}"></td>
                         <td>
                             <div class="btn-group">

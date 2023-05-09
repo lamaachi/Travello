@@ -10,16 +10,22 @@
         <div class="subscribe-title text-center">
             <h2>
                 Join our Subscribers List to Get Regular Update
+
             </h2>
             <p>
                 Subscribe Now. We will send you Best offer for your Trip
             </p>
         </div>
-        <form  >
+        <div th:if="${param.successSub}" class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>Success!</strong>Your Email Has Been Added To The subscribers list Succussfully.</span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <form th:action="@{/subscribe}" th:object="${subscriber}" method="post" >
             <div class="row">
                 <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
                     <div class="custom-input-group">
-                        <input type="email" class="form-control"   placeholder="Enter your Email Here">
+                        <input th:errorClass="is-invalid" type="email" class="form-control" name="email" th:field="*{email}"  placeholder="Enter your Email Here">
+                        <span class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
                         <button type="submit" class="appsLand-btn subscribe-btn">Subscribe</button>
                         <div class="clearfix"></div>
                         <i class="fa fa-envelope"></i>
@@ -28,7 +34,7 @@
             </div>
         </form>
     </div>
-
 </section>
+
 </body>
 </html>

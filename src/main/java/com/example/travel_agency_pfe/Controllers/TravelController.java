@@ -31,7 +31,6 @@ import java.util.Objects;
 @AllArgsConstructor
 @RequestMapping("/panel/admin")
 public class TravelController {
-    private static String UPLOAD_FOLDER = "/resources";
     private IAppUserRepository appUserRepository;
     private ITravelServiceImpl travelService;
 
@@ -62,6 +61,9 @@ public class TravelController {
         // Find the AppUser object for the current user
         AppUser currentUser = appUserRepository.findByUserName(currentUsername);
         // Create a new Travel object and set its properties
+
+        //boolean special = tr.isSpecilaOffer() ? true : false;
+
         if(!image.isEmpty()){
             String filename = StringUtils.cleanPath(Objects.requireNonNull(image.getOriginalFilename()));
             Travel travel = Travel.builder()
@@ -71,6 +73,7 @@ public class TravelController {
                     .travelType(tr.getTravelType())
                     .exclus(tr.getExclus())
                     .inclus(tr.getInclus())
+                    //.SpecilaOffer(special)
                     .Activities(tr.getActivities())
                     .image(filename)
                     .price(tr.getPrice())

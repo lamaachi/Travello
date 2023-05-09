@@ -18,18 +18,20 @@
         <div class="packages-content">
             <div class="row">
 
-                <div class="col-md-4 col-sm-6">
+                <div class="col-md-4 col-sm-6" th:each="travel:${travels}">
                     <div class="single-package-item">
-                        <img th:src="@{/images/packages/p1.jpg}" alt="package-place">
+                        <img th:src="@{|/travel-images/${travel.image}|}" alt="package-place">
                         <div class="single-package-item-txt">
-                            <h3>italy <span class="pull-right">$499</span></h3>
+                            <h3><span th:text="${#strings.length(travel.title) le 10} ? ${travel.title} : ${#strings.substring(travel.title, 0, 10) + '...'}" ></span> <span class="pull-right" th:text="${travel.price}+'MAD'"></span></h3>
                             <div class="packages-para">
                                 <p>
 											<span>
-												<i class="fa fa-angle-right"></i> 5 daays 6 nights
+												<i class="fa fa-angle-right"></i> <span th:text="${travel.days}"></span>  daays <span th:text="${travel.nights}"></span> nights
 											</span>
                                     <i class="fa fa-angle-right"></i>  5 star accomodation
                                 </p>
+
+
                                 <p>
 											<span>
 												<i class="fa fa-angle-right"></i>  transportation
@@ -54,204 +56,7 @@
                             </div><!--/.about-btn-->
                         </div><!--/.single-package-item-txt-->
                     </div><!--/.single-package-item-->
-
                 </div><!--/.col-->
-
-                <div class="col-md-4 col-sm-6">
-                    <div class="single-package-item">
-                        <img th:src="@{/images/packages/p2.jpg}" alt="package-place">
-                        <div class="single-package-item-txt">
-                            <h3>england <span class="pull-right">$1499</span></h3>
-                            <div class="packages-para">
-                                <p>
-											<span>
-												<i class="fa fa-angle-right"></i> 5 daays 6 nights
-											</span>
-                                    <i class="fa fa-angle-right"></i>  5 star accomodation
-                                </p>
-                                <p>
-											<span>
-												<i class="fa fa-angle-right"></i>  transportation
-											</span>
-                                    <i class="fa fa-angle-right"></i>  food facilities
-                                </p>
-                            </div><!--/.packages-para-->
-                            <div class="packages-review">
-                                <p>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <span>2544 review</span>
-                                </p>
-                            </div><!--/.packages-review-->
-                            <div class="about-btn">
-                                <button  class="about-view packages-btn">
-                                    book now
-                                </button>
-                            </div><!--/.about-btn-->
-                        </div><!--/.single-package-item-txt-->
-                    </div><!--/.single-package-item-->
-
-                </div><!--/.col-->
-
-                <div class="col-md-4 col-sm-6">
-                    <div class="single-package-item">
-                        <img th:src="@{/images/packages/p3.jpg}" alt="package-place">
-                        <div class="single-package-item-txt">
-                            <h3>france <span class="pull-right">$1199</span></h3>
-                            <div class="packages-para">
-                                <p>
-											<span>
-												<i class="fa fa-angle-right"></i> 5 daays 6 nights
-											</span>
-                                    <i class="fa fa-angle-right"></i>  5 star accomodation
-                                </p>
-                                <p>
-											<span>
-												<i class="fa fa-angle-right"></i>  transportation
-											</span>
-                                    <i class="fa fa-angle-right"></i>  food facilities
-                                </p>
-                            </div><!--/.packages-para-->
-                            <div class="packages-review">
-                                <p>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <span>2544 review</span>
-                                </p>
-                            </div><!--/.packages-review-->
-                            <div class="about-btn">
-                                <button  class="about-view packages-btn">
-                                    book now
-                                </button>
-                            </div><!--/.about-btn-->
-                        </div><!--/.single-package-item-txt-->
-                    </div><!--/.single-package-item-->
-
-                </div><!--/.col-->
-
-                <div class="col-md-4 col-sm-6">
-                    <div class="single-package-item">
-                        <img th:src="@{/images/packages/p4.jpg}" alt="package-place">
-                        <div class="single-package-item-txt">
-                            <h3>india <span class="pull-right">$799</span></h3>
-                            <div class="packages-para">
-                                <p>
-											<span>
-												<i class="fa fa-angle-right"></i> 5 daays 6 nights
-											</span>
-                                    <i class="fa fa-angle-right"></i>  5 star accomodation
-                                </p>
-                                <p>
-											<span>
-												<i class="fa fa-angle-right"></i>  transportation
-											</span>
-                                    <i class="fa fa-angle-right"></i>  food facilities
-                                </p>
-                            </div><!--/.packages-para-->
-                            <div class="packages-review">
-                                <p>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <span>2544 review</span>
-                                </p>
-                            </div><!--/.packages-review-->
-                            <div class="about-btn">
-                                <button  class="about-view packages-btn">
-                                    book now
-                                </button>
-                            </div><!--/.about-btn-->
-                        </div><!--/.single-package-item-txt-->
-                    </div><!--/.single-package-item-->
-
-                </div><!--/.col-->
-
-                <div class="col-md-4 col-sm-6">
-                    <div class="single-package-item">
-                        <img th:src="@{/images/packages/p5.jpg}" alt="package-place">
-                        <div class="single-package-item-txt">
-                            <h3>spain <span class="pull-right">$999</span></h3>
-                            <div class="packages-para">
-                                <p>
-											<span>
-												<i class="fa fa-angle-right"></i> 5 daays 6 nights
-											</span>
-                                    <i class="fa fa-angle-right"></i>  5 star accomodation
-                                </p>
-                                <p>
-											<span>
-												<i class="fa fa-angle-right"></i>  transportation
-											</span>
-                                    <i class="fa fa-angle-right"></i>  food facilities
-                                </p>
-                            </div><!--/.packages-para-->
-                            <div class="packages-review">
-                                <p>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <span>2544 review</span>
-                                </p>
-                            </div><!--/.packages-review-->
-                            <div class="about-btn">
-                                <button  class="about-view packages-btn">
-                                    book now
-                                </button>
-                            </div><!--/.about-btn-->
-                        </div><!--/.single-package-item-txt-->
-                    </div><!--/.single-package-item-->
-
-                </div><!--/.col-->
-
-                <div class="col-md-4 col-sm-6">
-                    <div class="single-package-item">
-                        <img th:src="@{/images/packages/p6.jpg}" alt="package-place">
-                        <div class="single-package-item-txt">
-                            <h3>thailand <span class="pull-right">$799</span></h3>
-                            <div class="packages-para">
-                                <p>
-											<span>
-												<i class="fa fa-angle-right"></i> 5 daays 6 nights
-											</span>
-                                    <i class="fa fa-angle-right"></i>  5 star accomodation
-                                </p>
-                                <p>
-											<span>
-												<i class="fa fa-angle-right"></i>  transportation
-											</span>
-                                    <i class="fa fa-angle-right"></i>  food facilities
-                                </p>
-                            </div><!--/.packages-para-->
-                            <div class="packages-review">
-                                <p>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <span>2544 review</span>
-                                </p>
-                            </div><!--/.packages-review-->
-                            <div class="about-btn">
-                                <button  class="about-view packages-btn">
-                                    book now
-                                </button>
-                            </div><!--/.about-btn-->
-                        </div><!--/.single-package-item-txt-->
-                    </div><!--/.single-package-item-->
-
-                </div><!--/.col-->
-
             </div><!--/.row-->
         </div><!--/.packages-content-->
     </div><!--/.container-->

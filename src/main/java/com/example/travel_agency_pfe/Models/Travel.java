@@ -52,16 +52,30 @@ public class Travel {
 
 
 
+//    @Column(name = "SpecilaOffer")
+//    private boolean SpecilaOffer = false;
+
+
+//    public boolean isSpecilaOffer() {
+//        return SpecilaOffer;
+//    }
+//
+//    public void setSpecilaOffer(boolean specilaOffer) {
+//        SpecilaOffer = specilaOffer;
+   // }
+
     @NotBlank(message = "Travel Type is required")
     private String travelType;
 
     @NotBlank(message = "Activities are required")
-    @Column(length = 100)
+    @Column(length = 1000)
     private String Activities;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private AppUser appUser;
+
+
 
     //Reservations
     @OneToMany(mappedBy = "travel")
