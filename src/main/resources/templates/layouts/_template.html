@@ -17,13 +17,13 @@
 
 <body>
 <div id="app"><!--Main content-->
-    <span th:replace="fragments/sidebar :: sidebar"></span>
+    <span th:replace="fragments/panel/sidebar :: sidebar"></span>
     <div id="main"><!--Content id-->
-        <span th:replace="fragments/header :: header"></span>
-        <div class="main-content container-fluid" layout:fragment="content"><!--dynamic content-->
-            <!--you can replace this using page-->
+        <span th:replace="fragments/panel/header :: header"></span>
+        <div class="main-content container-fluid" layout:fragment="content">
+            <!--dynamic content-->
         </div>
-                <span th:replace="fragments/footer :: footer"></span>
+                <span th:replace="fragments/panel/footer :: footer"></span>
     </div>
 </div>
 <script th:src="@{/js/feather.min.js}"></script>

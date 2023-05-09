@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/_template}">
+<head>
+  <meta charset="UTF-8">
+  <title>client list - Tournest</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+  <link rel="stylesheet" th:href="@{/simple-datatables/style.css}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+  <link rel="stylesheet" th:href="@{/vendors/perfect-scrollbar/perfect-scrollbar.css}">
+  <link rel="stylesheet" th:href="@{/css/app.css}">
+  <link rel="shortcut icon" th:href="@{/images/favicon.svg}" type="image/x-icon">
+</head>
+<body>
+<div class="main-content container-fluid" layout:fragment="content">
+
+  <section>
+    <div class="card">
+      <div class="card-header h1">
+       Travel Details
+      </div>
+      <div class="card-body">
+        <p>lorem lorem lorem lorem lorem lorem lorem<div class="col-md-6 col-sm-12">
+        <div class="card">
+          <div class="card-content">
+            <img class="card-img-top img-fluid" th:src="@{/images/gallary/Chefchaouen.jpg}"
+                 alt="Card image cap" />
+            <div class="card-body">
+              <h4 class="card-title">Top Image Cap</h4>
+              <p class="card-text">
+                Jelly-o sesame snaps cheesecake topping. Cupcake fruitcake macaroon donut
+                pastry gummies tiramisu chocolate bar muffin. Dessert bonbon caramels brownie chocolate bar
+                chocolate tart dragée.
+              </p>
+              <p class="card-text">
+                Cupcake fruitcake macaroon donut pastry gummies tiramisu chocolate bar muffin.
+              </p>
+              <button class="btn btn-primary block">Update now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<script th:src="@{/js/feather-icons/feather.min.js}"></script>
+<script th:src="@{/vendors/perfect-scrollbar/perfect-scrollbar.min.js}"></script>
+<script th:src="@{/js/app.js}"></script>
+<script th:src="@{/js/vendors.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/simple-datatables/simple-datatables.js}"></script>
+</body>
+</html>

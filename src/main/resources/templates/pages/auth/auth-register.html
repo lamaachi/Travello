@@ -17,56 +17,77 @@
 <div class="container">
     <div class="row">
         <div class="col-md-7 col-sm-12 mx-auto">
-            <div class="card pt-4">
+            <div class="card">
                 <div class="card-body">
                     <div class="text-center mb-5">
 <!--                        <img src="assets/images/favicon.svg" height="48" class='mb-4'>-->
                         <h3>Sign Up</h3>
                         <p>Please fill the form to register.</p>
                     </div>
-                    <form action="index.html">
+                    <form th:action="@{/Auth/register}" th:object="${appUser}" method="post">
                         <div class="row">
                             <div class="col-md-6 col-12">
                                 <div class="form-group">
                                     <label for="first-name-column">First Name</label>
-                                    <input type="text" id="first-name-column" class="form-control"  name="fname-column">
+                                    <input th:errorClass="is-invalid" type="text" id="first-name-column" class="form-control" th:field="*{firstName}"  name="fname-column">
+                                    <span class="invalid-feedback" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="form-group">
                                     <label for="last-name-column">Last Name</label>
-                                    <input type="text" id="last-name-column" class="form-control"  name="lname-column">
+                                    <input th:errorClass="is-invalid" type="text" id="last-name-column" class="form-control" th:field="*{lastName}"  name="lname-column">
+                                    <span class="invalid-feedback" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="form-group">
                                     <label for="username-column">Username</label>
-                                    <input type="text" id="username-column" class="form-control" name="username-column">
+                                    <input th:errorClass="is-invalid" type="text" id="username-column" class="form-control" th:field="*{userName}" name="username-column">
+                                    <span class="invalid-feedback"  th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></span>
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="form-group">
-                                    <label for="country-floating">Country</label>
-                                    <input type="text" id="country-floating" class="form-control" name="country-floating">
+                                    <label for="country-floating">Email</label>
+                                    <input  th:errorClass="is-invalid" type="email" id="country-floating" th:field="*{email}" class="form-control" name="country-floating">
+                                    <span class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-12">
+                                <div class="form-group">
+                                    <label for="username-column">Phone Number</label>
+                                    <input th:errorClass="is-invalid" type="number" id="phone-column" class="form-control" th:field="*{phone}" name="username-column">
+                                    <span class="invalid-feedback" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
+
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="form-group">
-                                    <label for="company-column">Company</label>
-                                    <input type="text" id="company-column" class="form-control" name="company-column">
+                                    <label for="country-floating">Adress</label>
+                                    <input th:errorClass="is-invalid" type="text" id="adress-floating" th:field="*{adress}" class="form-control" name="country-floating">
+                                    <span class="invalid-feedback" th:if="${#fields.hasErrors('adress')}" th:errors="*{adress}"></span>
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="form-group">
-                                    <label for="email-id-column">Email</label>
-                                    <input type="email" id="email-id-column" class="form-control" name="email-id-column">
+                                    <label for="company-column">Password</label>
+                                    <input th:errorClass="is-invalid" type="password" id="company-column" th:field="*{password}" class="form-control" name="company-column">
+                                    <span class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
                                 </div>
                             </div>
+<!--                            <div class="col-md-6 col-12">-->
+<!--                                <div class="form-group">-->
+<!--                                    <label for="confirmpassword">confirm Password</label>-->
+<!--                                    <input th:errorClass="is-invalid"  type="password" id="confirmpassword" class="form-control" name="confirmpassword">-->
+<!--                                </div>-->
+<!--                            </div>-->
                         </diV>
 
-                                <a href="auth-login.html">Have an account? Login</a>
+                                <a th:href="@{/login}">Have an account? Login</a>
                         <div class="clearfix">
-                            <button class="btn btn-primary float-end">Submit</button>
+                            <button type="submit" class="btn btn-primary float-end">Submit</button>
                         </div>
                     </form>
                     <div class="divider">

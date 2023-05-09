@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <section th:fragment="gallery" id="gallery" class="gallery">
+    <div class="container">
+        <div class="gallery-details">
+            <div class="gallary-header text-center">
+                <h2>
+                    top destination
+                </h2>
+                <p>
+                    Duis aute irure dolor in  velit esse cillum dolore eu fugiat nulla.
+                </p>
+            </div><!--/.gallery-header-->
+            <div class="gallery-box">
+                <div class="gallery-content">
+                    <div class="filtr-container">
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="filtr-item">
+                                    <img th:src="@{/images/gallary/essaouira.jpg}"  style="width: 550px;height:310px; " alt="portfolio image"/>
+                                    <div class="item-title">
+                                        <a href="#">
+                                            Essaouira
+                                        </a>
+                                        <p><span>20 tours</span><span>5 places</span></p>
+                                    </div><!-- /.item-title -->
+                                </div><!-- /.filtr-item -->
+                            </div><!-- /.col -->
+
+                            <div class="col-md-6">
+                                <div class="filtr-item">
+                                    <img th:src="@{/images/gallary/chefchaouen.jpg}"  style="width: 550px;height:310px;" alt="portfolio image"/>
+                                    <div class="item-title">
+                                        <a href="#">
+                                            Chefchaouen
+                                        </a>
+                                        <p><span>12 tours</span><span>9 places</span></p>
+                                    </div> <!-- /.item-title-->
+                                </div><!-- /.filtr-item -->
+                            </div><!-- /.col -->
+
+
+                            <div class="col-md-6">
+                                <div class="filtr-item">
+                                    <img th:src="@{/images/gallary/dakhla.jpg}" style="width: 550px;height:310px;" alt="portfolio image"/>
+                                    <div class="item-title">
+                                        <a href="#">
+                                            Dakhla
+                                        </a>
+                                        <p><span>18 tours</span><span>9 places</span></p>
+                                    </div> <!-- /.item-title-->
+                                </div><!-- /.filtr-item -->
+                            </div><!-- /.col -->
+
+                            <div class="col-md-6">
+                                <div class="filtr-item">
+                                    <img th:src="@{/images/gallary/fes.jpg}" style="width: 550px;height:310px;" alt="portfolio image"/>
+                                    <div class="item-title">
+                                        <a href="#">
+                                            Fes
+                                        </a>
+                                        <p><span>14 tours</span><span>12 places</span></p>
+                                    </div> <!-- /.item-title-->
+                                </div><!-- /.filtr-item -->
+                            </div><!-- /.col -->
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="filtr-item">
+                                        <img th:src="@{/images/gallary/mara.jpg}" style="width: 800px;height:310px;" alt="portfolio image"/>
+                                        <div class="item-title">
+                                            <a href="#">
+                                                Marakech
+                                            </a>
+                                            <p><span>14 tours</span><span>6 places</span></p>
+                                        </div> <!-- /.item-title-->
+                                    </div>
+                                </div><!-- /.col -->
+                                <div class="col-md-4">
+                                    <div class="filtr-item">
+                                        <img th:src="@{/images/gallary/desert.jpg}"  style="width: 550px;height:310px;" alt="portfolio image"/>
+                                        <div class="item-title">
+                                            <a href="#">
+                                                Moroccan Desert
+                                            </a>
+                                            <p><span>14 tours</span><span>6 places</span></p>
+                                        </div> <!-- /.item-title-->
+                                    </div><!-- /.filtr-item -->
+                                </div>
+                            </div>
+
+                        </div><!-- /.row -->
+
+                    </div><!-- /.filtr-container-->
+                </div><!-- /.gallery-content -->
+            </div><!--/.galley-box-->
+        </div><!--/.gallery-details-->
+    </div><!--/.container-->
+
+</section><!--/.gallery-->
+</body>
+</html>
