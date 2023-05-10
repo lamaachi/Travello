@@ -36,72 +36,70 @@
       <div class="card-body">
         <form method="post" th:action="@{/panel/admin/travels/save}" th:object="${travel}" enctype="multipart/form-data">
           <div class="form-group">
-            <label for="title">Title:</label>
+            <label th:maxlength="100" for="title">Title:</label>
             <label  for="title"></label>
-            <input th:errorClass="is-invalid" type="text" class="form-control" id="title" th:field="*{title}" >
+            <input th:maxlength="100" required th:errorClass="is-invalid" type="text" class="form-control" id="title" th:field="*{title}" >
             <span class="invalid-feedback" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
           </div>
           <div class="form-group">
             <label for="destination">Destination:</label>
-            <input th:errorClass="is-invalid" type="text" class="form-control" id="destination" th:field="*{destiantion}" >
+            <input th:maxlength="200" required th:errorClass="is-invalid" type="text" class="form-control" id="destination" th:field="*{destiantion}" >
             <span class="invalid-feedback" th:if="${#fields.hasErrors('destiantion')}" th:errors="*{destiantion}"></span>          </div>
           <div class="row">
             <div class="form-group col-md-6">
-              <label for="numberOfNights">Number of Nights:</label>
-              <input type="number" min="0" class="form-control" id="numberOfNights" th:field="*{nights}" >
+              <label  for="numberOfNights">Number of Nights:</label>
+              <input required type="number" min="0" class="form-control" id="numberOfNights" th:field="*{nights}" >
             </div>
 
             <div class="form-group col-md-6">
               <label for="numberOfDays">Number of Days:</label>
-              <input type="number" min="0" class="form-control" id="numberOfDays" th:field="*{days}" >
+              <input required type="number" min="0" class="form-control" id="numberOfDays" th:field="*{days}" >
             </div>
           </div>
-
-
           <div class="form-group">
             <label for="inclus">Inclusions:</label>
-            <textarea th:errorClass="is-invalid"  class="form-control" id="inclus" rows="3" th:field="*{inclus}" ></textarea>
+            <textarea th:maxlength="200" required th:errorClass="is-invalid"  class="form-control" id="inclus" rows="3" th:field="*{inclus}" ></textarea>
             <span class="invalid-feedback" th:if="${#fields.hasErrors('inclus')}" th:errors="*{inclus}"></span>
           </div>
-
           <div class="form-group">
             <label for="exclus">Exclusions:</label>
-            <textarea th:errorClass="is-invalid"  class="form-control" id="exclus" rows="3" th:field="*{exclus}" ></textarea>
+            <textarea th:maxlength="200" required th:errorClass="is-invalid"  class="form-control" id="exclus" rows="3" th:field="*{exclus}" ></textarea>
             <span class="invalid-feedback" th:if="${#fields.hasErrors('exclus')}" th:errors="*{exclus}"></span>
           </div>
           <div class="row">
             <div class="form-group col-md-6">
               <label for="exclus">Price:</label>
-              <input type="number" min="0" class="form-control" id="price"  th:field="*{price}" ></input>
+              <input  required type="number" min="0" class="form-control" id="price"  th:field="*{price}" ></input>
             </div>
-
             <div class="form-group col-md-6">
               <label for="travelDate">Travel Date:</label>
-              <input th:errorClass="is-invalid"  type="date" class="form-control" id="travelDate" th:field="*{travelDate}" >
+              <input required   th:errorClass="is-invalid"  type="date" class="form-control" id="travelDate" th:field="*{travelDate}" >
               <span class="invalid-feedback" th:if="${#fields.hasErrors('travelDate')}" th:errors="*{travelDate}"></span>
             </div>
           </div>
-
           <div class="form-group">
             <label for="type">Type:</label>
-            <input th:errorClass="is-invalid"  type="text" class="form-control" id="type" th:field="*{travelType}" >
+            <select required   th:errorClass="is-invalid" class="form-control" id="type" th:field="*{travelType}">
+              <option value="haj&omrah" th:selected="${travelType == 'haj&omrah'}">Haj & Omrah</option>
+              <option value="trip" th:selected="${travelType == 'trip'}">Trip</option>
+              <option value="voyageOrganise" th:selected="${travelType == 'voyageOrganise'}">Voyage Organisé</option>
+            </select>
             <span class="invalid-feedback" th:if="${#fields.hasErrors('travelType')}" th:errors="*{travelType}"></span>
           </div>
-
           <div class="form-group">
             <label for="activities">Activities:</label>
-            <textarea th:errorClass="is-invalid"  class="form-control" id="activities" rows="3" th:field="*{activities}" ></textarea>
+            <textarea th:maxlength="800" required th:errorClass="is-invalid"  class="form-control" id="activities" rows="3" th:field="*{activities}" ></textarea>
             <span class="invalid-feedback" th:if="${#fields.hasErrors('activities')}" th:errors="*{activities}"></span>
           </div>
           <div class="form-group">
             <label for="file">Image:</label>
-            <input type="hidden" th:field="*{image}">
+            <input  type="hidden" th:field="*{image}">
             <input type="file"  class="form-control-file" name="file" id="file"  accept="image/*" required>
           </div>
-<!--          <div class="form-group form-check">-->
-<!--            <input type="checkbox" th:field="*{specilaOffer}" class="form-check-input" id="specialOffer" name="specialOffer" required>-->
-<!--            <label class="form-check-label" for="specialOffer">Special Offer</label>-->
-<!--          </div>-->
+          <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="specialOffer" name="specialOffer" th:checked="${travel.specialOffer}">
+            <label class="form-check-label" for="specialOffer">Special Offer</label>
+          </div>
           <button type="submit" class="btn btn-primary">Save</button>
         </form>
       </div>

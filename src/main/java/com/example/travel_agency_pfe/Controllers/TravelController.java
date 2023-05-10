@@ -4,6 +4,7 @@ import com.example.travel_agency_pfe.Configurations.FileUplaodUtil;
 import com.example.travel_agency_pfe.Models.AppUser;
 import com.example.travel_agency_pfe.Models.Travel;
 import com.example.travel_agency_pfe.Repositories.IAppUserRepository;
+import com.example.travel_agency_pfe.Repositories.ITravelRepository;
 import com.example.travel_agency_pfe.Services.ITravelServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -17,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -34,15 +36,19 @@ public class TravelController {
     private IAppUserRepository appUserRepository;
     private ITravelServiceImpl travelService;
 
+
     @GetMapping("/travels")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String travelsList(Model model){
         List<Travel> travels = travelService.getAllTravels();
+
         model.addAttribute("travels",travels);
+
         return "pages/travels/travelsList";
     }
 
     @GetMapping("/travels/addnew")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String newTravelForm(Model model){
         Travel travel = Travel.builder().build();
         model.addAttribute("travel", travel);
@@ -50,7 +56,8 @@ public class TravelController {
     }
 
     @PostMapping("/travels/save")
-    public String addTravel(Authentication authentication, @ModelAttribute("travel") @Valid Travel tr , @RequestParam("file") MultipartFile image, BindingResult result, Model model) throws IOException {
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public String addTravel(Authentication authentication, @ModelAttribute("travel") @Valid Travel tr , @RequestParam("file") MultipartFile image, BindingResult result, Model model,@RequestParam(value="specialOffer", required=false) Boolean specialOffer) throws IOException {
         if (result.hasErrors()) {
             // Add error messages to the Thymeleaf model
             model.addAttribute("errors", result.getAllErrors());
@@ -61,11 +68,13 @@ public class TravelController {
         // Find the AppUser object for the current user
         AppUser currentUser = appUserRepository.findByUserName(currentUsername);
         // Create a new Travel object and set its properties
-
-        //boolean special = tr.isSpecilaOffer() ? true : false;
-
+        boolean special = true;
+        if(specialOffer==null){
+            special=false;
+        }
         if(!image.isEmpty()){
-            String filename = StringUtils.cleanPath(Objects.requireNonNull(image.getOriginalFilename()));
+            String originalFilename  = StringUtils.cleanPath(Objects.requireNonNull(image.getOriginalFilename()));
+            String filename = System.currentTimeMillis() + "_" + originalFilename;
             Travel travel = Travel.builder()
                     .id(tr.getId())
                     .title(tr.getTitle())
@@ -73,7 +82,7 @@ public class TravelController {
                     .travelType(tr.getTravelType())
                     .exclus(tr.getExclus())
                     .inclus(tr.getInclus())
-                    //.SpecilaOffer(special)
+                    .specialOffer(special)
                     .Activities(tr.getActivities())
                     .image(filename)
                     .price(tr.getPrice())
@@ -113,6 +122,7 @@ public class TravelController {
     }
 
     @GetMapping("/travels/delete")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String deleteClient(Long id){
         travelService.deleteTravel(id);
         return "redirect:/panel/admin/travels?successdelete";
@@ -121,9 +131,13 @@ public class TravelController {
 
 //    travel details
    @GetMapping("/travels/{id}")
+   @PreAuthorize("hasRole('ROLE_ADMIN')")
    public String detailsPage(@PathVariable("id") Long id, Model model){
-        model.addAttribute("travel",travelService.getTravelById(id));
+        model.addAttribute("travel",travelService.getTravelById(id).get());
         return "pages/travels/travelDetails";
     }
+
+
+
 
 }

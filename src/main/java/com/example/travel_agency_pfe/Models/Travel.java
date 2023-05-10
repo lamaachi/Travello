@@ -9,16 +9,19 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.jbosslog.JBossLog;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Entity
 @Data
 @Builder @AllArgsConstructor @NoArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class Travel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,26 +46,25 @@ public class Travel {
     @Column(length = 225)
     private String destiantion;
 
-    private LocalDate travelDate;
 
+
+    private LocalDate travelDate;
 
 
     @Column(length = 64)
     private String image;
 
+    @CreatedDate
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @LastModifiedDate
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
 
 
-//    @Column(name = "SpecilaOffer")
-//    private boolean SpecilaOffer = false;
-
-
-//    public boolean isSpecilaOffer() {
-//        return SpecilaOffer;
-//    }
-//
-//    public void setSpecilaOffer(boolean specilaOffer) {
-//        SpecilaOffer = specilaOffer;
-   // }
+    @Column(name = "special_offer")
+    private Boolean specialOffer;
 
     @NotBlank(message = "Travel Type is required")
     private String travelType;

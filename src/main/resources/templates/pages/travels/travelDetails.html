@@ -6,7 +6,6 @@
   <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
   <link rel="stylesheet" th:href="@{/simple-datatables/style.css}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-
   <link rel="stylesheet" th:href="@{/vendors/perfect-scrollbar/perfect-scrollbar.css}">
   <link rel="stylesheet" th:href="@{/css/app.css}">
   <link rel="shortcut icon" th:href="@{/images/favicon.svg}" type="image/x-icon">
@@ -20,31 +19,97 @@
        Travel Details
       </div>
       <div class="card-body">
-        <p>lorem lorem lorem lorem lorem lorem lorem<div class="col-md-6 col-sm-12">
-        <div class="card">
-          <div class="card-content">
-            <img class="card-img-top img-fluid" th:src="@{/images/gallary/Chefchaouen.jpg}"
-                 alt="Card image cap" />
-            <div class="card-body">
-              <h4 class="card-title">Top Image Cap</h4>
-              <p class="card-text">
-                Jelly-o sesame snaps cheesecake topping. Cupcake fruitcake macaroon donut
-                pastry gummies tiramisu chocolate bar muffin. Dessert bonbon caramels brownie chocolate bar
-                chocolate tart dragée.
-              </p>
-              <p class="card-text">
-                Cupcake fruitcake macaroon donut pastry gummies tiramisu chocolate bar muffin.
-              </p>
-              <button class="btn btn-primary block">Update now</button>
+        <form method="post" th:action="@{/panel/admin/travels/update}" th:object="${travel}" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="title">Title:</label>
+            <label  for="title"></label>
+            <input th:errorClass="is-invalid" th:value="*{title}" type="text" class="form-control" id="title" th:field="*{title}" >
+            <span class="invalid-feedback" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+          </div>
+          <div class="form-group">
+            <label for="destination">Destination:</label>
+            <input th:errorClass="is-invalid" th:value="*{destiantion}" type="text" class="form-control" id="destination" th:field="*{destiantion}" >
+            <span class="invalid-feedback" th:if="${#fields.hasErrors('destiantion')}" th:errors="*{destiantion}"></span>          </div>
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label for="numberOfNights">Number of Nights:</label>
+              <input th:value="*{nights}" type="number" min="0" class="form-control" id="numberOfNights" th:field="*{nights}" >
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="numberOfDays">Number of Days:</label>
+              <input  th:value="*{days}" type="number" min="0" class="form-control" id="numberOfDays" th:field="*{days}" >
             </div>
           </div>
-        </div>
+
+
+          <div class="form-group">
+            <label for="inclus">Inclusions:</label>
+            <textarea th:value="*{inclus}" th:errorClass="is-invalid"  class="form-control" id="inclus" rows="3" th:field="*{inclus}" ></textarea>
+            <span class="invalid-feedback" th:if="${#fields.hasErrors('inclus')}" th:errors="*{inclus}"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="exclus">Exclusions:</label>
+            <textarea th:value="*{exclus}" th:errorClass="is-invalid"  class="form-control" id="exclus" rows="3" th:field="*{exclus}" ></textarea>
+            <span class="invalid-feedback" th:if="${#fields.hasErrors('exclus')}" th:errors="*{exclus}"></span>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label for="exclus">Price:</label>
+              <input th:value="*{price}" type="number" min="0" class="form-control" id="price"  th:field="*{price}" ></input>
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="travelDate">Travel Date:  </label>
+              <input required th:errorClass="is-invalid"  type="date" class="form-control" id="travelDate" th:field="*{travelDate}" >
+              <span class="invalid-feedback" th:if="${#fields.hasErrors('travelDate')}" th:errors="*{travelDate}"></span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="type">Type:</label>
+            <select required  th:value="*{travelType}" th:errorClass="is-invalid" class="form-control" id="type" th:field="*{travelType}">
+              <option value="haj&omrah" th:selected="${travelType == 'haj & omrah'}">Haj & Omrah</option>
+              <option value="trip" th:selected="${travelType == 'trip'}">Trip</option>
+              <option value="voyageOrganise" th:selected="${travelType == 'Organized trip'}">Organized trip</option>
+            </select>
+            <span class="invalid-feedback" th:if="${#fields.hasErrors('travelType')}" th:errors="*{travelType}"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="activities">Activities:</label>
+            <textarea th:errorClass="is-invalid"  class="form-control" id="activities" rows="3" th:field="*{activities}" ></textarea>
+            <span class="invalid-feedback" th:if="${#fields.hasErrors('activities')}" th:errors="*{activities}"></span>
+          </div>
+          <div class="form-group">
+            <label for="file">Change image:</label>
+            <img th:src="@{|/travel-images/${travel.image}|}" class="img-responsive w-100" alt="Travel Image" />          <input type="hidden" th:field="*{image}">
+            <input type="file"  class="form-control-file" name="file" id="file"  accept="image/*" required>
+          </div>
+          <!--          <div class="form-group form-check">-->
+          <!--            <input type="checkbox" th:field="*{specilaOffer}" class="form-check-input" id="specialOffer" name="specialOffer" required>-->
+          <!--            <label class="form-check-label" for="specialOffer">Special Offer</label>-->
+          <!--          </div>-->
+          <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+
       </div>
-      </div>
+
     </div>
   </section>
 </div>
 
+
+<script th:inline="javascript">
+  /* Get the travel date from the model */
+  var travelDate = [[${travel.travelDate}]];
+
+  /* Set the value of the date input field */
+  if (travelDate) {
+    document.getElementById("travelDate").value = travelDate;
+  }
+</script>
 
 <script th:src="@{/js/feather-icons/feather.min.js}"></script>
 <script th:src="@{/vendors/perfect-scrollbar/perfect-scrollbar.min.js}"></script>

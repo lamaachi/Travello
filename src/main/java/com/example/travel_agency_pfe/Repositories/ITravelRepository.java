@@ -7,4 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Repository
 public interface ITravelRepository extends JpaRepository<Travel,Long> {
+    // Find the last travel record with true special offer sorted by createdAt in descending order
+    Travel findFirstBySpecialOfferTrueOrderByCreatedAtDesc();
 }

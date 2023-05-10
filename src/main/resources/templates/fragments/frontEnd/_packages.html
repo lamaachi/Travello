@@ -20,7 +20,9 @@
 
                 <div class="col-md-4 col-sm-6" th:each="travel:${travels}">
                     <div class="single-package-item">
-                        <img th:src="@{|/travel-images/${travel.image}|}" alt="package-place">
+                        <a class="" th:href="@{'/booknow/travel/'+${travel.id} }">
+                            <img th:src="@{|/travel-images/${travel.image}|}" alt="package-place">
+                        </a>
                         <div class="single-package-item-txt">
                             <h3><span th:text="${#strings.length(travel.title) le 10} ? ${travel.title} : ${#strings.substring(travel.title, 0, 10) + '...'}" ></span> <span class="pull-right" th:text="${travel.price}+'MAD'"></span></h3>
                             <div class="packages-para">
@@ -50,9 +52,7 @@
                                 </p>
                             </div><!--/.packages-review-->
                             <div class="about-btn">
-                                <button  class="about-view packages-btn">
-                                    book now
-                                </button>
+
                             </div><!--/.about-btn-->
                         </div><!--/.single-package-item-txt-->
                     </div><!--/.single-package-item-->

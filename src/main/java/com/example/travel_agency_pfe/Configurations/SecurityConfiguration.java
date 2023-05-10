@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -47,9 +48,11 @@ public class SecurityConfiguration {
         httpSecurity.userDetailsService(userDetailsServiceImp);
         httpSecurity.rememberMe();
         httpSecurity.authorizeHttpRequests()
-                .requestMatchers("/","/Auth/**", "/webjars/**", "/css/**", "/error/**","/js/**","/images/**").permitAll();
+                .requestMatchers("/","/Auth/**", "/webjars/**", "/css/**", "/error/**","/js/**","/images/**","/booknow/**","/travel-images/*").permitAll();
         httpSecurity.authorizeHttpRequests().anyRequest().authenticated();
         httpSecurity.exceptionHandling().accessDeniedPage("/error/notAuthorized");
+        httpSecurity.sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
         return httpSecurity.build();
     }
 }

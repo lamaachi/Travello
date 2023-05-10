@@ -45,6 +45,12 @@
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.webjars/font-awesome -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>font-awesome</artifactId>
+            <version>6.4.0</version>
+        </dependency>
 
 
         <dependency>
