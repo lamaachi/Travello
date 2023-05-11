@@ -5,6 +5,7 @@ import com.example.travel_agency_pfe.Repositories.ITravelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,5 +31,10 @@ public class ITravelServiceImpl implements ITravelService {
     @Override
     public Optional<Travel> getTravelById(Long id) {
         return travelRepository.findById(id);
+    }
+
+    @Override
+    public List<Travel> searchravels(String destination, LocalDate travelDate, Integer days) {
+        return travelRepository.findByDestiantionOrTravelDateOrDays(destination,travelDate,days);
     }
 }

@@ -2,6 +2,7 @@ package com.example.travel_agency_pfe.Controllers;
 
 import com.example.travel_agency_pfe.Configurations.FileUplaodUtil;
 import com.example.travel_agency_pfe.Models.AppUser;
+import com.example.travel_agency_pfe.Models.Subscriber;
 import com.example.travel_agency_pfe.Models.Travel;
 import com.example.travel_agency_pfe.Repositories.IAppUserRepository;
 import com.example.travel_agency_pfe.Repositories.ITravelRepository;
@@ -25,19 +26,20 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 
 @Controller
 @AllArgsConstructor
-@RequestMapping("/panel/admin")
 public class TravelController {
     private IAppUserRepository appUserRepository;
     private ITravelServiceImpl travelService;
 
 
-    @GetMapping("/travels")
+    @GetMapping("/panel/admin/travels")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String travelsList(Model model){
         List<Travel> travels = travelService.getAllTravels();
@@ -47,7 +49,7 @@ public class TravelController {
         return "pages/travels/travelsList";
     }
 
-    @GetMapping("/travels/addnew")
+    @GetMapping("/panel/admin/travels/addnew")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String newTravelForm(Model model){
         Travel travel = Travel.builder().build();
@@ -55,7 +57,7 @@ public class TravelController {
         return "pages/travels/addNewTravel";
     }
 
-    @PostMapping("/travels/save")
+    @PostMapping("/panel/admin/travels/save")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String addTravel(Authentication authentication, @ModelAttribute("travel") @Valid Travel tr , @RequestParam("file") MultipartFile image, BindingResult result, Model model,@RequestParam(value="specialOffer", required=false) Boolean specialOffer) throws IOException {
         if (result.hasErrors()) {
@@ -121,7 +123,7 @@ public class TravelController {
         return "redirect:/panel/admin/travels?success";
     }
 
-    @GetMapping("/travels/delete")
+    @GetMapping("/panel/admin/travels/delete")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String deleteClient(Long id){
         travelService.deleteTravel(id);
@@ -130,12 +132,28 @@ public class TravelController {
 
 
 //    travel details
-   @GetMapping("/travels/{id}")
+   @GetMapping("/panel/admin/travels/{id}")
    @PreAuthorize("hasRole('ROLE_ADMIN')")
    public String detailsPage(@PathVariable("id") Long id, Model model){
         model.addAttribute("travel",travelService.getTravelById(id).get());
         return "pages/travels/travelDetails";
     }
+
+    @GetMapping("/search/travel")
+    public String searchPage(@RequestParam(value = "destination", required = false) String destination,
+                             @RequestParam(value = "traveldate", required = false) LocalDate travelDate,
+                             @RequestParam(value = "days", required = false) Integer days,Model model  ){
+        Subscriber subscriber = new Subscriber();
+        model.addAttribute("subscriber",subscriber);
+        List<Travel> travels = travelService.searchravels(destination, travelDate, days);
+        //List<Travel> travels = new ArrayList<>();
+        model.addAttribute("travels",travels);
+        System.out.println(travels);
+//        return  "pages/travels/searchTravel";
+        return  "pages/travels/searchTravel";
+    }
+
+
 
 
 

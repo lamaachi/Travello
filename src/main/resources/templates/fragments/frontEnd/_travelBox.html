@@ -42,85 +42,51 @@
                             <div role="tabpanel" class="tab-pane active fade in" id="tours">
                                 <div class="tab-para">
 
-                                    <div class="row">
-                                        <div class="col-lg-4 col-md-4 col-sm-12">
-                                            <div class="single-tab-select-box">
+                                    <form th:action="@{/search/travel}" method="get">
+                                        <div class="row">
+                                            <div class="col-lg-4 col-md-4 col-sm-12">
+                                                <div class="single-tab-select-box">
+                                                    <h2>Destination</h2>
+                                                    <div class="travel-select-icon">
+                                                        <select name="destination" class="form-control">
+                                                            <option th:each="city : ${T(com.example.travel_agency_pfe.Models.MoroccanCities).getCities()}"
+                                                                    th:value="${city}" th:text="${city}"></option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                                                <h2>destination</h2>
+                                            <div class="col-lg-2 col-md-3 col-sm-4">
+                                                <div class="single-tab-select-box">
+                                                    <h2>Travel Date</h2>
+                                                    <div class="travel-check-icon">
+                                                        <input  type="date" name="traveldate" th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" class="form-control" placeholder="30 - 05 - 2023">
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                                                <div class="travel-select-icon">
-                                                    <select name="city" class="form-control ">
-                                                        <option th:each="city : ${T(com.example.travel_agency_pfe.Models.MoroccanCities).getCities()}"
-                                                                th:value="${city}" th:text="${city}"></option>
-                                                    </select><!-- /.select-->
-                                                </div><!-- /.travel-select-icon -->
+                                            <div class="col-lg-2 col-md-1 col-sm-4">
+                                                <div class="single-tab-select-box">
+                                                    <h2>Duration</h2>
+                                                    <div class="travel-select-icon">
+                                                        <select class="form-control" name="days">
+                                                            <option value="1">1</option>
+                                                            <option value="2">2</option>
+                                                            <option value="3">3</option>
+                                                            <option value="4">More Than 3</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
 
+                                            <div class="col-sm-7">
+                                                <div class="about-btn travel-mrt-0 pull-right">
+                                                    <button type="submit" class="about-view travel-btn">Search</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
 
-                                            </div><!--/.single-tab-select-box-->
-                                        </div><!--/.col-->
-
-                                        <div class="col-lg-2 col-md-3 col-sm-4">
-                                            <div class="single-tab-select-box">
-                                                <h2>Tarvel Date</h2>
-                                                <div class="travel-check-icon">
-                                                    <form action="#">
-                                                        <input type="text" name="check_in" class="form-control" data-toggle="datepicker" placeholder="12 -01 - 2017 ">
-                                                    </form>
-                                                </div><!-- /.travel-check-icon -->
-                                            </div><!--/.single-tab-select-box-->
-                                        </div><!--/.col-->
-
-                                        <div class="col-lg-2 col-md-1 col-sm-4">
-                                            <div class="single-tab-select-box">
-                                                <h2>duration</h2>
-                                                <div class="travel-select-icon">
-                                                    <select class="form-control">
-
-                                                        <option value="default">1</option><!-- /.option-->
-
-                                                        <option value="2">2</option><!-- /.option-->
-
-                                                        <option value="3">3</option><!-- /.option-->
-                                                        <option value="4">More Than 3</option><!-- /.option-->
-
-                                                    </select><!-- /.select-->
-                                                </div><!-- /.travel-select-icon -->
-                                            </div><!--/.single-tab-select-box-->
-                                        </div><!--/.col-->
-
-                                    </div><!--/.row-->
-
-                                    <div class="row">
-                                        <div class="col-sm-5">
-                                            <div class="travel-budget">
-                                                <div class="row">
-                                                    <div class="col-md-3 col-sm-4">
-                                                        <h3>budget : </h3>
-                                                    </div><!--/.col-->
-                                                    <div class="co-md-9 col-sm-8">
-                                                        <div class="travel-filter">
-                                                            <div class="info_widget">
-                                                                <div class="price_filter">
-                                                                    <div id="slider-range"></div><!--/.slider-range-->
-                                                                    <div class="price_slider_amount">
-                                                                        <input class="form-control" type="text" id="amount" name="price"  placeholder="Add Your Price" />
-                                                                    </div><!--/.price_slider_amount-->
-                                                                </div><!--/.price-filter-->
-                                                            </div><!--/.info_widget-->
-                                                        </div><!--/.travel-filter-->
-                                                    </div><!--/.col-->
-                                                </div><!--/.row-->
-                                            </div><!--/.travel-budget-->
-                                        </div><!--/.col-->
-                                        <div class="clo-sm-7">
-                                            <div class="about-btn travel-mrt-0 pull-right">
-                                                <button  class="about-view travel-btn">
-                                                    search
-                                                </button><!--/.travel-btn-->
-                                            </div><!--/.about-btn-->
-                                        </div><!--/.col-->
-
-                                    </div><!--/.row-->
 
                                 </div><!--/.tab-para-->
 

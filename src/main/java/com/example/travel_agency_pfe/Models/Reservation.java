@@ -12,8 +12,6 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Reservation {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,7 +29,6 @@ public class Reservation {
     @JoinColumn(name = "travel_id")
     private Travel travel;
 
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private AppUser appUser;
@@ -39,7 +36,5 @@ public class Reservation {
     //invoice
     @OneToOne(mappedBy = "reservation")
     private Invoice invoice;
-
-
 
 }

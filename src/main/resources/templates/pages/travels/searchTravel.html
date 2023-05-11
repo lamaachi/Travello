@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/_indexTemplate}">
+
+<head>
+  <meta charset="UTF-8">
+  <title>TourNet - the Best Travel Agency in Morocco</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" th:href="@{/images/favicon.svg}" type="image/x-icon">
+  <link rel="stylesheet" th:href="@{/css/booking.css}">
+  <!--bootstrap.min.css-->
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+</head>
+<body>
+<div class="main-content " layout:fragment="content">
+  <div class="searc-page">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="single-travel-boxes">
+            <div id="desc-tabs" class="desc-tabs">
+
+              <ul class="nav nav-tabs" role="tablist">
+
+                <li role="presentation" class="active">
+                  <a href="#tours" aria-controls="tours" role="tab" data-toggle="tab">
+                    <i class="fa fa-tree"></i>
+                    tours
+                  </a>
+                </li>
+
+                <li role="presentation">
+                  <a href="#hotels" aria-controls="hotels" role="tab" data-toggle="tab">
+                    <i class="fa fa-building"></i>
+                    hotels
+                  </a>
+                </li>
+
+                <li role="presentation">
+                  <a href="#flights" aria-controls="flights" role="tab" data-toggle="tab">
+                    <i class="fa fa-plane"></i>
+                    flights
+                  </a>
+                </li>
+              </ul>
+
+              <!-- Tab panes -->
+              <div class="tab-content">
+
+                <div role="tabpanel" class="tab-pane active fade in" id="tours">
+                  <div class="tab-para">
+                    <form th:action="@{/search/travel}" method="GET">
+                      <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-12">
+                          <div class="single-tab-select-box">
+                            <h2>Destination</h2>
+                            <div class="travel-select-icon">
+                              <select name="destination" class="form-control">
+                                <option th:each="city : ${T(com.example.travel_agency_pfe.Models.MoroccanCities).getCities()}"
+                                        th:value="${city}" th:text="${city}"></option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-lg-2 col-md-3 col-sm-4">
+                          <div class="single-tab-select-box">
+                            <h2>Travel Date</h2>
+                            <div class="travel-check-icon">
+<!--                              <input type="date" name="traveldate" class="form-control" placeholder="30 - 05 - 2023">-->
+                              <input  type="date" name="traveldate" th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" class="form-control" placeholder="30 - 05 - 2023">
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-lg-2 col-md-1 col-sm-4">
+                          <div class="single-tab-select-box">
+                            <h2>Duration</h2>
+                            <div class="travel-select-icon">
+                              <select class="form-control" name="days">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">More Than 3</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-sm-7">
+                          <div class="about-btn travel-mrt-0 pull-right">
+                            <button type="submit" class="about-view travel-btn">Search</button>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+
+
+
+                  </div><!--/.tab-para-->
+
+                </div><!--/.tabpannel-->
+
+                <div role="tabpanel" class="tab-pane fade in" id="hotels">
+                  <div class="tab-para">
+
+                    <div class="row">
+                      <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="single-tab-select-box">
+
+                          <h2>destination</h2>
+
+                          <div class="travel-select-icon">
+                            <select class="form-control ">
+
+                              <option value="default">enter your destination country</option><!-- /.option-->
+
+                              <option value="turkey">turkey</option><!-- /.option-->
+
+                              <option value="russia">russia</option><!-- /.option-->
+                              <option value="egept">egypt</option><!-- /.option-->
+
+                            </select><!-- /.select-->
+                          </div><!-- /.travel-select-icon -->
+
+                          <div class="travel-select-icon">
+                            <select class="form-control ">
+
+                              <option value="default">enter your destination location</option><!-- /.option-->
+
+                              <option value="istambul">istambul</option><!-- /.option-->
+
+                              <option value="mosko">mosko</option><!-- /.option-->
+                              <option value="cairo">cairo</option><!-- /.option-->
+
+                            </select><!-- /.select-->
+                          </div><!-- /.travel-select-icon -->
+
+                        </div><!--/.single-tab-select-box-->
+                      </div><!--/.col-->
+
+                      <div class="col-lg-2 col-md-3 col-sm-4">
+                        <div class="single-tab-select-box">
+                          <h2>check in</h2>
+                          <div class="travel-check-icon">
+                            <form action="#">
+                              <input type="text" name="check_in" class="form-control" data-toggle="datepicker" placeholder="12 -01 - 2017 ">
+                            </form>
+                          </div><!-- /.travel-check-icon -->
+                        </div><!--/.single-tab-select-box-->
+                      </div><!--/.col-->
+
+                      <div class="col-lg-2 col-md-3 col-sm-4">
+                        <div class="single-tab-select-box">
+                          <h2>check out</h2>
+                          <div class="travel-check-icon">
+                            <form action="#">
+                              <input type="text" name="check_out" class="form-control"  data-toggle="datepicker" placeholder="22 -01 - 2017 ">
+                            </form>
+                          </div><!-- /.travel-check-icon -->
+                        </div><!--/.single-tab-select-box-->
+                      </div><!--/.col-->
+
+                      <div class="col-lg-2 col-md-1 col-sm-4">
+                        <div class="single-tab-select-box">
+                          <h2>duration</h2>
+                          <div class="travel-select-icon">
+                            <select class="form-control ">
+
+                              <option value="default">5</option><!-- /.option-->
+
+                              <option value="10">10</option><!-- /.option-->
+
+                              <option value="15">15</option><!-- /.option-->
+                              <option value="20">20</option><!-- /.option-->
+
+                            </select><!-- /.select-->
+                          </div><!-- /.travel-select-icon -->
+                        </div><!--/.single-tab-select-box-->
+                      </div><!--/.col-->
+
+                      <div class="col-lg-2 col-md-1 col-sm-4">
+                        <div class="single-tab-select-box">
+                          <h2>members</h2>
+                          <div class="travel-select-icon">
+                            <select class="form-control ">
+
+                              <option value="default">1</option><!-- /.option-->
+
+                              <option value="2">2</option><!-- /.option-->
+
+                              <option value="4">4</option><!-- /.option-->
+                              <option value="8">8</option><!-- /.option-->
+
+                            </select><!-- /.select-->
+                          </div><!-- /.travel-select-icon -->
+                        </div><!--/.single-tab-select-box-->
+                      </div><!--/.col-->
+
+                    </div><!--/.row-->
+
+                    <div class="row">
+                      <div class="col-sm-5"></div><!--/.col-->
+                      <div class="clo-sm-7">
+                        <div class="about-btn travel-mrt-0 pull-right">
+                          <button  class="about-view travel-btn">
+                            search
+                          </button><!--/.travel-btn-->
+                        </div><!--/.about-btn-->
+                      </div><!--/.col-->
+
+                    </div><!--/.row-->
+
+                  </div><!--/.tab-para-->
+
+                </div><!--/.tabpannel-->
+
+                <div role="tabpanel" class="tab-pane fade in" id="flights">
+                  <div class="tab-para">
+                    <div class="trip-circle">
+                      <div class="single-trip-circle">
+                        <input type="radio" id="radio01" name="radio" />
+                        <label for="radio01">
+  														<span class="round-boarder">
+  															<span class="round-boarder1"></span>
+  														</span>round trip
+                        </label>
+                      </div><!--/.single-trip-circle-->
+                      <div class="single-trip-circle">
+                        <input type="radio" id="radio02" name="radio" />
+                        <label for="radio02">
+  														<span class="round-boarder">
+  															<span class="round-boarder1"></span>
+  														</span>on way
+                        </label>
+                      </div><!--/.single-trip-circle-->
+                    </div><!--/.trip-circle-->
+                    <div class="row">
+                      <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="single-tab-select-box">
+
+                          <h2>from</h2>
+
+                          <div class="travel-select-icon">
+                            <select class="form-control ">
+
+                              <option value="default">enter your location</option><!-- /.option-->
+
+                              <option value="turkey">turkey</option><!-- /.option-->
+
+                              <option value="russia">russia</option><!-- /.option-->
+                              <option value="egept">egypt</option><!-- /.option-->
+
+                            </select><!-- /.select-->
+                          </div><!-- /.travel-select-icon -->
+                        </div><!--/.single-tab-select-box-->
+                      </div><!--/.col-->
+
+                      <div class="col-lg-2 col-md-3 col-sm-4">
+                        <div class="single-tab-select-box">
+                          <h2>departure</h2>
+                          <div class="travel-check-icon">
+                            <form action="#">
+                              <input type="text" name="departure" class="form-control" data-toggle="datepicker"
+                                     placeholder="12 -01 - 2017 ">
+                            </form>
+                          </div><!-- /.travel-check-icon -->
+                        </div><!--/.single-tab-select-box-->
+                      </div><!--/.col-->
+
+                      <div class="col-lg-2 col-md-3 col-sm-4">
+                        <div class="single-tab-select-box">
+                          <h2>return</h2>
+                          <div class="travel-check-icon">
+                            <form action="#">
+                              <input type="text" name="return" class="form-control" data-toggle="datepicker" placeholder="22 -01 - 2017 ">
+                            </form>
+                          </div><!-- /.travel-check-icon -->
+                        </div><!--/.single-tab-select-box-->
+                      </div><!--/.col-->
+
+                      <div class="col-lg-2 col-md-1 col-sm-4">
+                        <div class="single-tab-select-box">
+                          <h2>adults</h2>
+                          <div class="travel-select-icon">
+                            <select class="form-control ">
+
+                              <option value="default">5</option><!-- /.option-->
+
+                              <option value="10">10</option><!-- /.option-->
+
+                              <option value="15">15</option><!-- /.option-->
+                              <option value="20">20</option><!-- /.option-->
+
+                            </select><!-- /.select-->
+                          </div><!-- /.travel-select-icon -->
+                        </div><!--/.single-tab-select-box-->
+                      </div><!--/.col-->
+
+                      <div class="col-lg-2 col-md-1 col-sm-4">
+                        <div class="single-tab-select-box">
+                          <h2>childs</h2>
+                          <div class="travel-select-icon">
+                            <select class="form-control ">
+
+                              <option value="default">1</option><!-- /.option-->
+
+                              <option value="2">2</option><!-- /.option-->
+
+                              <option value="4">4</option><!-- /.option-->
+                              <option value="8">8</option><!-- /.option-->
+
+                            </select><!-- /.select-->
+                          </div><!-- /.travel-select-icon -->
+                        </div><!--/.single-tab-select-box-->
+                      </div><!--/.col-->
+
+                    </div><!--/.row-->
+
+                    <div class="row">
+                      <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="single-tab-select-box">
+
+                          <h2>to</h2>
+
+                          <div class="travel-select-icon">
+                            <select class="form-control ">
+
+                              <option value="default">enter your destination location</option><!-- /.option-->
+
+                              <option value="istambul">istambul</option><!-- /.option-->
+
+                              <option value="mosko">mosko</option><!-- /.option-->
+                              <option value="cairo">cairo</option><!-- /.option-->
+
+                            </select><!-- /.select-->
+                          </div><!-- /.travel-select-icon -->
+
+                        </div><!--/.single-tab-select-box-->
+                      </div><!--/.col-->
+                      <div class="col-lg-3 col-md-3 col-sm-4">
+                        <div class="single-tab-select-box">
+
+                          <h2>class</h2>
+                          <div class="travel-select-icon">
+                            <select class="form-control ">
+
+                              <option value="default">enter class</option><!-- /.option-->
+
+                              <option value="A">A</option><!-- /.option-->
+
+                              <option value="B">B</option><!-- /.option-->
+                              <option value="C">C</option><!-- /.option-->
+
+                            </select><!-- /.select-->
+                          </div><!-- /.travel-select-icon -->
+                        </div><!--/.single-tab-select-box-->
+                      </div><!--/.col-->
+                      <div class="clo-sm-5">
+                        <div class="about-btn pull-right">
+                          <button  class="about-view travel-btn">
+                            search
+                          </button><!--/.travel-btn-->
+                        </div><!--/.about-btn-->
+                      </div><!--/.col-->
+
+                    </div><!--/.row-->
+
+                  </div>
+
+                </div><!--/.tabpannel-->
+
+              </div><!--/.tab content-->
+            </div><!--/.desc-tabs-->
+          </div><!--/.single-travel-box-->
+        </div><!--/.col-->
+      </div><!--/.row-->
+    </div><!--/.container-->
+    <div class="booking-form " style="margin: 30px">
+      <div class="packages-content">
+        <div class="row">
+          <div class="col-md-4 col-sm-6" th:each="travel:${travels}">
+            <div class="single-package-item">
+              <a class="" th:href="@{'/booknow/travel/'+${travel.id} }">
+                <img th:src="@{|/travel-images/${travel.image}|}" alt="package-place">
+              </a>
+              <div class="single-package-item-txt">
+                <h3><span th:text="${#strings.length(travel.title) le 10} ? ${travel.title} : ${#strings.substring(travel.title, 0, 10) + '...'}" ></span> <span class="pull-right" th:text="${travel.price}+'MAD'"></span></h3>
+                <div class="packages-para">
+                  <p>
+											<span>
+												<i class="fa fa-angle-right"></i> <span th:text="${travel.days}"></span>  daays <span th:text="${travel.nights}"></span> nights
+											</span>
+                    <i class="fa fa-angle-right"></i>  5 star accomodation
+                  </p>
+
+
+                  <p>
+											<span>
+												<i class="fa fa-angle-right"></i>  transportation
+											</span>
+                    <i class="fa fa-angle-right"></i>  food facilities
+                  </p>
+                </div><!--/.packages-para-->
+                <div class="packages-review">
+                  <p>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <span>2544 review</span>
+                  </p>
+                </div><!--/.packages-review-->
+                <div class="about-btn">
+
+                </div><!--/.about-btn-->
+              </div><!--/.single-package-item-txt-->
+            </div><!--/.single-package-item-->
+          </div><!--/.col-->
+          <!-- Display message if no travels found -->
+          <div th:if="${#lists.isEmpty(travels)}">
+            <div class="alert alert-light-info" role="alert">
+              <h4 class="alert-heading">We Are So Sorry!</h4>
+              <p>We apologize, but there are no travels available at the moment. Please check back later. </p>
+              <hr>
+              <p class="mb-0">
+                <a th:href="@{/}" class="alert-link">Go to Home Page</a>
+              </p>
+            </div>
+          </div>
+        </div><!--/.row-->
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

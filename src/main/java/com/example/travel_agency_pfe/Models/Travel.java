@@ -77,10 +77,14 @@ public class Travel {
     @JoinColumn(name = "user_id")
     private AppUser appUser;
 
-
-
     //Reservations
     @OneToMany(mappedBy = "travel")
     private Set<Reservation> reservations = new HashSet<>();
+
+
+    @Override
+    public String toString() {
+        return "AppUser";
+    }
 
 }

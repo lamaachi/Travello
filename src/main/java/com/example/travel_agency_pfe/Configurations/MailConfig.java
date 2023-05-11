@@ -9,7 +9,7 @@ import java.util.Properties;
 
 @Configuration
 public class MailConfig {
-    @Bean
+    //@Bean
     public JavaMailSender javaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setHost("smtp.gmail.com");

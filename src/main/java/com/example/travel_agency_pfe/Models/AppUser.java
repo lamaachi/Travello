@@ -52,5 +52,8 @@ public class AppUser {
     @OneToMany(mappedBy = "appUser", cascade = CascadeType.ALL)
     private List<Reservation> reservations;
 
-
+    @Override
+    public String toString() {
+        return "Travel";
+    }
 }

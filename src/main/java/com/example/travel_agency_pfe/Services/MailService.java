@@ -12,16 +12,15 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class MailService {
     private JavaMailSender mailSender;
-
     public void sendSimpleEmail(String toEmail,
                                 String subject,
                                 String content) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
-        helper.setFrom("yousseflamaachi90@gmail.com");
+        helper.setFrom("youssef.lamaachi@yandex.com");
         helper.setTo(toEmail);
         helper.setSubject(subject);
-        helper.setText(content, true);
+        helper.setText(content);
 
         mailSender.send(message);
     }

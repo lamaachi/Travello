@@ -44,7 +44,7 @@ public class AuthController {
         if (result.hasErrors()) {
             // Add error messages to the Thymeleaf model
             model.addAttribute("errors", result.getAllErrors());
-            return "pages/auth/auth-login";
+            return "pages/auth/auth-register";
         }
         ra.addAttribute("message","Your Account Has Been Created,Please Login");
         accountService.addNewUser(
@@ -60,12 +60,9 @@ public class AuthController {
         accountService.addRoleToUser(appUser.getUserName(),"USER");
         return "redirect:/login";
     }
-
     @GetMapping("/Auth/getpassword")
     public String forgotPassPage(){
         return "pages/auth/auth-forgot-password";
     }
-
-
 
 }

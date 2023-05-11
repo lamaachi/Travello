@@ -48,7 +48,7 @@ public class SecurityConfiguration {
         httpSecurity.userDetailsService(userDetailsServiceImp);
         httpSecurity.rememberMe();
         httpSecurity.authorizeHttpRequests()
-                .requestMatchers("/","/Auth/**", "/webjars/**", "/css/**", "/error/**","/js/**","/images/**","/booknow/**","/travel-images/*").permitAll();
+                .requestMatchers("/","/search/**","/subscribe","/Auth/**", "/webjars/**", "/css/**", "/error/**","/js/**","/images/**","/booknow/**","/travel-images/*").permitAll();
         httpSecurity.authorizeHttpRequests().anyRequest().authenticated();
         httpSecurity.exceptionHandling().accessDeniedPage("/error/notAuthorized");
         httpSecurity.sessionManagement()

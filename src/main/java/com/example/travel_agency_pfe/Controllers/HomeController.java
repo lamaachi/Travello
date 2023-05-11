@@ -18,7 +18,7 @@ import java.util.concurrent.Flow;
 public class HomeController{
     private ITravelService travelService;
     private ITravelRepository travelRepository;
-    @GetMapping("/")
+    @GetMapping(value = {"/","/index"})
     public String index(Model model){
         List<Travel> travelList = travelService.getAllTravels();
         Subscriber subscriber = new Subscriber();
