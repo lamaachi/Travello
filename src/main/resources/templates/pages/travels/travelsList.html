@@ -67,7 +67,7 @@
                         <td th:text="${travel.travelType}"></td>
                         <td th:text="${#strings.length(travel.destiantion) le 10} ? ${travel.destiantion} : ${#strings.substring(travel.destiantion, 0, 10) + '...'}"></td>
                         <td>
-                            <img th:src="@{|/travel-images/${travel.image}|}" class="img-responsive w-100" alt="Travel Image" />
+                            <img th:src="@{|/travel-images/${travel.image}?v=${timestamp}|}" class="img-responsive w-100" alt="Travel Image" />
                         </td>
                         <td th:text="${travel.price}"></td>
                         <td>

@@ -62,8 +62,8 @@
             </div>
 
             <div class="form-group col-md-6">
-              <label for="travelDate">Travel Date:  </label>
-              <input required th:errorClass="is-invalid"  type="date" class="form-control" id="travelDate" th:field="*{travelDate}" >
+              <label for="travelDate">Travel Date:</label>
+              <input required th:errorClass="is-invalid" type="date" class="form-control" id="travelDate" th:field="*{travelDate}" th:value="${#temporals.format(travelDate, 'yyyy-MM-dd')}" />
               <span class="invalid-feedback" th:if="${#fields.hasErrors('travelDate')}" th:errors="*{travelDate}"></span>
             </div>
           </div>
@@ -83,11 +83,11 @@
             <textarea th:errorClass="is-invalid"  class="form-control" id="activities" rows="3" th:field="*{activities}" ></textarea>
             <span class="invalid-feedback" th:if="${#fields.hasErrors('activities')}" th:errors="*{activities}"></span>
           </div>
+          <img th:src="@{|/travel-images/${travel.image}|}" style="width: 300px; height: 200px; border-radius: 3px;margin: 3px;"  alt="Travel Image" />
           <div class="form-group">
             <label for="file">Change image:</label>
-            <img th:src="@{|/travel-images/${travel.image}|}" class="img-responsive w-100" alt="Travel Image" />
             <input type="hidden" th:field="*{image}">
-            <input type="file" class="form-control-file" name="file" id="file"  accept="image/*" required>
+            <input type="file" class="form-control-file" name="file" id="file" accept="image/*" />
           </div>
           <div class="form-group form-check">
             <input type="checkbox" th:field="*{specialOffer}" class="form-check-input" id="specialOffer" name="specialOffer" />

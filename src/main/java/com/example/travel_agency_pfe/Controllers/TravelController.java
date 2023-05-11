@@ -158,7 +158,7 @@ public class TravelController {
     @PostMapping("panel/admin/travels/update")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String updateTravel(Authentication authentication, @ModelAttribute("travel") @Valid Travel updatedTravel,
-                               @RequestParam("file") MultipartFile image, BindingResult result, Model model,
+                               @RequestParam(value = "file", required = false) MultipartFile image, BindingResult result, Model model,
                                @RequestParam(value = "specialOffer", required = false) Boolean specialOffer) throws IOException {
         if (result.hasErrors()) {
             // Add error messages to the Thymeleaf model
