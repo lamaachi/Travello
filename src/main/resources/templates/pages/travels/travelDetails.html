@@ -19,7 +19,8 @@
        Travel Details
       </div>
       <div class="card-body">
-        <form method="post" th:action="@{/panel/admin/travels/update}" th:object="${travel}" enctype="multipart/form-data">
+        <form  th:action="@{/panel/admin/travels/update}" th:object="${travel}" enctype="multipart/form-data" method="post">
+          <input type="hidden" th:field="*{id}" th:value="${travelId}" />
           <div class="form-group">
             <label for="title">Title:</label>
             <label  for="title"></label>
@@ -84,13 +85,14 @@
           </div>
           <div class="form-group">
             <label for="file">Change image:</label>
-            <img th:src="@{|/travel-images/${travel.image}|}" class="img-responsive w-100" alt="Travel Image" />          <input type="hidden" th:field="*{image}">
-            <input type="file"  class="form-control-file" name="file" id="file"  accept="image/*" required>
+            <img th:src="@{|/travel-images/${travel.image}|}" class="img-responsive w-100" alt="Travel Image" />
+            <input type="hidden" th:field="*{image}">
+            <input type="file" class="form-control-file" name="file" id="file"  accept="image/*" required>
           </div>
-          <!--          <div class="form-group form-check">-->
-          <!--            <input type="checkbox" th:field="*{specilaOffer}" class="form-check-input" id="specialOffer" name="specialOffer" required>-->
-          <!--            <label class="form-check-label" for="specialOffer">Special Offer</label>-->
-          <!--          </div>-->
+          <div class="form-group form-check">
+            <input type="checkbox" th:field="*{specialOffer}" class="form-check-input" id="specialOffer" name="specialOffer" />
+            <label class="form-check-label" for="specialOffer">Special Offer</label>
+          </div>
           <button type="submit" class="btn btn-primary">Save</button>
         </form>
 

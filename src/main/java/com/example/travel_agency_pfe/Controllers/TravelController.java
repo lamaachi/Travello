@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -30,6 +31,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 
 @Controller
@@ -76,7 +78,7 @@ public class TravelController {
         }
         if(!image.isEmpty()){
             String originalFilename  = StringUtils.cleanPath(Objects.requireNonNull(image.getOriginalFilename()));
-            String filename = System.currentTimeMillis() + "_" + originalFilename;
+            String filename = System.currentTimeMillis()+ "_" + originalFilename;
             Travel travel = Travel.builder()
                     .id(tr.getId())
                     .title(tr.getTitle())
@@ -131,7 +133,7 @@ public class TravelController {
     }
 
 
-//    travel details
+//  travel details
    @GetMapping("/panel/admin/travels/{id}")
    @PreAuthorize("hasRole('ROLE_ADMIN')")
    public String detailsPage(@PathVariable("id") Long id, Model model){
@@ -152,10 +154,63 @@ public class TravelController {
 //        return  "pages/travels/searchTravel";
         return  "pages/travels/searchTravel";
     }
+    //Update travel
+    @PostMapping("panel/admin/travels/update")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public String updateTravel(Authentication authentication, @ModelAttribute("travel") @Valid Travel updatedTravel,
+                               @RequestParam("file") MultipartFile image, BindingResult result, Model model,
+                               @RequestParam(value = "specialOffer", required = false) Boolean specialOffer) throws IOException {
+        if (result.hasErrors()) {
+            // Add error messages to the Thymeleaf model
+            model.addAttribute("errors", result.getAllErrors());
+            return "pages/travels/travelDetails";
+        }
 
+        // Get the current user's username from the Authentication object
+        String currentUsername = authentication.getName();
+        // Find the AppUser object for the current user
+        AppUser currentUser = appUserRepository.findByUserName(currentUsername);
 
+        // Find the existing Travel object by ID
+        Travel existingTravel = travelService.getTravelById(updatedTravel.getId()).get();
 
+        // Update the properties of the existing Travel object
+        existingTravel.setTitle(updatedTravel.getTitle());
+        existingTravel.setTravelDate(updatedTravel.getTravelDate());
+        existingTravel.setTravelType(updatedTravel.getTravelType());
+        existingTravel.setExclus(updatedTravel.getExclus());
+        existingTravel.setInclus(updatedTravel.getInclus());
+        existingTravel.setActivities(updatedTravel.getActivities());
+        existingTravel.setPrice(updatedTravel.getPrice());
+        existingTravel.setDestiantion(updatedTravel.getDestiantion());
+        existingTravel.setNights(updatedTravel.getNights());
+        existingTravel.setDays(updatedTravel.getDays());
+        existingTravel.setAppUser(currentUser);
 
+        if (specialOffer == null) {
+            existingTravel.setSpecialOffer(false);
+        } else {
+            existingTravel.setSpecialOffer(true);
+        }
+
+        if (!image.isEmpty()) {
+            // Remove the old image file
+            if (existingTravel.getImage() != null) {
+                String oldImageFilePath = "src/main/resources/static/travel-images/" + existingTravel.getImage();
+                FileUplaodUtil.deleteFile(oldImageFilePath);
+            }
+
+            String originalFilename = StringUtils.cleanPath(Objects.requireNonNull(image.getOriginalFilename()));
+            String filename = System.currentTimeMillis() + "_" + originalFilename;
+            existingTravel.setImage(filename);
+
+            String upload = "src/main/resources/static/travel-images";
+            FileUplaodUtil.saveFile(upload, filename, image);
+        }
+        travelService.save(existingTravel);
+        // Redirect to the travel list page
+        return "redirect:/panel/admin/travels?successUpdate";
+    }
 
 
 }

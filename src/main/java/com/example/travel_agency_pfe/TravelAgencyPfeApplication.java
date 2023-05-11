@@ -16,11 +16,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @SpringBootApplication
 @EnableJpaAuditing
 public class TravelAgencyPfeApplication {
-
-
     public static void main(String[] args) {
         SpringApplication.run(TravelAgencyPfeApplication.class, args);
-
     }
     //@Bean
     CommandLineRunner commandLineRunnerUserDetails(AccountService accountService){

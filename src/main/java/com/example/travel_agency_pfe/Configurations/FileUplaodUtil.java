@@ -27,4 +27,11 @@ public class FileUplaodUtil {
             throw new IOException("Could not save file: " + fileName, ex);
         }
     }
+
+    public static void deleteFile(String filePath) {
+        File file = new File(filePath);
+        if (file.exists()) {
+            file.delete();
+        }
+    }
 }
