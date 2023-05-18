@@ -9,7 +9,7 @@
 <div id="sidebar" class='active' th:fragment="sidebar"><!--sidebar-->
     <div class="sidebar-wrapper active">
         <div class="sidebar-header">
-            <a th:href="@{/}"><img th:src="@{/logo/tournest.png}" class="w-75 h-75 m-auto" alt="logo" srcset=""></a>
+            <a th:href="@{/}"><img th:src="@{/images/logo/tournest.png}" class="w-75 h-75 m-auto" alt="logo" srcset=""></a>
         </div>
         <div class="sidebar-menu">
             <ul class="menu">
@@ -24,92 +24,45 @@
                         <i data-feather="home" width="20"></i>
                         <span>Dashboard</span>
                     </a>
-
                 </li>
 
 
 
 
-                <li class="sidebar-item  has-sub" sec:authorize="hasRole('ADMIN')">
-                    <a href="#" class='sidebar-link'>
+                <li class="sidebar-item" sec:authorize="hasRole('ADMIN')">
+                    <a th:href="@{/panel/admin/clients}" class='sidebar-link'>
                         <i data-feather="triangle" width="20"></i>
                         <span>Clients</span>
                     </a>
 
-                    <ul class="submenu ">
-
-                        <li>
-                            <a th:href="@{/panel/admin/clients}">Clients List</a>
-                        </li>
-
-                        <li>
-                            <a href="#">Add Client</a>
-                        </li>
-
-                    </ul>
 
                 </li>
 
 
 
 
-                <li class="sidebar-item  has-sub" sec:authorize="hasRole('ADMIN')">
-                    <a href="#" class='sidebar-link'>
+                <li class="sidebar-item" sec:authorize="hasRole('ADMIN')">
+                    <a th:href="@{/panel/admin/travels}" class='sidebar-link'>
                         <i data-feather="briefcase" width="20"></i>
                         <span>Travels</span>
                     </a>
 
-                    <ul class="submenu ">
-
-                        <li>
-                            <a th:href="@{/panel/admin/travels}">Travels List</a>
-                        </li>
-
-                        <li>
-                            <a th:href="@{/panel/admin/travels/addnew}">Add travel</a>
-                        </li>
-
-                    </ul>
 
                 </li>
 
-                <li class="sidebar-item  has-sub" >
-                    <a href="#" class='sidebar-link'>
+                <li class="sidebar-item" >
+                    <a th:href="@{/panel/reservations}" class='sidebar-link'>
                         <i data-feather="briefcase" width="20"></i>
                         <span>Reservations</span>
                     </a>
 
-                    <ul class="submenu ">
-
-                        <li>
-                            <a href="#">Reservations List</a>
-                        </li>
-
-                        <li>
-                            <a href="#">Add Ressrvation</a>
-                        </li>
-
-                    </ul>
-
                 </li>
 
-                <li class="sidebar-item  has-sub" >
-                    <a href="#" class='sidebar-link'>
+                <li class="sidebar-item" >
+                    <a th:href="@{/panel/reviews}" class='sidebar-link'>
                         <i data-feather="briefcase" width="20"></i>
-                        <span>Invoices</span>
+                        <span>Reviews</span>
                     </a>
-
-                    <ul class="submenu ">
-
-                        <li>
-                            <a href="#">Invoices List</a>
-                        </li>
-
-                        <li>
-                            <a href="#">Add Invoice</a>
-                        </li>
-
-                    </ul>
 
                 </li>
 

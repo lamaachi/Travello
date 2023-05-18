@@ -19,19 +19,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.awt.*;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
+
 
 
 @Controller
@@ -90,6 +82,7 @@ public class TravelController {
                     .Activities(tr.getActivities())
                     .image(filename)
                     .price(tr.getPrice())
+                    .pricechuild(tr.getPricechuild())
                     .destiantion(tr.getDestiantion())
                     .nights(tr.getNights())
                     .days(tr.getDays())
@@ -182,6 +175,7 @@ public class TravelController {
         existingTravel.setInclus(updatedTravel.getInclus());
         existingTravel.setActivities(updatedTravel.getActivities());
         existingTravel.setPrice(updatedTravel.getPrice());
+        existingTravel.setPricechuild(updatedTravel.getPricechuild());
         existingTravel.setDestiantion(updatedTravel.getDestiantion());
         existingTravel.setNights(updatedTravel.getNights());
         existingTravel.setDays(updatedTravel.getDays());

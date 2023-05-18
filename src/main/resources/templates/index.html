@@ -14,10 +14,9 @@
 
 
   <!-- favicon img -->
-  <link rel="shortcut icon" type="image/icon" th:href="@{/logo/favicon.png}"/>
+  <link rel="shortcut icon" type="image/icon" th:href="@{/images/logo/favicon.png}"/>
   <link rel="stylesheet" th:href="@{/webjars/font-awesome/6.4.0/css/all.min.css}"/>
   <!--font-awesome.min.css-->
-  <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" />
 
   <!--animate.css-->
   <link rel="stylesheet" th:href="@{/css/animate.css}" />
@@ -66,32 +65,22 @@
 
 
 
+<!--packages start-->
+<span th:replace="fragments/frontEnd/_packages::packages"></span>
+<!--packages end-->
+
 <!--galley start-->
 <span th:replace="fragments/frontEnd/_gallery::gallery"></span>
 <!--gallery end-->
 
 
-<!--discount-offer start-->
-<span th:replace="fragments/frontEnd/_discountOffer::discountOffer"></span>
-<!--discount-offer end-->
-
-
-<!--packages start-->
-<span th:replace="fragments/frontEnd/_packages::packages"></span>
-<!--packages end-->
-
-<!-- testemonial Start -->
-<span th:replace="fragments/frontEnd/_testemonial::testemonial"></span>
-<!-- testemonial End -->
-
 <!--special-offer start-->
 <span th:replace="fragments/frontEnd/_specialOffer::special-offer"></span>
 <!--special-offer end-->
 
-
-<!--blog start-->
-<span th:replace="fragments/frontEnd/_blog::blog"></span>
-<!--blog end-->
+<!-- testemonial Start -->
+<span th:replace="fragments/frontEnd/_testemonial::testemonial"></span>
+<!-- testemonial End -->
 
 
 <!--subscribe start-->

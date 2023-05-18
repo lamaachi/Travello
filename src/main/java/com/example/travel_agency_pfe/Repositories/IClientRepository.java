@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IClientRepository extends JpaRepository<AppUser,String> {
+    AppUser getAppUserByUserName(String username);
 }

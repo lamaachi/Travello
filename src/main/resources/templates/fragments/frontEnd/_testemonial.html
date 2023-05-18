@@ -20,212 +20,28 @@
 
         <div class="owl-carousel owl-theme" id="testemonial-carousel">
 
-            <div class="home1-testm item">
+            <div class="home1-testm item" th:each="review:${reviews}">
                 <div class="home1-testm-single text-center">
                     <div class="home1-testm-img">
-                        <img th:src="@{/images/client/testimonial1.jpg}" alt="img"/>
+                        <img th:src="@{/images/client/client1.png}" alt="img"/>
                     </div><!--/.home1-testm-img-->
                     <div class="home1-testm-txt">
 								<span class="icon section-icon">
 									<i class="fa fa-quote-left" aria-hidden="true"></i>
 								</span>
-                        <p>
-                            Lorem ipsum dolor sit amet, contur adip elit, sed do mod incid ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+                        <p th:text="${review.rev_content}">
                         </p>
                         <h3>
-                            <a href="#">
-                                kevin watson
+                            <a href="#" th:text="${review.appUser.userName}">
+
                             </a>
                         </h3>
-                        <h4>london, england</h4>
+                        <h4 th:text="${#temporals.format(review.createdAt, 'yyyy-MM-dd')}"></h4>
                     </div><!--/.home1-testm-txt-->
                 </div><!--/.home1-testm-single-->
 
             </div><!--/.item-->
 
-            <div class="home1-testm item">
-                <div class="home1-testm-single text-center">
-                    <div class="home1-testm-img">
-                        <img th:src="@{/images/client/testimonial2.jpg}" alt="img"/>
-                    </div><!--/.home1-testm-img-->
-                    <div class="home1-testm-txt">
-								<span class="icon section-icon">
-									<i class="fa fa-quote-left" aria-hidden="true"></i>
-								</span>
-                        <p>
-                            Lorem ipsum dolor sit amet, contur adip elit, sed do mod incid ut labore et dolore magna aliqua. Ut enim ad minim veniam.
-                        </p>
-                        <h3>
-                            <a href="#">
-                                kevin watson
-                            </a>
-                        </h3>
-                        <h4>london, england</h4>
-                    </div><!--/.home1-testm-txt-->
-                </div><!--/.home1-testm-single-->
-
-            </div><!--/.item-->
-
-            <div class="home1-testm item">
-                <div class="home1-testm-single text-center">
-                    <div class="home1-testm-img">
-                        <img th:src="@{/images/client/testimonial1.jpg}" alt="img"/>
-                    </div><!--/.home1-testm-img-->
-                    <div class="home1-testm-txt">
-								<span class="icon section-icon">
-									<i class="fa fa-quote-left" aria-hidden="true"></i>
-								</span>
-                        <p>
-                            Lorem ipsum dolor sit amet, contur adip elit, sed do mod incid ut labore et dolore magna aliqua. Ut enim ad minim veniam.
-                        </p>
-                        <h3>
-                            <a href="#">
-                                kevin watson
-                            </a>
-                        </h3>
-                        <h4>london, england</h4>
-                    </div><!--/.home1-testm-txt-->
-                </div><!--/.home1-testm-single-->
-
-            </div><!--/.item-->
-
-            <div class="home1-testm item">
-                <div class="home1-testm-single text-center">
-                    <div class="home1-testm-img">
-                        <img th:src="@{/images/client/testimonial1.jpg}" alt="img"/>
-                    </div><!--/.home1-testm-img-->
-                    <div class="home1-testm-txt">
-								<span class="icon section-icon">
-									<i class="fa fa-quote-left" aria-hidden="true"></i>
-								</span>
-                        <p>
-                            Lorem ipsum dolor sit amet, contur adip elit, sed do mod incid ut labore et dolore magna aliqua. Ut enim ad minim veniam.
-                        </p>
-                        <h3>
-                            <a href="#">
-                                kevin watson
-                            </a>
-                        </h3>
-                        <h4>london, england</h4>
-                    </div><!--/.home1-testm-txt-->
-                </div><!--/.home1-testm-single-->
-
-            </div><!--/.item-->
-
-            <div class="home1-testm item">
-                <div class="home1-testm-single text-center">
-                    <div class="home1-testm-img">
-                        <img th:src="@{/images/client/testimonial2.jpg}" alt="img"/>
-                    </div><!--/.home1-testm-img-->
-                    <div class="home1-testm-txt">
-								<span class="icon section-icon">
-									<i class="fa fa-quote-left" aria-hidden="true"></i>
-								</span>
-                        <p>
-                            Lorem ipsum dolor sit amet, contur adip elit, sed do mod incid ut labore et dolore magna aliqua. Ut enim ad minim veniam.
-                        </p>
-                        <h3>
-                            <a href="#">
-                                kevin watson
-                            </a>
-                        </h3>
-                        <h4>london, england</h4>
-                    </div><!--/.home1-testm-txt-->
-                </div><!--/.home1-testm-single-->
-
-            </div><!--/.item-->
-
-            <div class="home1-testm item">
-                <div class="home1-testm-single text-center">
-                    <div class="home1-testm-img">
-                        <img th:src="@{/images/client/testimonial1.jpg}" alt="img"/>
-                    </div><!--/.home1-testm-img-->
-                    <div class="home1-testm-txt">
-								<span class="icon section-icon">
-									<i class="fa fa-quote-left" aria-hidden="true"></i>
-								</span>
-                        <p>
-                            Lorem ipsum dolor sit amet, contur adip elit, sed do mod incid ut labore et dolore magna aliqua. Ut enim ad minim veniam.
-                        </p>
-                        <h3>
-                            <a href="#">
-                                kevin watson
-                            </a>
-                        </h3>
-                        <h4>london, england</h4>
-                    </div><!--/.home1-testm-txt-->
-                </div><!--/.home1-testm-single-->
-
-            </div><!--/.item-->
-
-            <div class="home1-testm item">
-                <div class="home1-testm-single text-center">
-                    <div class="home1-testm-img">
-                        <img th:src="@{/images/client/testimonial1.jpg}" alt="img"/>
-                    </div><!--/.home1-testm-img-->
-                    <div class="home1-testm-txt">
-								<span class="icon section-icon">
-									<i class="fa fa-quote-left" aria-hidden="true"></i>
-								</span>
-                        <p>
-                            Lorem ipsum dolor sit amet, contur adip elit, sed do mod incid ut labore et dolore magna aliqua. Ut enim ad minim veniam.
-                        </p>
-                        <h3>
-                            <a href="#">
-                                kevin watson
-                            </a>
-                        </h3>
-                        <h4>london, england</h4>
-                    </div><!--/.home1-testm-txt-->
-                </div><!--/.home1-testm-single-->
-
-            </div><!--/.item-->
-
-            <div class="home1-testm item">
-                <div class="home1-testm-single text-center">
-                    <div class="home1-testm-img">
-                        <img th:src="@{/images/client/testimonial2.jpg}" alt="img"/>
-                    </div><!--/.home1-testm-img-->
-                    <div class="home1-testm-txt">
-								<span class="icon section-icon">
-									<i class="fa fa-quote-left" aria-hidden="true"></i>
-								</span>
-                        <p>
-                            Lorem ipsum dolor sit amet, contur adip elit, sed do mod incid ut labore et dolore magna aliqua. Ut enim ad minim veniam.
-                        </p>
-                        <h3>
-                            <a href="#">
-                                kevin watson
-                            </a>
-                        </h3>
-                        <h4>london, england</h4>
-                    </div><!--/.home1-testm-txt-->
-                </div><!--/.home1-testm-single-->
-
-            </div><!--/.item-->
-
-            <div class="home1-testm item">
-                <div class="home1-testm-single text-center">
-                    <div class="home1-testm-img">
-                        <img th:src="@{/images/client/testimonial1.jpg}" alt="img"/>
-                    </div><!--/.home1-testm-img-->
-                    <div class="home1-testm-txt">
-								<span class="icon section-icon">
-									<i class="fa fa-quote-left" aria-hidden="true"></i>
-								</span>
-                        <p>
-                            Lorem ipsum dolor sit amet, contur adip elit, sed do mod incid ut labore et dolore magna aliqua. Ut enim ad minim veniam.
-                        </p>
-                        <h3>
-                            <a href="#">
-                                kevin watson
-                            </a>
-                        </h3>
-                        <h4>london, england</h4>
-                    </div><!--/.home1-testm-txt-->
-                </div><!--/.home1-testm-single-->
-
-            </div><!--/.item-->
 
         </div><!--/.testemonial-carousel-->
     </div><!--/.container-->

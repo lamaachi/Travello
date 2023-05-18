@@ -20,71 +20,74 @@
             <div class="card">
                 <div class="card-body">
                     <div class="text-center mb-5">
-<!--                        <img src="assets/images/favicon.svg" height="48" class='mb-4'>-->
+                        <a th:href="@{/}">
+                            <img th:src="@{/images/logo/tournest.png}" class="w-25 h-25 m-auto" alt="logo" srcset="">
+                        </a>
                         <h3>Sign Up</h3>
                         <p>Please fill the form to register.</p>
+                        <div th:if="${errorMessage}" class="alert alert-danger">
+                            <p th:text="${errorMessage}"></p>
+                        </div>
                     </div>
                     <form th:action="@{/Auth/register}" th:object="${appUser}" method="post">
                         <div class="row">
                             <div class="col-md-6 col-12">
                                 <div class="form-group">
                                     <label for="first-name-column">First Name</label>
-                                    <input th:errorClass="is-invalid" type="text" id="first-name-column" class="form-control" th:field="*{firstName}"  name="fname-column">
+                                    <input maxlength="20" th:errorClass="is-invalid" type="text" id="first-name-column" class="form-control" th:field="*{firstName}"  name="fname-column">
                                     <span class="invalid-feedback" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="form-group">
                                     <label for="last-name-column">Last Name</label>
-                                    <input th:errorClass="is-invalid" type="text" id="last-name-column" class="form-control" th:field="*{lastName}"  name="lname-column">
+                                    <input maxlength="20" th:errorClass="is-invalid" type="text" id="last-name-column" class="form-control" th:field="*{lastName}"  name="lname-column">
                                     <span class="invalid-feedback" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="form-group">
                                     <label for="username-column">Username</label>
-                                    <input th:errorClass="is-invalid" type="text" id="username-column" class="form-control" th:field="*{userName}" name="username-column">
+                                    <input maxlength="20" th:errorClass="is-invalid" type="text" id="username-column" class="form-control" th:field="*{userName}" name="username-column">
                                     <span class="invalid-feedback"  th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></span>
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="form-group">
+                                    <label for="CIN-column">CIN</label>
+                                    <input maxlength="10" th:errorClass="is-invalid" type="text" id="CIN-column" class="form-control" th:field="*{CIN}" name="CIN-column">
+                                    <span class="invalid-feedback"  th:if="${#fields.hasErrors('CIN')}" th:errors="*{CIN}"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-12">
+                                <div class="form-group">
                                     <label for="country-floating">Email</label>
-                                    <input  th:errorClass="is-invalid" type="email" id="country-floating" th:field="*{email}" class="form-control" name="country-floating">
+                                    <input maxlength="40"  th:errorClass="is-invalid" type="email" id="country-floating" th:field="*{email}" class="form-control" name="country-floating">
                                     <span class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
                                 </div>
                             </div>
-
                             <div class="col-md-6 col-12">
                                 <div class="form-group">
                                     <label for="username-column">Phone Number</label>
-                                    <input th:errorClass="is-invalid" type="number" id="phone-column" class="form-control" th:field="*{phone}" name="username-column">
+                                    <input minlength="10" maxlength="10" th:errorClass="is-invalid" type="number" id="phone-column" class="form-control" th:field="*{phone}" name="username-column">
                                     <span class="invalid-feedback" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
-
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="form-group">
                                     <label for="country-floating">Adress</label>
-                                    <input th:errorClass="is-invalid" type="text" id="adress-floating" th:field="*{adress}" class="form-control" name="country-floating">
+                                    <input maxlength="30" th:errorClass="is-invalid" type="text" id="adress-floating" th:field="*{adress}" class="form-control" name="country-floating">
                                     <span class="invalid-feedback" th:if="${#fields.hasErrors('adress')}" th:errors="*{adress}"></span>
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="form-group">
                                     <label for="company-column">Password</label>
-                                    <input th:errorClass="is-invalid" type="password" id="company-column" th:field="*{password}" class="form-control" name="company-column">
+                                    <input  th:errorClass="is-invalid" type="password" id="company-column" th:field="*{password}" class="form-control" name="company-column">
                                     <span class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
                                 </div>
                             </div>
-<!--                            <div class="col-md-6 col-12">-->
-<!--                                <div class="form-group">-->
-<!--                                    <label for="confirmpassword">confirm Password</label>-->
-<!--                                    <input th:errorClass="is-invalid"  type="password" id="confirmpassword" class="form-control" name="confirmpassword">-->
-<!--                                </div>-->
-<!--                            </div>-->
                         </diV>
-
                                 <a th:href="@{/login}">Have an account? Login</a>
                         <div class="clearfix">
                             <button type="submit" class="btn btn-primary float-end">Submit</button>

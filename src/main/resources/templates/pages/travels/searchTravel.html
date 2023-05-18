@@ -13,12 +13,13 @@
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 </head>
 <body>
-<div class="main-content " layout:fragment="content">
-  <div class="searc-page">
+<div class="main-content container-fluid" layout:fragment="content">
+  <div id="booking" class="section">
+    <div class="section-center">
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <div class="single-travel-boxes">
+          <div class="single-travel-boxes search-page-2">
             <div id="desc-tabs" class="desc-tabs">
 
               <ul class="nav nav-tabs" role="tablist">
@@ -68,7 +69,7 @@
                           <div class="single-tab-select-box">
                             <h2>Travel Date</h2>
                             <div class="travel-check-icon">
-<!--                              <input type="date" name="traveldate" class="form-control" placeholder="30 - 05 - 2023">-->
+                              <!--                              <input type="date" name="traveldate" class="form-control" placeholder="30 - 05 - 2023">-->
                               <input  type="date" name="traveldate" th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}" class="form-control" placeholder="30 - 05 - 2023">
                             </div>
                           </div>
@@ -433,6 +434,7 @@
         </div><!--/.row-->
       </div>
     </div>
+  </div>
   </div>
 </div>
 </body>

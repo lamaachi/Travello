@@ -12,10 +12,9 @@ public class MoroccanCities {
                 "Agadir", "Casablanca", "Fes", "Marrakech", "Rabat",
                 "Tangier", "Meknes", "Oujda", "Kenitra", "Tetouan",
                 "Safi", "Sale", "Nador", "Al Hoceima", "Mohammedia",
-                "Khouribga", "Beni Mellal", "Fes-Meknes", "Marrakesh-Safi", "Rabat-Sale-Kenitra",
-                "Tanger-Tetouan-Al Hoceima", "Oriental", "Guelmim-Oued Noun", "Souss-Massa",
-                "Beni Mellal-Khenifra", "Drâa-Tafilalet", "Casa-Settat", "Dakhla-Oued Ed-Dahab",
-                "Laayoune-Sakia El Hamra"
+                "Khouribga", "Beni Mellal", "Fes","Guelmim",
+                "Khenifra",  "Dakhla",
+                "Laayoune"
         );
     }
     public static List<String> getCityList() {

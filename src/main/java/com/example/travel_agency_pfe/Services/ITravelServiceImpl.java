@@ -35,6 +35,6 @@ public class ITravelServiceImpl implements ITravelService {
 
     @Override
     public List<Travel> searchravels(String destination, LocalDate travelDate, Integer days) {
-        return travelRepository.findByDestiantionOrTravelDateOrDays(destination,travelDate,days);
+        return travelRepository.findByDestiantionContainsOrTravelDateOrDays(destination,travelDate,days);
     }
 }

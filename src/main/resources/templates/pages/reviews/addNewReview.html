@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/_template}">
+<head>
+  <meta charset="UTF-8">
+  <title>client list - Tournest</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+  <link rel="stylesheet" th:href="@{/simple-datatables/style.css}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+  <link rel="stylesheet" th:href="@{/vendors/perfect-scrollbar/perfect-scrollbar.css}">
+  <link rel="stylesheet" th:href="@{/css/app.css}">
+  <link rel="shortcut icon" th:href="@{/images/favicon.svg}" type="image/x-icon">
+</head>
+<body>
+<div class="main-content container-fluid" layout:fragment="content">
+  <div class="page-title">
+    <div class="row">
+    </div>
+  </div>
+  <section>
+    <div class="card">
+      <div class="card-header h1">
+        Add Review
+      </div>
+      <div class="card-body">
+        <form th:action="@{/panel/Reviews/save}"  method="post">
+          <div class="form-group">
+            <label  for="title">Review Title</label>
+            <input maxlength="250" minlength="30" type="text" class="form-control" id="title" name="title" required>
+          </div>
+          <div class="form-group">
+            <label for="description">Review Content</label>
+            <textarea  maxlength="250" minlength="100" class="form-control" id="description" name="content" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit Review</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<script th:src="@{/js/feather-icons/feather.min.js}"></script>
+<script th:src="@{/vendors/perfect-scrollbar/perfect-scrollbar.min.js}"></script>
+<script th:src="@{/js/app.js}"></script>
+<script th:src="@{/js/vendors.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/simple-datatables/simple-datatables.js}"></script>
+</body>
+</html>

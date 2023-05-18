@@ -42,6 +42,7 @@ public class Travel {
 
 
     private double price;
+    private double pricechuild;
     @NotBlank(message = "Destination is required")
     @Column(length = 225)
     private String destiantion;

@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-<section  th:fragment="special-offer" id="spo" class="special-offer">
+<section  th:fragment="special-offer" id="spo" class="special-offer" th:style="'background: url(/travel-images/' + ${specialOffer.image}+') no-repeat center; background-size: cover;'">
     <div class="container">
         <div class="special-offer-content">
             <div class="row">
@@ -24,7 +24,7 @@
                                 </p>
                             </div><!--/.packages-review-->
                             <div class="packages-para special-offer-para">
-                                <p>
+                                <p >
 											<span>
 												<i class="fa fa-angle-right"></i> <span th:text="${specialOffer.days}"></span> daays <span th:text="${specialOffer.nights}"></span> nights
 											</span>
@@ -43,32 +43,22 @@
 												<i class="fa fa-angle-right"></i>  food facilities
 											</span>
                                 </p>
-                                <p class="offer-para">
-                                    <span th:text="${specialOffer.destiantion}"></span> <br> <span th:text="${specialOffer.activities}"></span>
-                                </p>
+<!--                                <p class="offer-para">-->
+<!--                                    <span th:text="${specialOffer.destiantion}"></span> <br> <span th:text="${specialOffer.activities}"></span>-->
+<!--                                </p>-->
                             </div><!--/.packages-para-->
+
                             <div class="offer-btn-group">
                                 <div class="about-btn">
-                                    <button  class="about-view packages-btn">
+                                    <a th:href="@{'/booknow/travel/'+${specialOffer.id}}"  class="about-view packages-btn">
                                         book now
-                                    </button>
+                                    </a>
                                 </div><!--/.about-btn-->
                             </div><!--/.offer-btn-group-->
                         </div><!--/.single-special-offer-txt-->
                     </div><!--/.single-special-offer-->
                 </div><!--/.col-->
-                <div class="col-sm-4">
-                    <div class="single-special-offer">
-                        <div class="single-special-offer-bg">
-                            <img th:src="@{/images/offer/offer-shape.png}" alt="offer-shape">
-                        </div><!--/.single-special-offer-bg-->
-                        <div class="single-special-shape-txt">
-                            <h3>special offer</h3>
-                            <h4><span>40%</span><br>off</h4>
-                            <p><span style=" font-size: xxx-large;"  th:text="${specialOffer.price+'MAD'}">$999</span><br>reguler<span style="font-size: x-large;"  th:text="${specialOffer.price+999+'MAD'}">$999</span></p>
-                        </div><!--/.single-special-shape-txt-->
-                    </div><!--/.single-special-offer-->
-                </div><!--/.col-->
+
             </div><!--/.row-->
         </div><!--/.special-offer-content-->
     </div><!--/.container-->

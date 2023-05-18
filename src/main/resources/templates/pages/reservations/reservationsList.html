@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/_template}">
+<head>
+  <meta charset="UTF-8">
+  <title>Travels list - Tournest</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+  <!--    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" />-->
+  <link rel="stylesheet" th:href="@{/simple-datatables/style.css}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+  <link rel="stylesheet" th:href="@{/vendors/perfect-scrollbar/perfect-scrollbar.css}">
+  <link rel="stylesheet" th:href="@{/css/app.css}">
+  <link rel="shortcut icon" th:href="@{/images/favicon.svg}" type="image/x-icon">
+</head>
+<body>
+<div class="main-content container-fluid" layout:fragment="content">
+  <div class="page-title">
+    <div class="row">
+      <div class="col-12 col-md-6 order-md-1 order-last">
+        <h3>Reservations List</h3>
+      </div>
+      <div class="col-12 col-md-6 order-md-2 order-first">
+        <nav aria-label="breadcrumb" class='breadcrumb-header'>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a th:href="@{/}">Dashboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Datatable</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <section class="section">
+    <div class="card">
+      <div class="card-header">
+        <div th:if="${messageupdate}" class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>Success!</strong><span th:text="${messageupdate}"></span>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div th:if="${messageinvoice}" class="alert alert-info alert-dismissible fade show" role="alert">
+          <strong>Success!</strong><span th:text="${messageinvoice}"></span>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <table class='table table-striped' id="table1">
+          <thead>
+          <tr>
+            <th>id</th>
+            <th>Adults</th>
+            <th>Childs</th>
+            <th>User</th>
+            <th>Travel</th>
+            <th>Created At</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="reservation:${reservations}">
+            <td th:text="${reservation.id} "></td>
+            <td th:text="${reservation.numberOfAdults}"></td>
+            <td th:text="${reservation.numberOfChildren}"></td>
+            <td th:text="${#strings.length(reservation.appUser.userName) le 10} ? ${reservation.appUser.userName} : ${#strings.substring(reservation.appUser.userName, 0, 10) + '...'}"></td>
+            <td th:text="${#strings.length(reservation.travel.title) le 10} ? ${reservation.travel.title} : ${#strings.substring(reservation.travel.title, 0, 10) + '...'}"></td>
+
+            <td th:text="${#temporals.format(reservation.createdAt, 'yyyy-MM-dd')}"></td>
+            <td>
+              <span th:if="${reservation.payed}" class="badge bg-success">Payed</span>
+              <span th:unless="${reservation.payed}" class="badge bg-danger">unpaid</span>
+            </td>
+            <td>
+              <div class="btn-group">
+                <a class="btn btn-sm btn-success" th:href="@{'/panel/reservations/'+${reservation.id} }"><i class="fa-sharp fa-solid fa-eye fa-beat"></i></a>
+                <a onclick="return confirm('Are you sure you want to delete this record?')" class="btn btn-sm btn-danger" th:href="@{/panel/reservations/delete(id=${reservation.id})}"><i class="fa-solid fa-trash"></i></a>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </section>
+</div>
+<script>
+</script>
+<script th:src="@{/js/feather-icons/feather.min.js}"></script>
+<script th:src="@{/vendors/perfect-scrollbar/perfect-scrollbar.min.js}"></script>
+<script th:src="@{/js/app.js}"></script>
+<script th:src="@{/js/vendors.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/simple-datatables/simple-datatables.js}"></script>
+</body>
+</html>

@@ -59,18 +59,18 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="phone">Phone</label>
-                  <input th:value="*{phone}" th:field="*{phone}" type="text" class="form-control" id="phone">
+                  <input READONLY th:value="*{phone}" th:field="*{phone}" type="text" class="form-control" id="phone">
                 </div>
 
                 <div class="form-group">
                   <label for="adress">Adress</label>
-                  <input th:value="*{adress}" th:field="*{adress}" type="text" class="form-control" id="adress">
+                  <input READONLY th:value="*{adress}" th:field="*{adress}" type="text" class="form-control" id="adress">
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="password">Password</label>
-                  <input readonly th:value="*{password}" th:field="*{password}" type="text" class="form-control" id="password">
+                  <label for="cin">Cin</label>
+                  <input READONLY th:value="*{CIN}" th:field="*{CIN}" type="text" class="form-control" id="cin">
                 </div>
                 <button class="btn btn-primary rounded" type="submit">Update Data</button>
               </div>

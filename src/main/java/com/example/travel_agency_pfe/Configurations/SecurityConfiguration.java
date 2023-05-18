@@ -31,14 +31,6 @@ public class SecurityConfiguration {
     private UserDetailsServiceImp userDetailsServiceImp;
 
 
-    //@Bean
-    public InMemoryUserDetailsManager inMemoryUserDetailsManager(){
-        return new InMemoryUserDetailsManager(
-                User.withUsername("User1").password(passwordEncoder.encode("1234")).roles("USER").build(),
-                User.withUsername("User2").password(passwordEncoder.encode("1234")).roles("ADMIN").build()
-        );
-    }
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
         httpSecurity.formLogin().loginPage("/login").defaultSuccessUrl("/").permitAll()
@@ -48,7 +40,7 @@ public class SecurityConfiguration {
         httpSecurity.userDetailsService(userDetailsServiceImp);
         httpSecurity.rememberMe();
         httpSecurity.authorizeHttpRequests()
-                .requestMatchers("/","/search/**","/subscribe","/Auth/**", "/webjars/**", "/css/**", "/error/**","/js/**","/images/**","/booknow/**","/travel-images/*").permitAll();
+                .requestMatchers("/","/fonts/**","/simple-datatables/**","/search/**","/subscribe","/Auth/**", "/webjars/**", "/css/**", "/error/**","/js/**","/videos/**","/images/**","/booknow/**","/travel-images/**").permitAll();
         httpSecurity.authorizeHttpRequests().anyRequest().authenticated();
         httpSecurity.exceptionHandling().accessDeniedPage("/error/notAuthorized");
         httpSecurity.sessionManagement()

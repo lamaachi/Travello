@@ -56,12 +56,15 @@
             <span class="invalid-feedback" th:if="${#fields.hasErrors('exclus')}" th:errors="*{exclus}"></span>
           </div>
           <div class="row">
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-4">
               <label for="exclus">Price:</label>
               <input th:value="*{price}" type="number" min="0" class="form-control" id="price"  th:field="*{price}" ></input>
             </div>
-
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-4">
+              <label for="exclus">Childs Price:</label>
+              <input  required type="number" min="0" class="form-control" id="childsprice"  th:field="*{pricechuild}" ></input>
+            </div>
+            <div class="form-group col-md-4">
               <label for="travelDate">Travel Date:</label>
               <input required th:errorClass="is-invalid" type="date" class="form-control" id="travelDate" th:field="*{travelDate}" th:value="${#temporals.format(travelDate, 'yyyy-MM-dd')}" />
               <span class="invalid-feedback" th:if="${#fields.hasErrors('travelDate')}" th:errors="*{travelDate}"></span>

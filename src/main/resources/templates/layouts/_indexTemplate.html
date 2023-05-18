@@ -11,7 +11,7 @@
 
   <link rel="stylesheet" th:href="@{/webjars/font-awesome/5.15.4/css/all.min.css}"/>
   <!-- favicon img -->
-  <link rel="shortcut icon" type="image/icon" th:href="@{/logo/favicon.png}"/>
+  <link rel="shortcut icon" type="image/icon" th:href="@{/images/logo/favicon.png}"/>
 
   <!--font-awesome.min.css-->
   <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" />
@@ -45,23 +45,16 @@
   <link rel="stylesheet" th:href="@{/css/responsive.css}" />
 </head>
 <body>
-<span  th:insert="fragments/frontEnd/_navBar :: header"></span>
+<span  th:insert="fragments/frontEnd/_navBar_template :: header-template"></span>
 <div class="main-content container-fluid" layout:fragment="content">
     <!--dynamic content-->
 </div>
-
-
 <!--subscribe start-->
 <span  th:replace="fragments/frontEnd/_subscription::sub"></span>
 <!--subscribe end-->
 <span th:replace="fragments/frontEnd/_footer::footer"></span>
 <script th:src="@{/js/jquery.js}"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-
-
-
-
-
 
 <!--modernizr.min.js-->
 <script  src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>

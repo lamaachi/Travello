@@ -15,9 +15,6 @@
 <div class="main-content container-fluid" layout:fragment="content">
   <div class="page-title">
     <div class="row">
-      <div class="col-12 col-md-6 order-md-1 order-last">
-        <h3>Travels List</h3>
-      </div>
       <div class="col-12 col-md-6 order-md-2 order-first">
         <nav aria-label="breadcrumb" class='breadcrumb-header'>
           <ol class="breadcrumb">
@@ -67,13 +64,17 @@
             <span class="invalid-feedback" th:if="${#fields.hasErrors('exclus')}" th:errors="*{exclus}"></span>
           </div>
           <div class="row">
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-4">
               <label for="exclus">Price:</label>
-              <input  required type="number" min="0" class="form-control" id="price"  th:field="*{price}" ></input>
+              <input th:value="*{price}" type="number" min="0" class="form-control" id="price"  th:field="*{price}" ></input>
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-4">
+              <label for="exclus">Childs Price:</label>
+              <input  required type="number" min="0" class="form-control" id="childsprice"  th:field="*{pricechuild}" ></input>
+            </div>
+            <div class="form-group col-md-4">
               <label for="travelDate">Travel Date:</label>
-              <input required   th:errorClass="is-invalid"  type="date" class="form-control" id="travelDate" th:field="*{travelDate}" >
+              <input required th:errorClass="is-invalid" type="date" class="form-control" id="travelDate" th:field="*{travelDate}" th:value="${#temporals.format(travelDate, 'yyyy-MM-dd')}" />
               <span class="invalid-feedback" th:if="${#fields.hasErrors('travelDate')}" th:errors="*{travelDate}"></span>
             </div>
           </div>

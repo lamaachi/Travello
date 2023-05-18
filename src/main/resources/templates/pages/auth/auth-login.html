@@ -4,12 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign in - Voler Admin Dashboard</title>
+    <title>Sign in - TourNest Admin Dashboard</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
     <link rel="shortcut icon" th:href="@{/images/favicon.svg}" type="image/x-icon">
     <link rel="stylesheet" th:href="@{/css/app.css}">
 </head>
-
 <body>
 <div id="auth">
     <div class="container">
@@ -18,14 +17,28 @@
                 <div class="card pt-4">
                     <div class="card-body">
                         <div class="text-center mb-5">
-<!--                            <a th:href="@{/}">-->
-<!--                                <img th:src="@{/logo/tournest.png}" class="w-25 h-25 m-auto" alt="logo" srcset="">-->
-<!--                            </a>-->
+                            <a th:href="@{/}">
+                                <img th:src="@{/images/logo/tournest.png}" class="w-25 h-25 m-auto" alt="logo" srcset="">
+                            </a>
                             <h3>Sign In</h3>
-                            <p>Please sign in to continue to Voler.</p>
+                            <p>Please sign in to continue to Dashboard.</p>
                         </div>
                         <div th:if="${param.error}">
                             <p class="text-danger error">Invalid username and password.</p>
+                        </div>
+                        <div th:if="${param.chengedpasssuccess}" class="alert alert-success">
+                            <p>Your Password Has Been Changed.Pleas Login with The new one.</p>
+                        </div>
+
+                        <div th:if="${message}" class="alert alert-success">
+                            <p th:text="${message}"></p>
+                        </div>
+                        <div th:if="${param.verifySuccess}" class="alert alert-success">
+                            <p>Your account has been successfully verified. You can now log in.</p>
+                        </div>
+
+                        <div th:if="${param.verifyFail}" class="alert alert-danger">
+                            <p>Verification failed. Please check your verification link or contact support.</p>
                         </div>
                         <form th:action="@{/login}" method="post">
                             <div class="form-group position-relative has-icon-left">

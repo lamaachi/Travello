@@ -20,9 +20,10 @@ public class UserDetailsServiceImp implements UserDetailsService {
         if(appUser==null) throw new UsernameNotFoundException(String.format("User %s Not found...",username));
 
         String[] roles = appUser.getRoles().stream().map(u-> u.getRole()).toArray(String[]::new);
-
+        // boolean enabled = !appUser.isAccountVerified();
         UserDetails userDetails = User
                 .withUsername(appUser.getUserName())
+                //.disabled(enabled)
                 .password(appUser.getPassword())
                 .roles(roles).build();
         return userDetails;
