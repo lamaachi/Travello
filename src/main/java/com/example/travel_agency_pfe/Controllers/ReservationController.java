@@ -1,5 +1,6 @@
 package com.example.travel_agency_pfe.Controllers;
 
+import com.example.travel_agency_pfe.Export.ReservationPDFExport;
 import com.example.travel_agency_pfe.Models.*;
 import com.example.travel_agency_pfe.Repositories.IAppUserRepository;
 import com.example.travel_agency_pfe.Repositories.IInvoiceRepository;
@@ -8,6 +9,7 @@ import com.example.travel_agency_pfe.Services.IReservationServiceImpl;
 import com.example.travel_agency_pfe.Services.ITravelServiceImpl;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -15,9 +17,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -96,7 +102,21 @@ public class ReservationController {
         return "pages/reservations/reservationsList";
     }
 
+    @GetMapping("/panel/reservations/export/pdf")
+    public void exportToPDF(HttpServletResponse response) throws IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
 
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=Reservations_" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        List<Reservation> listUsers = reservationService.getAllReservations();
+
+        ReservationPDFExport exporter = new ReservationPDFExport(listUsers);
+        exporter.export(response);
+    }
     private boolean isAdmin(String currentUser) {
         AppUser user = userRepository.findByUserName(currentUser);
 
