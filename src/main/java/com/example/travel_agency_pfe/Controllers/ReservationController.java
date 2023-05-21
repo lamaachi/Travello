@@ -130,7 +130,6 @@ public class ReservationController {
         return false;
     }
 
-
     @GetMapping("/panel/reservations/delete")
     public String deleteClient(Long id){
         reservationService.deleteRes(id);
@@ -160,12 +159,20 @@ public class ReservationController {
             invoiceRepository.save(invoice);
         }
         //existingRes.setTravel(reservation.getTravel());
+        if(payed==false && invoiceid!=null){
+            Invoice invoice = invoiceRepository.findById(invoiceid).get();
+            if(invoice!=null){
+                invoiceRepository.deleteById(invoiceid);
+                Reservation res = reservationService.getReservationById(reservation.getId()).get();
+                res.setInvoiced(false);
+            }
+        }else{
 
+        }
         if (isAdmin(currentUser)) {
             // If the current user is an admin, return all reviews
             existingRes.setPayed(payed);
         }
-
         existingRes.setTotalAmount(amount);
         existingRes.setNumberOfChildren(reservation.getNumberOfChildren());
         existingRes.setNumberOfAdults(reservation.getNumberOfAdults());
@@ -175,27 +182,31 @@ public class ReservationController {
         model.addAttribute("messageupdate","The reservation Updated SuccessFully...");
         return "redirect:/panel/reservations/"+reservation.getId();
     }
+
     @PostMapping("/panel/reservations/invoice")
-    public String invoiceReservation(@ModelAttribute("reservation") Reservation res,@RequestParam("id") Long id,@RequestParam("user") String user,@RequestParam("travel") Long travelid,Model model){
-         Reservation reservation = reservationService.getReservationById(id).get();
+    public String invoiceReservation(@ModelAttribute("reservation") Reservation res,
+                                     @RequestParam("id") Long id,
+                                     @RequestParam("user") String user,
+                                     @RequestParam("travel") Long travelid,
+                                     Model model) {
+        Reservation reservation = reservationService.getReservationById(id).get();
         // Create a new invoice
         Invoice invoice = new Invoice();
         invoice.setAmount(reservation.getTotalAmount());
         invoice.setDate(LocalDateTime.now());
         invoice.setReservation(reservation);
         reservation.setInvoiced(true);
+        // Save the invoice to the database
+        invoiceService.createNewInvoice(invoice);
+        System.out.println("=======================================================invoice id:"+invoice.getId());
         AppUser appUser = userRepository.findByUserName(user);
         Travel travel = travelService.getTravelById(travelid).get();
         reservation.setTravel(travel);
         reservation.setAppUser(appUser);
         reservationService.save(reservation);
-
-        // Save the invoice to the database
-        invoiceService.createNewInvoice(invoice);
-
-        // Generate the ticket HTML content
-        String ticketContent = reservationService.generateTicketContent(reservation);
-
+        System.out.println("=======================================================invoiced orb not :"+reservation.getInvoiced());
+        // Generate the ticket HTML
+        String ticketContent = reservationService.generateTicketContent(reservation,invoice);
         // Send the ticket email to the client
         try {
             reservationService.sendTicketEmail(reservation.getAppUser().getEmail(), ticketContent);
@@ -203,15 +214,18 @@ public class ReservationController {
             e.printStackTrace();
             // Handle email sending failure
         }
-        model.addAttribute("messageinvoice", "Congrats! This reservation has just Invoiced.An email with invoice informations and tickek sent to the client.");
+
+        model.addAttribute("messageinvoice", "Congrats! This reservation has just been invoiced. An email with invoice information and ticket has been sent to the client.");
         return "redirect:/panel/reservations/" + reservation.getId();
     }
+
 
     @PostMapping("/panel/reservations/resend")
     public String ressendTicket(@ModelAttribute("reservation") Reservation res,@RequestParam("id") Long id,@RequestParam("user") String user,@RequestParam("travel") Long travelid){
         Reservation reservation = reservationService.getReservationById(id).get();
+        Invoice invoice =reservation.getInvoice();
         // Generate the ticket HTML content
-        String ticketContent = reservationService.generateTicketContent(reservation);
+        String ticketContent = reservationService.generateTicketContent(reservation,invoice);
         // Send the ticket email to the client
         try {
             reservationService.sendTicketEmail(reservation.getAppUser().getEmail(), ticketContent);
@@ -219,7 +233,7 @@ public class ReservationController {
             e.printStackTrace();
             // Handle email sending failure
         }
-        return "redirect:/panel/reservations?successResend";
+        return  "redirect:/panel/reservations/" + reservation.getId();
     }
 
 

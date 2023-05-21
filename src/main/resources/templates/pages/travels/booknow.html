@@ -20,19 +20,34 @@
             <div class="card card-form">
               <div class="card-header bg-light">
                   <img class="card-img-top" th:src="@{|/travel-images/${travel.image}|}"/>
-                  <div class="card-title item-fix h2" th:text="${travel.title}"></div>
+                  <div class="row item-fix text-capitalize display-5">
+                    <div class="col-md-4">
+                      <i class="fa-solid fa-hotel" style="color: #ff881a;"></i> HOTEL
+                    </div>
+                    <div class="col-md-4">
+                      <i class="fa-solid fa-plane-departure" style="color: #ff961f;"></i>   transportation
+                    </div>
+                    <div class="col-md-4">
+                      <i class="fa-solid fa-bowl-food" style="color: #f4861f;"></i> food facilities
+                    </div>
+                  </div>
+                  <p  class="item-fix h2 btn btn-primary btn-block " style="border-radius: 0; cursor: default;overflow-wrap: break-word;" th:text="${travel.title}"></p>
               </div>
               <div class="card-body  item-fix">
-                <h3 class="">Destinations:</h3>
-                <p  class="card-text item-fix"   th:text="${travel.destiantion}"></p>
-                <h3>Inclus:</h3>
-                <p class="card-text item-fix " th:text="${travel.inclus}"></p>
-                <h3>Exclus:</h3>
-                <p class="card-text item-fix" th:text="${travel.exclus}"></p>
-                <h3>Tarvel date:</h3>
-                <p class="card-text item-fix" th:text="${travel.travelDate}"></p>
-                <h3>Activities:</h3>
-                <p class="card-text item-fix" th:text="${travel.activities}"></p>
+                <h3  class="badge badge-pill badge-primary">Destinations</h3>
+                <p  style="overflow-wrap: break-word;" class="card-text item-fix"   th:text="${travel.destiantion}"></p>
+                <hr class="my-4">
+                <h3  class="badge badge-primary">Inclus</h3>
+                <p style="overflow-wrap: break-word;" class="card-text item-fix " th:text="${travel.inclus}">
+                <hr class="my-4">
+                <h3 class="badge badge-success">Exclus</h3>
+                <p style="" class="card-text item-fix" th:text="${travel.exclus}"></p>
+                <hr class="my-4">
+                <h3 class="badge badge-danger">Tarvel date</h3>
+                <p style="overflow-wrap: break-word;" class="card-text item-fix" th:text="${travel.travelDate}"></p>
+                <hr class="my-4">
+                <h3 class="badge badge-danger">Activities</h3>
+                <p style="overflow-wrap: break-word; font-size: 1.6rem ;" class="card-text item-fix" th:utext="${travel.activities}"></p>
               </div>
             </div>
            </div>
@@ -40,8 +55,8 @@
             <div class="booking-form">
               <form th:action="@{/reserve}" method="get" th:object="${travel}">
                 <input type="hidden" name="id" th:value="*{id}">
-                <div class="alert text-center alert-success" role="alert">
-                  <strong class=" h3" th:text="${travel.price+'MAD'}"></strong>
+                <div class="btn btn-success btn-lg btn-block" style="border-radius: 0; cursor: default;" >
+                  <strong class="h3" th:text="${travel.price+'MAD'}"></strong>
                 </div>
                 <div class="row">
                   <div class="col-sm-6">

@@ -1,3 +1,5 @@
+
+
 function drawLineChar(month, amount) {
     Highcharts.chart('amounthpermonth', {
         chart: {
@@ -29,3 +31,24 @@ $.ajax({
         drawLineChar(month,amount)
     }
 })
+
+function showDeleteConfirmation(event) {
+    event.preventDefault();
+    console.log("called")
+    Swal.fire({
+        title: 'Are you sure?',
+        text: 'You are about to delete this record.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#dc3545',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: 'Delete',
+        cancelButtonText: 'Cancel'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            console.log("confirmed")
+            // User confirmed, proceed with deletion
+            window.location.href = event.target.getAttribute('href');
+        }
+    });
+}

@@ -17,6 +17,19 @@
         <java.version>17</java.version>
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.2.24</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.webjars.npm/sweetalert2 -->
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>sweetalert2</artifactId>
+            <version>11.7.5</version>
+        </dependency>
+
         <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
         <dependency>
             <groupId>com.google.code.gson</groupId>

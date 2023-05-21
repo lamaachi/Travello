@@ -71,7 +71,7 @@ public class Travel {
     private String travelType;
 
     @NotBlank(message = "Activities are required")
-    @Column(length = 1000)
+    @Column(columnDefinition = "TEXT")
     private String Activities;
 
     @ManyToOne
@@ -79,9 +79,21 @@ public class Travel {
     private AppUser appUser;
 
     //Reservations
-    @OneToMany(mappedBy = "travel")
+    @OneToMany(mappedBy = "travel",cascade = CascadeType.REMOVE)
     private Set<Reservation> reservations = new HashSet<>();
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Travel travel = (Travel) o;
+        return nights == travel.nights && days == travel.days && Double.compare(travel.price, price) == 0 && Double.compare(travel.pricechuild, pricechuild) == 0 && Objects.equals(id, travel.id) && Objects.equals(title, travel.title) && Objects.equals(inclus, travel.inclus) && Objects.equals(exclus, travel.exclus) && Objects.equals(destiantion, travel.destiantion) && Objects.equals(travelDate, travel.travelDate) && Objects.equals(image, travel.image) && Objects.equals(createdAt, travel.createdAt) && Objects.equals(updatedAt, travel.updatedAt) && Objects.equals(specialOffer, travel.specialOffer) && Objects.equals(travelType, travel.travelType) && Objects.equals(Activities, travel.Activities);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, nights, days, inclus, exclus, price, pricechuild, destiantion, travelDate, image, createdAt, updatedAt, specialOffer, travelType, Activities);
+    }
 
     @Override
     public String toString() {

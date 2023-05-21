@@ -4,6 +4,7 @@ import com.example.travel_agency_pfe.Models.AppUser;
 import com.example.travel_agency_pfe.Models.Review;
 import com.example.travel_agency_pfe.Repositories.IReviewRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class IReviewServiceImpl implements IReviewService {
+    @Autowired
     private IReviewRepository reviewRepository;
     @Override
     public List<Review> getAllReviews() {

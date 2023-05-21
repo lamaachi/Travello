@@ -169,7 +169,11 @@ public class TravelController {
 
         // Update the properties of the existing Travel object
         existingTravel.setTitle(updatedTravel.getTitle());
-        existingTravel.setTravelDate(updatedTravel.getTravelDate());
+        if (updatedTravel.getTravelDate() != null) {
+            existingTravel.setTravelDate(updatedTravel.getTravelDate());
+        }else{
+            existingTravel.setTravelDate(existingTravel.getTravelDate());
+        }
         existingTravel.setTravelType(updatedTravel.getTravelType());
         existingTravel.setExclus(updatedTravel.getExclus());
         existingTravel.setInclus(updatedTravel.getInclus());

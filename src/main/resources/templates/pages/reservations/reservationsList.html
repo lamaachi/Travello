@@ -32,14 +32,6 @@
   <section class="section">
     <div class="card">
       <div class="card-header">
-        <div th:if="${messageupdate}" class="alert alert-danger alert-dismissible fade show" role="alert">
-          <strong>Success!</strong><span th:text="${messageupdate}"></span>
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        <div th:if="${messageinvoice}" class="alert alert-info alert-dismissible fade show" role="alert">
-          <strong>Success!</strong><span th:text="${messageinvoice}"></span>
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
         <a th:href="@{/panel/reservations/export/pdf}" class="btn btn-primary">Export <i class="fa-solid fa-cloud-arrow-down"></i></a>
       </div>
 

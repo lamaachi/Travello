@@ -25,13 +25,17 @@ public class HomeController{
     private IReviewServiceImpl reviewService;
     private ITravelRepository travelRepository;
 
-    @GetMapping(value = {"/","/index"})
+    @GetMapping(value = {"/","/index","/pages/"})
     public String index(Model model, @RequestParam(value = "page",defaultValue = "0") int page,@RequestParam(value = "size",defaultValue = "3") int size){
         Page<Travel> travelList = travelRepository.findAll(PageRequest.of(page,size));
         List<Review> reviews = reviewService.getAtiveReviews();
         Subscriber subscriber = new Subscriber();
         Travel specialOffer =  travelRepository.findFirstBySpecialOfferTrueOrderByCreatedAtDesc();
-        model.addAttribute("specialOffer",specialOffer);
+        if(specialOffer!=null){
+            model.addAttribute("specialOffer",specialOffer);
+        }else{
+            model.addAttribute("specialOffer",travelRepository.findFirstByOrderById());
+        }
         model.addAttribute("travels",travelList.getContent());
         model.addAttribute("pages",new int[travelList.getTotalPages()]);
         model.addAttribute("curruntpage",page);

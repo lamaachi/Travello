@@ -4,6 +4,7 @@ import com.example.travel_agency_pfe.Models.Invoice;
 import com.example.travel_agency_pfe.Models.Reservation;
 import com.example.travel_agency_pfe.Repositories.IInvoiceRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.SpringVersion;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +15,7 @@ import java.util.List;
 @Transactional
 @AllArgsConstructor
 public class IInvoiceServiceImpl implements IInvoiceService {
-
+    @Autowired
     private IInvoiceRepository invoiceRepository;
     @Override
     public Invoice createNewInvoice(Invoice invoice) {

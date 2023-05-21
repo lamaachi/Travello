@@ -8,9 +8,11 @@ import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -18,19 +20,32 @@ import org.springframework.web.bind.annotation.RequestParam;
 @AllArgsConstructor
 public class SubscriberController {
     private ISubscriberRepository subscriberRepository;
-    @PostMapping("/subscribe")
+
+    @GetMapping("/panel/admin/subscribers")
+    public String listSub(Model model){
+        model.addAttribute("subList",subscriberRepository.findAll());
+        return "pages/subscriber/subscribersList";
+    }
+
+    @PostMapping("/Auth/subscribe")
     public String subscribe(@Valid Subscriber subscriber ,BindingResult result, Model model) {
-        try {
+
+        Subscriber subscriber1 = subscriberRepository.findById(subscriber.getEmail()).get();
+        if(subscriber1==null){
             subscriberRepository.save(subscriber);
             return "redirect:/?successSub";
-        } catch (DataIntegrityViolationException ex) {
-            if (ex.getMessage().contains("unique_email_constraint")) {
-                result.rejectValue("email", "error.subscriber",
-                        "This email is already registered. Please use a different email.");
-                return "index";
-            }
-            throw ex;
+        }else{
+            return "redirect:/?failSub";
         }
-
     }
+
+    @GetMapping("/panel/admin/subscribers/delete")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public String deleteClient(String id){
+        subscriberRepository.deleteById(id);
+        return "redirect:/panel/admin/subscribers?successdelete";
+    }
+
+
+
 }

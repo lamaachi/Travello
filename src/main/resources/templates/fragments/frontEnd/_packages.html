@@ -20,26 +20,28 @@
                 <div class="col-md-4 col-sm-6" th:each="travel:${travels}">
                     <div class="single-package-item">
                         <a class="" th:href="@{'/booknow/travel/'+${travel.id} }">
-                            <div class="image-container" style="height:300px;">
+                            <div class="image-container">
                                 <img style="object-fit: fill" th:src="@{|/travel-images/${travel.image}|}" alt="package-place">
                             </div>
                         </a>
                         <div class="single-package-item-txt">
-                            <h3><span th:text="${#strings.length(travel.title) le 10} ? ${travel.title} : ${#strings.substring(travel.title, 0, 10) + '...'}" ></span> <span class="pull-right" th:text="${travel.price}+'MAD'"></span></h3>
+                            <h3><span  th:text="${#strings.length(travel.title) le 35} ? ${travel.title} : ${#strings.substring(travel.title, 0, 35) + '...'}" ></span> </h3>
                             <div class="packages-para">
                                 <p>
 											<span>
-												<i class="fa fa-angle-right"></i> <span th:text="${travel.days}"></span>  daays <span th:text="${travel.nights}"></span> nights
-											</span>
-                                    <i class="fa fa-angle-right"></i>  5 star accomodation
+												<i class="fa-solid fa-hotel" style="color: #ff881a;"></i> <span th:text="${travel.days}"></span>  daays <span th:text="${travel.nights}"></span> nights
+											</span><br/>
+                                    <i class="fa fa-star" style="color: yellow"></i>  5 star accomodation
                                 </p>
 
 
                                 <p>
 											<span>
-												<i class="fa fa-angle-right"></i>  transportation
+												<i class="fa-solid fa-plane-departure" style="color: #ff961f;"></i>   transportation
 											</span>
-                                    <i class="fa fa-angle-right"></i>  food facilities
+                                            <span>
+                                                <i class="fa-solid fa-plate-utensils" style="color: #ff9d14;"></i> food facilities
+                                            </span>
                                 </p>
                             </div><!--/.packages-para-->
                             <div class="packages-review">
@@ -49,9 +51,10 @@
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
-                                    <span>2544 review</span>
+                                    <span>4 review</span>
                                 </p>
                             </div><!--/.packages-review-->
+                            <span class="pull-right btn btn-danger" style=" border-radius: 0; cursor: default;" th:text="${travel.price}+'MAD'"></span>
                             <div class="about-btn">
 
                             </div><!--/.about-btn-->
@@ -64,7 +67,7 @@
                 <nav aria-label="Page  navigation example">
                     <ul class="pagination" th:each="page,status:${pages}">
                         <li  th:class="${curruntpage==status.index?'page-item active':'page-item'}" >
-                            <a class="page-link" th:href="@{/index(page=${status.index})}" th:text="${status.index+1}"></a>
+                            <a class="page-link" th:href="@{/pages/(page=${status.index})}" th:text="${status.index+1}"></a>
                         </li>
                     </ul>
                 </nav>

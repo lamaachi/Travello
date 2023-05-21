@@ -19,8 +19,19 @@
         Reservation Details
       </div>
       <div class="card-body">
+        <div th:if="${messageupdate}" class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>Success!</strong><span th:text="${messageupdate}"></span>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div th:if="${messageinvoice}" class="alert alert-info alert-dismissible fade show" role="alert">
+          <strong>Success!</strong><span th:text="${messageinvoice}"></span>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
         <div th:if="${successInvoice}" class="alert alert-info">
           <p th:text="${successInvoice}"></p>
+        </div>
+        <div th:if="${sendEmailError}" class="alert alert-danger">
+          <p th:text="${sendEmailError}"></p>
         </div>
         <form th:action="@{/panel/reservations/update}" th:object="${reservation}"  method="post">
           <input type="hidden" th:field="*{id}">

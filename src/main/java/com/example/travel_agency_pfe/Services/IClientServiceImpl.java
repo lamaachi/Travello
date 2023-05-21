@@ -17,7 +17,6 @@ public class IClientServiceImpl implements IClientService {
 
     @Autowired
     private IClientRepository iClientRepository;
-    private IAppUserRepository iAppUserRepository;
 
     @Override
     public List<AppUser> getAllUsers() {

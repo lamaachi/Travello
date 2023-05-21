@@ -20,11 +20,15 @@
             <strong>Success!</strong>Your Email Has Been Added To The subscribers list Succussfully.</span>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-        <form th:action="@{/subscribe}" th:object="${subscriber}" method="post" >
+        <div th:if="${param.failSub}" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Success!</strong>This Email Already Exist...</span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <form th:action="@{/Auth/subscribe}" th:object="${subscriber}" method="post" >
             <div class="row">
                 <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
                     <div class="custom-input-group">
-                        <input th:errorClass="is-invalid" type="email" class="form-control" name="email" th:field="*{email}"  placeholder="Enter your Email Here">
+                        <input required th:errorClass="is-invalid" type="email" class="form-control" name="email" th:field="*{email}"  placeholder="Enter your Email Here">
                         <span class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
                         <button type="submit" class="appsLand-btn subscribe-btn">Subscribe</button>
                         <div class="clearfix"></div>

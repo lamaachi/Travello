@@ -1,12 +1,14 @@
 package com.example.travel_agency_pfe.Services;
 
 import com.example.travel_agency_pfe.Models.AppUser;
+import com.example.travel_agency_pfe.Models.Invoice;
 import com.example.travel_agency_pfe.Models.Reservation;
 import com.example.travel_agency_pfe.Models.Review;
 import com.example.travel_agency_pfe.Repositories.IResevationRepository;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -20,7 +22,9 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class IReservationServiceImpl implements IReservationService {
+    @Autowired
     private IResevationRepository resevationRepository;
+    @Autowired
     private JavaMailSender mailSender;
     @Override
     public Reservation save(Reservation reservation) {
@@ -93,16 +97,44 @@ public class IReservationServiceImpl implements IReservationService {
     }
 
 
-    public String generateTicketContent(Reservation reservation) {
+    public String generateTicketContent(Reservation reservation,Invoice invoice){
         // Generate the ticket HTML content based on the reservation details
-        return "Dear " + reservation.getAppUser().getUserName() + ",<br><br>"
-                + "Thank you for your reservation. Please find below your ticket details:<br><br>"
-                + "Reservation ID: " + reservation.getId() + "<br>"
-                + "Number of Adults: " + reservation.getNumberOfAdults() + "<br>"
-                + "Number of Children: " + reservation.getNumberOfChildren() + "<br>"
-                + "Total Amount: " + reservation.getTotalAmount() + " MAD" + "<br><br>"
-                + "We look forward to providing you with a memorable travel experience.<br><br>"
-                + "TourNest Travel Agency";
+        return "<html>" +
+                "<head>" +
+                "<style>" +
+                "body { font-family: Arial, sans-serif; }" +
+                "h1 { color: #333; }" +
+                "p { line-height: 1.5; }" +
+                ".h1 { text-align:center; color: white; background-color: blue; padding: 10px; }" +
+                "</style>" +
+                "</head>" +
+                "<body>" +
+                "<h1 class='h1'>Travel Ticket</h1>"+
+                "<h3>Dear " + reservation.getAppUser().getUserName() + ",</h3><br><br>" +
+                "<p>Thank you for your reservation. Please find below your ticket details:</p><br><br>" +
+                "<p><strong>Reservation ID:</strong> " + reservation.getId() + "<br>" +
+                "<strong>Number of Adults:</strong> " + reservation.getNumberOfAdults() + "<br>" +
+                "<strong>Number of Children:</strong> " + reservation.getNumberOfChildren() + "<br>" +
+                "<strong>Total Amount:</strong> " + reservation.getTotalAmount() + " MAD</p><br><br>" +
+                "<h2>Travel Details:</h2>" +
+                "<p><strong>Travel Destination:</strong> " + reservation.getTravel().getDestiantion() + "<br>" +
+                "<strong>Travel Start Day:</strong> " + reservation.getTravel().getTravelDate() + "<br>" +
+                "<strong>Travel Duration:</strong> " + reservation.getTravel().getNights() + " nights, " + reservation.getTravel().getDays() + " days<br>" +
+                "<strong>Inclusions:</strong> " + reservation.getTravel().getInclus() + "<br>" +
+                "<strong>Exclusions:</strong> " + reservation.getTravel().getExclus() + "<br>" +
+                "<strong>Price Totale:</strong> " + reservation.getTotalAmount() + " MAD<br>" +
+                "<strong>Travel Type:</strong> " + reservation.getTravel().getTravelType() + "</p><br>" +
+                "<h2>Billing Information:</h2>" +
+                "<p><strong>Billing Ref:</strong> Invoice N:" + invoice.getId() + "<br>" +
+                "<strong>Billing Date:</strong> " + invoice.getDate() + "</p><br>" +
+                "<h2>Client Information:</h2>" +
+                "<p><strong>Client Name:</strong> " + reservation.getAppUser().getUserName() + "<br>" +
+                "<strong>Client Email:</strong> " + reservation.getAppUser().getEmail() + "</p><br>" +
+                "<p><strong>Client CIN:</strong> " + reservation.getAppUser().getCIN() + "</p><br><br>" +
+                "<p>We look forward to providing you with a memorable travel experience.</p><br><br>" +
+                "<p>TourNest Travel Agency</p>" +
+                "</body>" +
+                "</html>";
     }
 
     public void sendTicketEmail(String toAddress, String content)

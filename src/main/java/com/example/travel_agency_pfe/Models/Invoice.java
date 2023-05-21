@@ -9,6 +9,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @Data @AllArgsConstructor @NoArgsConstructor
@@ -36,12 +37,19 @@ public class Invoice {
 
     @Override
     public String toString() {
-        return "Invoice{" +
-                "id=" + id +
-                ", amount=" + amount +
-                ", date=" + date +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                '}';
+        return "Invoice";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Invoice invoice = (Invoice) o;
+        return Double.compare(invoice.amount, amount) == 0 && Objects.equals(id, invoice.id) && Objects.equals(date, invoice.date) && Objects.equals(createdAt, invoice.createdAt) && Objects.equals(updatedAt, invoice.updatedAt);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, amount, date, createdAt, updatedAt);
     }
 }

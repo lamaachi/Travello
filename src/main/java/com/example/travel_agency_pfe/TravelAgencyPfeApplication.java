@@ -26,9 +26,9 @@ public class TravelAgencyPfeApplication {
         return args -> {
             accountService.addNewRole("USER");
             accountService.addNewRole("ADMIN");
+            accountService.addNewRole("SUPER_ADMIN");
             accountService.addNewUser( "admin","x","x","admin@mailx.com","admin","admin","2324524425","jh23456");
             accountService.addRoleToUser("admin","ADMIN");
-
         };
     }
     @Bean

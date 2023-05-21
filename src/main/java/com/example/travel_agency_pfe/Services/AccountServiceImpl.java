@@ -8,6 +8,8 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -23,15 +25,16 @@ import java.util.UUID;
 @Service
 @Transactional
 @Data
-@AllArgsConstructor
+@AllArgsConstructor @NoArgsConstructor
 public class AccountServiceImpl implements AccountService {
-
+    @Autowired
     private JavaMailSender mailSender;
+    @Autowired
     private IAppRoleRepository iAppRoleRepository;
+    @Autowired
     private IAppUserRepository iAppUserRepository;
-
+    @Autowired
     private PasswordEncoder passwordEncoder;
-
     //add new user method
     @Override
     public void addNewUser(String username, String firstn, String lastn, String email, String password, String phone, String adress,String cin) {
@@ -62,7 +65,6 @@ public class AccountServiceImpl implements AccountService {
                 .build();
         return iAppRoleRepository.save(appRole);
     }
-
 
     @Override
     public AppUser loadUserByUsername(String username) {

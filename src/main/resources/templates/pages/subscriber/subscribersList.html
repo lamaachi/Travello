@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/_template}">
+<head>
+  <meta charset="UTF-8">
+  <title>Subscribers list - Tournest</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+  <!--    <link rel="stylesheet" th:href="@{/css/font-awesome.min.css}" />-->
+  <link rel="stylesheet" th:href="@{/simple-datatables/style.css}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+  <link rel="stylesheet" th:href="@{/vendors/perfect-scrollbar/perfect-scrollbar.css}">
+  <link rel="stylesheet" th:href="@{/css/app.css}">
+  <link rel="shortcut icon" th:href="@{/images/favicon.svg}" type="image/x-icon">
+</head>
+<body>
+<div class="main-content container-fluid" layout:fragment="content">
+  <div class="page-title">
+    <div class="row">
+      <div class="col-12 col-md-6 order-md-1 order-last">
+        <h3>Subscribers List</h3>
+      </div>
+    </div>
+  </div>
+  <section class="section">
+    <div class="card">
+      <div class="card-header">
+        <div th:if="${param.success}" class="alert alert-success alert-dismissible fade show" role="alert">
+          <strong>Success!</strong>Travel Has Been Added Succussfully.</span>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div th:if="${param.successdelete}" class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>Success!</strong>Subscriber Has Been Deleted Succussfully.</span>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div th:if="${param.successUpdate}" class="alert alert-info alert-dismissible fade show" role="alert">
+          <strong>Success!</strong>Travel Has Been Updated Succussfully.</span>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div th:if="${param.messageSend}" class="alert alert-info alert-dismissible fade show" role="alert">
+          <strong>Success!</strong>Email has been Sent To Subscribers seccussfully!</span>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      </div>
+      <div class="card-body">
+        <table class='table table-striped' id="table1">
+          <thead>
+          <tr>
+            <th>E-mail</th>
+            <th>Subscribed At</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="sub:${subList}">
+            <td th:text="${#strings.length(sub.email) le 40} ? ${sub.email} : ${#strings.substring(sub.email, 0, 40) + '...'}"></td>
+            <td th:text="${sub.createdAt}"></td>
+            <td>
+              <div class="btn-group">
+                <a   onclick="return confirm('Are you sure you want to delete this record?')" class="btn btn-sm btn-danger" th:href="@{/panel/admin/subscribers/delete(id=${sub.email})}"><i class="fa-solid fa-trash"></i></a>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <form th:action="@{/panel/admin/subscribers/send-mail-to-subscribers}" method="post">
+      <div class="card">
+        <div class="card-header">
+          Send Mail to Subscribers
+        </div>
+        <div class="card-body">
+          <div class="form-group mb-3">
+            <label for="subject" class="form-label">Email Subject</label>
+            <input name="subject"  type="text" class="form-control" id="subject"/>
+          </div>
+          <div class="form-group mb-3">
+            <label for="content" class="form-label">Email Content</label>
+            <textarea name="message" class="form-control" id="content" rows="3"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Send Email</button>
+        </div>
+      </div>
+    </form>
+  </section>
+</div>
+<script>
+</script>
+<script th:src="@{/js/feather-icons/feather.min.js}"></script>
+<script th:src="@{/vendors/perfect-scrollbar/perfect-scrollbar.min.js}"></script>
+<script th:src="@{/js/app.js}"></script>
+<script th:src="@{/js/vendors.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/simple-datatables/simple-datatables.js}"></script>
+<script th:src="@{/webjars/sweetalert2/11.7.5/dist/sweetalert2.all.min.js}"></script>
+<script th:src="@{/js/index.js}"></script>
+</body>
+</html>

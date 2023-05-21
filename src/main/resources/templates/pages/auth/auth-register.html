@@ -19,7 +19,7 @@
         <div class="col-md-7 col-sm-12 mx-auto">
             <div class="card">
                 <div class="card-body">
-                    <div class="text-center mb-5">
+                    <div class="text-center mb-2">
                         <a th:href="@{/}">
                             <img th:src="@{/images/logo/tournest.png}" class="w-25 h-25 m-auto" alt="logo" srcset="">
                         </a>
@@ -69,21 +69,22 @@
                             <div class="col-md-6 col-12">
                                 <div class="form-group">
                                     <label for="username-column">Phone Number</label>
-                                    <input minlength="10" maxlength="10" th:errorClass="is-invalid" type="number" id="phone-column" class="form-control" th:field="*{phone}" name="username-column">
+
+                                    <input oninput="validatePhoneNumber(this)" minlength="10" maxlength="10" th:errorClass="is-invalid" type="number" id="phone-column" class="form-control" th:field="*{phone}" name="username-column">
                                     <span class="invalid-feedback" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="form-group">
                                     <label for="country-floating">Adress</label>
-                                    <input maxlength="30" th:errorClass="is-invalid" type="text" id="adress-floating" th:field="*{adress}" class="form-control" name="country-floating">
+                                    <input  maxlength="30" th:errorClass="is-invalid" type="text" id="adress-floating" th:field="*{adress}" class="form-control" name="country-floating">
                                     <span class="invalid-feedback" th:if="${#fields.hasErrors('adress')}" th:errors="*{adress}"></span>
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="form-group">
                                     <label for="company-column">Password</label>
-                                    <input  th:errorClass="is-invalid" type="password" id="company-column" th:field="*{password}" class="form-control" name="company-column">
+                                    <input maxlength="30"  th:errorClass="is-invalid" type="password" id="company-column" th:field="*{password}" class="form-control" name="company-column">
                                     <span class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
                                 </div>
                             </div>
@@ -93,17 +94,7 @@
                             <button type="submit" class="btn btn-primary float-end">Submit</button>
                         </div>
                     </form>
-                    <div class="divider">
-                        <div class="divider-text">OR</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <button class="btn btn-block mb-2 btn-primary"><i data-feather="facebook"></i> Facebook</button>
-                        </div>
-                        <div class="col-sm-6">
-                            <button class="btn btn-block mb-2 btn-secondary"><i data-feather="github"></i> Github</button>
-                        </div>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -114,6 +105,16 @@
     <script th:src="@{/js/feather.min.js}"></script>
     <script th:src="@{/js/app.js}"></script>
     <script th:src="@{/js/main.js}"></script>
+    <script th:src="@{/js/index.js}"></script>
+    <script type="text/javascript">
+        function validatePhoneNumber(input) {
+            const maxLength = 10;
+            if (input.value.length > maxLength) {
+                input.value = input.value.slice(0, maxLength);
+            }
+        }
+
+    </script>
 </body>
 
 </html>

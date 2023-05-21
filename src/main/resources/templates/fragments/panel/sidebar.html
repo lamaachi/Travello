@@ -46,8 +46,13 @@
                         <i data-feather="briefcase" width="20"></i>
                         <span>Travels</span>
                     </a>
+                </li>
 
-
+                <li class="sidebar-item" sec:authorize="hasRole('ADMIN')">
+                    <a th:href="@{/panel/admin/subscribers}" class='sidebar-link'>
+                        <i data-feather="briefcase" width="20"></i>
+                        <span>Subscribers</span>
+                    </a>
                 </li>
 
                 <li class="sidebar-item" >

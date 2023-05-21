@@ -38,6 +38,10 @@
                 <strong>Success!</strong> <span th:text="${updateMessage}"></span>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
+            <div th:if="${adminFailed}" class="alert alert-info alert-dismissible fade show" role="alert">
+                <strong>Failed!</strong> <span th:text="${adminFailed}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
             <div class="card-body">
                 <table class='table table-striped' id="table1">
                     <thead>

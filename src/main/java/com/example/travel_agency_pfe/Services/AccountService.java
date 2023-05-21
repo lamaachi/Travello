@@ -3,7 +3,6 @@ package com.example.travel_agency_pfe.Services;
 
 import com.example.travel_agency_pfe.Models.AppRole;
 import com.example.travel_agency_pfe.Models.AppUser;
-import jakarta.transaction.Transactional;
 
 
 public interface AccountService {
@@ -20,8 +19,5 @@ public interface AccountService {
 
 
      boolean existsByUsernameOrEmail(String username,String email);
-
-
-
 
 }

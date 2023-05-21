@@ -10,6 +10,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @Data
@@ -20,7 +21,6 @@ public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
 
     @Column(name = "TotalAmount")
     private double TotalAmount;
@@ -52,22 +52,24 @@ public class Reservation {
     private AppUser appUser;
 
     //invoice
-    @OneToOne(mappedBy = "reservation", cascade = CascadeType.REMOVE)
+    @OneToOne(mappedBy = "reservation", cascade = CascadeType.REMOVE,fetch = FetchType.EAGER)
     private Invoice invoice;
 
     @Override
     public String toString() {
-        return "Reservation{" +
-                "id=" + id +
-                ", TotalAmount=" + TotalAmount +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                ", numberOfAdults=" + numberOfAdults +
-                ", numberOfChildren=" + numberOfChildren +
-                ", payed=" + payed +
-                ", invoiced=" + invoiced +
-                ", travel=" + travel +
-                ", appUser=" + appUser +
-                '}';
+        return "Reservation";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Reservation that = (Reservation) o;
+        return Double.compare(that.TotalAmount, TotalAmount) == 0 && numberOfAdults == that.numberOfAdults && numberOfChildren == that.numberOfChildren && Objects.equals(id, that.id) && Objects.equals(createdAt, that.createdAt) && Objects.equals(updatedAt, that.updatedAt) && Objects.equals(payed, that.payed) && Objects.equals(invoiced, that.invoiced);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, TotalAmount, createdAt, updatedAt, numberOfAdults, numberOfChildren, payed, invoiced);
     }
 }

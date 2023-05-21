@@ -5,115 +5,124 @@
   <title>client list - Tournest</title>
   <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
   <link rel="stylesheet" th:href="@{/simple-datatables/style.css}">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" th:href="@{/webjars/font-awesome/6.4.0/css/all.min.css}"/>
 
   <link rel="stylesheet" th:href="@{/vendors/perfect-scrollbar/perfect-scrollbar.css}">
   <link rel="stylesheet" th:href="@{/css/app.css}">
   <link rel="shortcut icon" th:href="@{/images/favicon.svg}" type="image/x-icon">
 </head>
-<body>
-<div class="main-content container-fluid" layout:fragment="content">
-  <div class="page-title">
-    <div class="row">
-      <div class="col-12 col-md-6 order-md-2 order-first">
-        <nav aria-label="breadcrumb" class='breadcrumb-header'>
-          <ol class="breadcrumb">
-            <li class="breadcr umb-item"><a th:href="@{/panel/admin/travels}">Travels List</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Datatable</li>
-          </ol>
-        </nav>
+  <body>
+  <div class="main-content container-fluid" layout:fragment="content">
+    <div class="page-title">
+      <div class="row">
+        <div class="col-12 col-md-6 order-md-2 order-first">
+          <nav aria-label="breadcrumb" class='breadcrumb-header'>
+            <ol class="breadcrumb">
+              <li class="breadcr umb-item"><a th:href="@{/panel/admin/travels}">Travels List</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Datatable</li>
+            </ol>
+          </nav>
+        </div>
       </div>
     </div>
+    <section>
+      <div class="card">
+        <div class="card-header h1">
+          Add Travel
+        </div>
+        <div class="card-body">
+          <form method="post" th:action="@{/panel/admin/travels/save}" th:object="${travel}" enctype="multipart/form-data">
+            <div class="form-group">
+              <label th:maxlength="100" for="title">Title:</label>
+              <label  for="title"></label>
+              <input th:maxlength="100" required th:errorClass="is-invalid" type="text" class="form-control" id="title" th:field="*{title}" >
+              <span class="invalid-feedback" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+            </div>
+            <div class="form-group">
+              <label for="destination">Destination:</label>
+              <input th:maxlength="200" required th:errorClass="is-invalid" type="text" class="form-control" id="destination" th:field="*{destiantion}" >
+              <span class="invalid-feedback" th:if="${#fields.hasErrors('destiantion')}" th:errors="*{destiantion}"></span>          </div>
+            <div class="row">
+              <div class="form-group col-md-6">
+                <label  for="numberOfNights">Number of Nights:</label>
+                <input required type="number" min="0" class="form-control" id="numberOfNights" th:field="*{nights}" >
+              </div>
+
+              <div class="form-group col-md-6">
+                <label for="numberOfDays">Number of Days:</label>
+                <input required type="number" min="0" class="form-control" id="numberOfDays" th:field="*{days}" >
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="inclus">Inclusions:</label>
+              <textarea th:maxlength="200" required th:errorClass="is-invalid"  class="form-control" id="inclus" rows="3" th:field="*{inclus}" ></textarea>
+              <span class="invalid-feedback" th:if="${#fields.hasErrors('inclus')}" th:errors="*{inclus}"></span>
+            </div>
+            <div class="form-group">
+              <label for="exclus">Exclusions:</label>
+              <textarea th:maxlength="200" required th:errorClass="is-invalid"  class="form-control" id="exclus" rows="3" th:field="*{exclus}" ></textarea>
+              <span class="invalid-feedback" th:if="${#fields.hasErrors('exclus')}" th:errors="*{exclus}"></span>
+            </div>
+            <div class="row">
+              <div class="form-group col-md-4">
+                <label for="exclus">Price:</label>
+                <input th:value="*{price}" type="number" min="0" class="form-control" id="price"  th:field="*{price}" ></input>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="exclus">Childs Price:</label>
+                <input  required type="number" min="0" class="form-control" id="childsprice"  th:field="*{pricechuild}" ></input>
+              </div>
+              <div class="form-group col-md-4">
+                <label for="travelDate">Travel Date:</label>
+                <input required th:errorClass="is-invalid" type="date" class="form-control" id="travelDate" th:field="*{travelDate}" th:value="${#temporals.format(travelDate, 'yyyy-MM-dd')}" />
+                <span class="invalid-feedback" th:if="${#fields.hasErrors('travelDate')}" th:errors="*{travelDate}"></span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="type">Type:</label>
+              <select required   th:errorClass="is-invalid" class="form-control" id="type" th:field="*{travelType}">
+                <option value="voyageOrganise" th:selected="${travelType == 'voyageOrganise'}">Voyage Organisé</option>
+                <option value="haj&omrah" th:selected="${travelType == 'haj&omrah'}">Haj & Omrah</option>
+                <option value="trip" th:selected="${travelType == 'trip'}">Trip</option>
+              </select>
+              <span class="invalid-feedback" th:if="${#fields.hasErrors('travelType')}" th:errors="*{travelType}"></span>
+            </div>
+            <div class="form-group">
+              <label for="activities">Activities:</label>
+              <textarea required th:errorClass="is-invalid"  class="form-control richtext" id="activities" rows="3" th:field="*{activities}" ></textarea>
+              <span class="invalid-feedback" th:if="${#fields.hasErrors('activities')}" th:errors="*{activities}"></span>
+            </div>
+            <div class="form-group">
+              <label for="file">Image:</label>
+              <input  type="hidden" th:field="*{image}">
+              <input type="file"  class="form-control-file" name="file" id="file"  accept="image/*" required>
+            </div>
+            <div class="form-group form-check">
+              <input type="checkbox" class="form-check-input" id="specialOffer" name="specialOffer" th:checked="${travel.specialOffer}">
+              <label class="form-check-label" for="specialOffer">Special Offer</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+          </form>
+        </div>
+      </div>
+    </section>
   </div>
-  <section>
-    <div class="card">
-      <div class="card-header h1">
-        Add Travel
-      </div>
-      <div class="card-body">
-        <form method="post" th:action="@{/panel/admin/travels/save}" th:object="${travel}" enctype="multipart/form-data">
-          <div class="form-group">
-            <label th:maxlength="100" for="title">Title:</label>
-            <label  for="title"></label>
-            <input th:maxlength="100" required th:errorClass="is-invalid" type="text" class="form-control" id="title" th:field="*{title}" >
-            <span class="invalid-feedback" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
-          </div>
-          <div class="form-group">
-            <label for="destination">Destination:</label>
-            <input th:maxlength="200" required th:errorClass="is-invalid" type="text" class="form-control" id="destination" th:field="*{destiantion}" >
-            <span class="invalid-feedback" th:if="${#fields.hasErrors('destiantion')}" th:errors="*{destiantion}"></span>          </div>
-          <div class="row">
-            <div class="form-group col-md-6">
-              <label  for="numberOfNights">Number of Nights:</label>
-              <input required type="number" min="0" class="form-control" id="numberOfNights" th:field="*{nights}" >
-            </div>
 
-            <div class="form-group col-md-6">
-              <label for="numberOfDays">Number of Days:</label>
-              <input required type="number" min="0" class="form-control" id="numberOfDays" th:field="*{days}" >
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="inclus">Inclusions:</label>
-            <textarea th:maxlength="200" required th:errorClass="is-invalid"  class="form-control" id="inclus" rows="3" th:field="*{inclus}" ></textarea>
-            <span class="invalid-feedback" th:if="${#fields.hasErrors('inclus')}" th:errors="*{inclus}"></span>
-          </div>
-          <div class="form-group">
-            <label for="exclus">Exclusions:</label>
-            <textarea th:maxlength="200" required th:errorClass="is-invalid"  class="form-control" id="exclus" rows="3" th:field="*{exclus}" ></textarea>
-            <span class="invalid-feedback" th:if="${#fields.hasErrors('exclus')}" th:errors="*{exclus}"></span>
-          </div>
-          <div class="row">
-            <div class="form-group col-md-4">
-              <label for="exclus">Price:</label>
-              <input th:value="*{price}" type="number" min="0" class="form-control" id="price"  th:field="*{price}" ></input>
-            </div>
-            <div class="form-group col-md-4">
-              <label for="exclus">Childs Price:</label>
-              <input  required type="number" min="0" class="form-control" id="childsprice"  th:field="*{pricechuild}" ></input>
-            </div>
-            <div class="form-group col-md-4">
-              <label for="travelDate">Travel Date:</label>
-              <input required th:errorClass="is-invalid" type="date" class="form-control" id="travelDate" th:field="*{travelDate}" th:value="${#temporals.format(travelDate, 'yyyy-MM-dd')}" />
-              <span class="invalid-feedback" th:if="${#fields.hasErrors('travelDate')}" th:errors="*{travelDate}"></span>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="type">Type:</label>
-            <select required   th:errorClass="is-invalid" class="form-control" id="type" th:field="*{travelType}">
-              <option value="haj&omrah" th:selected="${travelType == 'haj&omrah'}">Haj & Omrah</option>
-              <option value="trip" th:selected="${travelType == 'trip'}">Trip</option>
-              <option value="voyageOrganise" th:selected="${travelType == 'voyageOrganise'}">Voyage Organisé</option>
-            </select>
-            <span class="invalid-feedback" th:if="${#fields.hasErrors('travelType')}" th:errors="*{travelType}"></span>
-          </div>
-          <div class="form-group">
-            <label for="activities">Activities:</label>
-            <textarea th:maxlength="800" required th:errorClass="is-invalid"  class="form-control" id="activities" rows="3" th:field="*{activities}" ></textarea>
-            <span class="invalid-feedback" th:if="${#fields.hasErrors('activities')}" th:errors="*{activities}"></span>
-          </div>
-          <div class="form-group">
-            <label for="file">Image:</label>
-            <input  type="hidden" th:field="*{image}">
-            <input type="file"  class="form-control-file" name="file" id="file"  accept="image/*" required>
-          </div>
-          <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="specialOffer" name="specialOffer" th:checked="${travel.specialOffer}">
-            <label class="form-check-label" for="specialOffer">Special Offer</label>
-          </div>
-          <button type="submit" class="btn btn-primary">Save</button>
-        </form>
-      </div>
-    </div>
-  </section>
-</div>
+  <script th:src="@{/js/feather-icons/feather.min.js}"></script>
+  <script th:src="@{/vendors/perfect-scrollbar/perfect-scrollbar.min.js}"></script>
+  <script th:src="@{/js/app.js}"></script>
+  <script th:src="@{/js/vendors.js}"></script>
+  <script th:src="@{/js/main.js}"></script>
+  <script th:src="@{/simple-datatables/simple-datatables.js}"></script>
+  <script>
 
-
-<script th:src="@{/js/feather-icons/feather.min.js}"></script>
-<script th:src="@{/vendors/perfect-scrollbar/perfect-scrollbar.min.js}"></script>
-<script th:src="@{/js/app.js}"></script>
-<script th:src="@{/js/vendors.js}"></script>
-<script th:src="@{/js/main.js}"></script>
-<script th:src="@{/simple-datatables/simple-datatables.js}"></script>
+    const textarea = document.getElementById('activities');
+    textarea.addEventListener('input', function() {
+      const maxLength = 10000;
+      if (textarea.value.length > maxLength) {
+        textarea.value = textarea.value.slice(0, maxLength);
+      }
+    });
+  </script>
 </body>
 </html>
