@@ -21,7 +21,7 @@ public class TravelAgencyPfeApplication {
     public static void main(String[] args) {
         SpringApplication.run(TravelAgencyPfeApplication.class, args);
     }
-    //@Bean
+    @Bean
     CommandLineRunner commandLineRunnerUserDetails(AccountService accountService){
         return args -> {
             accountService.addNewRole("USER");
