@@ -19,7 +19,7 @@
           <div class="col-md-8">
             <div class="card card-form">
               <div class="card-header bg-light">
-                  <img class="card-img-top" th:src="@{|/travel-images/${travel.image}|}"/>
+                  <img class="card-img-top" th:src="@{|${imageUrl}|}"/>
                   <div class="row item-fix text-capitalize display-5">
                     <div class="col-md-4">
                       <i class="fa-solid fa-hotel" style="color: #ff881a;"></i> HOTEL
@@ -51,7 +51,7 @@
               </div>
             </div>
            </div>
-          <div class="col-md-4">
+          <div class="col-md-4 mt-md-5">
             <div class="booking-form">
               <form th:action="@{/reserve}" method="get" th:object="${travel}">
                 <input type="hidden" name="id" th:value="*{id}">

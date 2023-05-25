@@ -33,8 +33,6 @@ public class SideBarController {
         return "pages/clients/clientsList";
     }
 
-
-
     // Travels Menu
 
 }

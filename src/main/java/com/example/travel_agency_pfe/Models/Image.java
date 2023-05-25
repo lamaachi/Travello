@@ -1,19 +1,28 @@
 package com.example.travel_agency_pfe.Models;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
-
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Data
+@Builder
 public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String url;
+    private String name;
 
-//    @ManyToOne
-//    private Travel travel;
+    private String type;
 
+    @Lob
+    @Column(name = "imagedata", length = 100000)
+    private byte[] imageData;
+
+
+    @OneToOne(mappedBy = "image")
+    private Travel travel;
 }

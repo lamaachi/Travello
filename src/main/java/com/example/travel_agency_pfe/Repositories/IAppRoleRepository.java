@@ -6,4 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface IAppRoleRepository extends JpaRepository<AppRole,String> {
     AppRole getAppRoleByRole(String role);
+    boolean existsByRole(String role);
 }

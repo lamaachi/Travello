@@ -37,7 +37,8 @@ public class AccountServiceImpl implements AccountService {
     private PasswordEncoder passwordEncoder;
     //add new user method
     @Override
-    public void addNewUser(String username, String firstn, String lastn, String email, String password, String phone, String adress,String cin) {
+    public void addNewUser(String username, String firstn, String lastn, String email, String password, String phone, String adress,String cin,Boolean isadmin) {
+        Optional<AppRole> appRole = iAppRoleRepository.findById("USER");
         AppUser appUser = AppUser.builder()
                 .userId(UUID.randomUUID().toString())
                 .userName(username)
@@ -48,7 +49,9 @@ public class AccountServiceImpl implements AccountService {
                 .phone(phone)
                 .adress(adress)
                 .CIN(cin)
+                .isadmin(false)
                 .build();
+        appUser.getRoles().add(appRole.get());
         iAppUserRepository.save(appUser);
     }
 
@@ -57,9 +60,7 @@ public class AccountServiceImpl implements AccountService {
     public AppRole addNewRole(String role) {
         AppRole appRole = iAppRoleRepository.findById(role).orElse(null);
         if (appRole != null) throw new RuntimeException("this Role alredy exist!!!");
-
         //creat New App User
-
         appRole = AppRole.builder()
                 .role(role)
                 .build();
@@ -77,20 +78,18 @@ public class AccountServiceImpl implements AccountService {
         Optional<AppRole> appRole = iAppRoleRepository.findById(role);
         AppRole savedRole = appRole.orElseThrow(() -> new RuntimeException("Role not found"));
         appUser.getRoles().add(savedRole);
+        System.out.println("=============================="+appUser+"================"+savedRole);
     }
-
     @Override
     public AppRole getAppRoleByRole(String role) {
         return iAppRoleRepository.getAppRoleByRole(role);
     }
-
 
     @Override
     public void removeRoleFromUser(String username, String role) {
         AppUser appUser = iAppUserRepository.findByUserName(username);
         Optional<AppRole> appRole = iAppRoleRepository.findById(role);
         AppRole savedRole = appRole.orElseThrow(() -> new RuntimeException("Role not found"));
-
         appUser.getRoles().remove(savedRole);
     }
 
@@ -167,6 +166,29 @@ public class AccountServiceImpl implements AccountService {
 
     }
 
+
+
+
+    public boolean roleExists(String roleName) {
+        return iAppRoleRepository.existsByRole(roleName);
+    }
+
+    public boolean userExists(String username) {
+        return iAppUserRepository.existsByUserName(username);
+    }
+
+    public boolean hasRole(String username, String roleName) {
+        AppUser user = iAppUserRepository.findByUserName(username);
+        if (user == null) {
+            return false;
+        }
+        for (AppRole role : user.getRoles()) {
+            if (role.getRole().equalsIgnoreCase(roleName)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
 
 

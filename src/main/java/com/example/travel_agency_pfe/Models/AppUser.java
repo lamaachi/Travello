@@ -50,6 +50,8 @@ public class  AppUser {
     @NotBlank(message = "Phone Number is required")
     private String phone;
 
+    private Boolean isadmin;
+
 
     @ManyToMany(fetch = FetchType.EAGER)
     @Builder.Default

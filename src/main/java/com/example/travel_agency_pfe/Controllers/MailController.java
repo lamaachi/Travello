@@ -46,15 +46,13 @@ public class MailController {
     public String sendMailSubscribers(
             @RequestParam("subject") String subject,
             @RequestParam("message") String message, Model model) throws MessagingException {
-        List<Subscriber> subscriberList =  subscriberRepository.findAll();
+        List<Subscriber> subscriberList = subscriberRepository.findAll();
         ExecutorService executorService = Executors.newFixedThreadPool(10); // Create a thread pool with 10 threads
         List<Future<Void>> futures = new ArrayList<>();
+
         for (Subscriber subscriber : subscriberList) {
             String toEmail = subscriber.getEmail();
-            Callable<Void> emailTask = () -> {
-                mailService.sendSimpleEmail(toEmail, subject, message);
-                return null;
-            };
+            Callable<Void> emailTask = createEmailTask(toEmail, subject, message);
 
             Future<Void> future = executorService.submit(emailTask);
             futures.add(future);
@@ -69,9 +67,18 @@ public class MailController {
                 e.printStackTrace();
             }
         }
+
         executorService.shutdown(); // Shut down the executor service
 
-        model.addAttribute("message","Email has been Sent To Subscribers seccussfully!");
+        model.addAttribute("message", "Emails have been sent to subscribers successfully!");
         return "redirect:/panel/admin/subscribers?messageSend";
     }
+
+    private Callable<Void> createEmailTask(String toEmail, String subject, String message) {
+        return () -> {
+            mailService.sendSimpleEmail(toEmail, subject, message);
+            return null;
+        };
+    }
+
 }

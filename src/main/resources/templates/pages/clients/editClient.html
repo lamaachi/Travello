@@ -22,6 +22,7 @@
     <section class="section">
       <form th:action="@{/panel/admin/clients/update}" th:object="${user}" method="post">
         <input type="hidden" th:field="*{userId}" >
+        <input type="hidden" th:field="*{password}" >
         <div class="card">
           <div class="card-body">
             <div class="row">
@@ -65,6 +66,13 @@
                   <input READONLY th:value="*{CIN}" th:field="*{CIN}" type="text" class="form-control" id="cin">
                 </div>
                 <button class="btn btn-primary rounded" type="submit">Update Data</button>
+              </div>
+              <div class="col-md-12" th:if="${ user.userName != currentname}" >
+                <div class="form-group pt-3  form-check" th:if="${ user.userName != 'admin'}"  >
+                  <input type="checkbox" th:field="*{isadmin}"  class="form-check-input" id="isadmin" name="isadmin" />
+                  <label class="form-check-label" for="isadmin">set User as an Admin</label><br/>
+                  <span class="text-danger"><i class="fa-solid fa-circle-exclamation" style="color: #ff0000;"></i> Attention: This action grants exclusive privileges. It is crucial to restrict access to authorized users only.</span>
+                </div>
               </div>
             </div>
           </div>

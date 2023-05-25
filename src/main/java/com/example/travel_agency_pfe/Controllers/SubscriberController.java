@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Optional;
+
 @Controller
 @AllArgsConstructor
 public class SubscriberController {
@@ -30,8 +32,8 @@ public class SubscriberController {
     @PostMapping("/Auth/subscribe")
     public String subscribe(@Valid Subscriber subscriber ,BindingResult result, Model model) {
 
-        Subscriber subscriber1 = subscriberRepository.findById(subscriber.getEmail()).get();
-        if(subscriber1==null){
+        Optional<Subscriber> optionalSubscriber = subscriberRepository.findById(subscriber.getEmail());
+        if (optionalSubscriber.isEmpty()) {
             subscriberRepository.save(subscriber);
             return "redirect:/?successSub";
         }else{
@@ -45,7 +47,5 @@ public class SubscriberController {
         subscriberRepository.deleteById(id);
         return "redirect:/panel/admin/subscribers?successdelete";
     }
-
-
 
 }

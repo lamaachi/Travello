@@ -135,8 +135,6 @@ public class ReservationController {
         reservationService.deleteRes(id);
         return "redirect:/panel/reservations?successdelete";
     }
-
-
     //update
     @GetMapping("/panel/reservations/{id}")
     public String detailsPage(@PathVariable("id") Long id, Model model){

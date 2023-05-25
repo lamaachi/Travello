@@ -5,9 +5,9 @@
     <title>Title</title>
 </head>
 <body>
-<section  th:fragment="special-offer" id="spo" class="special-offer" th:style="'background: url(/travel-images/' + ${specialOffer.image}+') no-repeat center; background-size: cover;'">
+<section  th:if="${specialOffer!=null}" th:fragment="special-offer" id="spo" class="special-offer" th:style="'background: url('+ ${imageUrl}+') no-repeat center; background-size: cover;'">
     <div class="container">
-        <div class="special-offer-content" th:if="${specialOffer!=null}">
+        <div class="special-offer-content" >
             <div class="row">
                 <div class="col-sm-8">
                     <div class="single-special-offer">
@@ -50,7 +50,7 @@
 
                             <div class="offer-btn-group">
                                 <div class="about-btn">
-                                    <a th:href="@{'/booknow/travel/'+${specialOffer.id}}"  class="about-view packages-btn">
+                                    <a th:href="@{'/booknow/travel/'+${specialOffer.id}}"  class="about-view">
                                         book now
                                     </a>
                                 </div><!--/.about-btn-->

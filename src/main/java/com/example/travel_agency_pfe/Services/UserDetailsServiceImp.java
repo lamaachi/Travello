@@ -24,7 +24,6 @@ public class UserDetailsServiceImp implements UserDetailsService {
 
         UserDetails userDetails = User
                 .withUsername(appUser.getUserName())
-
                 .password(appUser.getPassword())
                 .roles(roles).build();
         return userDetails;

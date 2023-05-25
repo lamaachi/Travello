@@ -1,9 +1,7 @@
 package com.example.travel_agency_pfe.Services;
 
-import com.example.travel_agency_pfe.Models.AppUser;
-import com.example.travel_agency_pfe.Models.Invoice;
-import com.example.travel_agency_pfe.Models.Reservation;
-import com.example.travel_agency_pfe.Models.Review;
+import com.example.travel_agency_pfe.Models.*;
+import com.example.travel_agency_pfe.Repositories.IAgencyRepositry;
 import com.example.travel_agency_pfe.Repositories.IResevationRepository;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -24,6 +22,10 @@ import java.util.Optional;
 public class IReservationServiceImpl implements IReservationService {
     @Autowired
     private IResevationRepository resevationRepository;
+
+    @Autowired
+    private IAgencyRepositry agencyRepositry;
+
     @Autowired
     private JavaMailSender mailSender;
     @Override
@@ -57,6 +59,7 @@ public class IReservationServiceImpl implements IReservationService {
         String fromAddress = "lamaachi.officiel@gmail.com";
         String senderName = "TourNest Travel Agency";
         String subject = "Reservation Confirmation";
+        Agency agency = agencyRepositry.findFirstByOrderByName();
         // Generate the content of the email
         String content = "<html>" +
                 "<body>" +
@@ -73,17 +76,14 @@ public class IReservationServiceImpl implements IReservationService {
                 "<p>To proceed with the payment and validate your reservation, you can make the payment through bank transfer or visit our agency to pay in cash.</p>" +
                 "<strong>Bank Transfer Details:</strong><br>" +
                 "<ul>" +
-                "<li>Bank Name: Fake Bank</li>" +
-                "<li>Account Number: XXXXXXXX</li>" +
-                "<li>IBAN: XXXXXXXXXXXX</li>" +
-                "<li>SWIFT/BIC: XXXXXXXX</li>" +
+                "<li>Account Number: "+agency.getBank()+"</li>" +
                 "</ul>" +
                 "<strong>Cash Payment at Agency:</strong><br>" +
-                "<p>Agency Address: 123 Main Street, City, Country</p>" +
+                "<p>Agency Address: "+agency.getAdress()+"</p>" +
                 "<p>Please note that your reservation will be automatically canceled if the payment is not made within 48 hours.</p>" +
                 "<p>If you have any questions or need assistance, please feel free to contact us.</p>" +
                 "<p>Thank you for choosing TourNest Travel Agency. We look forward to serving you and providing you with a memorable travel experience!</p>" +
-                "<p>TourNest Travel Agency</p>" +
+                "<p>"+agency.getName()+" Travel Agency</p>" +
                 "</div>" +
                 "</body>" +
                 "</html>";

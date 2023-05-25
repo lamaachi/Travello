@@ -52,8 +52,12 @@ public class Travel {
     private LocalDate travelDate;
 
 
-    @Column(length = 64)
-    private String image;
+//    @Column(length = 64)
+//    private String image;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "image_id")
+    private Image image;
 
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)

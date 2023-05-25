@@ -21,7 +21,7 @@ public interface IAppUserRepository extends JpaRepository<AppUser,String> {
     @Query("SELECT CASE WHEN COUNT(u) > 0 THEN true ELSE false END FROM AppUser u WHERE u.userName = :username OR u.email = :email")
     boolean existsByUsernameOrEmail(@Param("username") String username, @Param("email") String email);
     boolean findAppUserByUserNameOrEmail(String username,String email);
-
+    boolean existsByUserName(String name);
 //    @Query("SELECT u FROM AppUser u WHERE u.verificationCode = ?1")
 //    public AppUser findByVerificationCode(String code);
 }

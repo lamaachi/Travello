@@ -15,13 +15,13 @@
                 Discover the world without worrying about your budget
             </p>
         </div><!--/.gallery-header-->
-        <div class="packages-content">
+        <div class="packages-content" th:if="${travels!=null}">
             <div class="row">
                 <div class="col-md-4 col-sm-6" th:each="travel:${travels}">
                     <div class="single-package-item">
                         <a class="" th:href="@{'/booknow/travel/'+${travel.id} }">
                             <div class="image-container">
-                                <img style="object-fit: fill" th:src="@{|/travel-images/${travel.image}|}" alt="package-place">
+                                <img style="object-fit: fill" th:src="@{|${travelImageMap[travel.id]}|}" alt="package-place">
                             </div>
                         </a>
                         <div class="single-package-item-txt">
@@ -33,8 +33,6 @@
 											</span><br/>
                                     <i class="fa fa-star" style="color: yellow"></i>  5 star accomodation
                                 </p>
-
-
                                 <p>
 											<span>
 												<i class="fa-solid fa-plane-departure" style="color: #ff961f;"></i>   transportation

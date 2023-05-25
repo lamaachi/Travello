@@ -12,72 +12,88 @@
 <section class="section">
     <div class="row mb-2">
         <div class="col-12 col-md-3">
-            <div class="card card-statistic" sec:authorize="hasRole('ADMIN')">
-                <div class="card-body p-0">
-                    <div class="d-flex flex-column">
-                        <div class='px-3 py-3 d-flex justify-content-between'>
-                            <h3 class='card-title'>Travles</h3>
-                            <div class="card-right d-flex align-items-center">
-                                <p th:text="${counttravels}"></p>
+            <a th:href="@{/panel/admin/travels}">
+                <div class="card card-statistic" sec:authorize="hasRole('ADMIN')">
+                    <div class="card-body p-0">
+                        <div class="d-flex flex-column">
+                            <div class='px-3 py-3 d-flex justify-content-between'>
+                                <h3 class='card-title'>Travles</h3>
+                                <div class="card-right d-flex align-items-center">
+                                    <p th:text="${counttravels}"></p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="chart-wrapper">
-                            <canvas id="canvas1" style="height:100px !important"></canvas>
+                            <div class="d-flex justify-content-center align-content-center pt-2 m-3">
+                                <i class="fa-sharp fa-solid fa-plane fa-2xl" style="color: #ffffff;font-size: 3rem;"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </a>
+
         </div>
         <div class="col-12 col-md-3">
-            <div class="card card-statistic" >
-                <div class="card-body p-0">
-                    <div class="d-flex flex-column">
-                        <div class='px-3 py-3 d-flex justify-content-between'>
-                            <h3 class='card-title'>Reservations</h3>
-                            <div class="card-right d-flex align-items-center">
-                                <p th:text="${countres}"></p>
+            <a th:href="@{/panel/reservations}">
+                <div class="card card-statistic" >
+                    <div class="card-body p-0">
+                        <div class="d-flex flex-column">
+                            <div class='px-3 py-3 d-flex justify-content-between'>
+                                <h3 class='card-title'>Reservations</h3>
+                                <div class="card-right d-flex align-items-center">
+                                    <p th:text="${countres}"></p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="chart-wrapper">
-                            <canvas id="canvas2" style="height:100px !important"></canvas>
+                            <div class="d-flex justify-content-center align-content-center pt-2 m-3">
+                                <i class="fa-sharp fa-solid fa-check-to-slot fa-2xl" style="color: #ffffff;font-size: 3rem;"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </a>
+
         </div>
         <div class="col-12 col-md-3">
-            <div class="card card-statistic" sec:authorize="hasRole('ADMIN')">
-                <div class="card-body p-0">
-                    <div class="d-flex flex-column">
-                        <div class='px-3 py-3 d-flex justify-content-between'>
-                            <h3 class='card-title'>Clients</h3>
-                            <div class="card-right d-flex align-items-center">
-                                <p th:text="${countclients}"></p>
+            <a th:href="@{/panel/admin/clients}">
+                <div class="card card-statistic" sec:authorize="hasRole('ADMIN')">
+                    <div class="card-body p-0">
+                        <div class="d-flex flex-column">
+                            <div class='px-3 py-3 d-flex justify-content-between'>
+                                <h3 class='card-title'>Clients</h3>
+                                <div class="card-right d-flex align-items-center">
+                                    <p th:text="${countclients}"></p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="chart-wrapper">
-                            <canvas id="canvas3" style="height:100px !important"></canvas>
+                            <div class="d-flex justify-content-center align-content-center pt-2 m-3">
+                                <i class="fa-solid fa-user fa-2xl" style="color: #ffffff;font-size: 3rem;"></i>
+                            </div>
+<!--                            <div class="chart-wrapper">-->
+<!--                                <canvas id="canvas3" style="height:100px !important"></canvas>-->
+<!--                            </div>-->
                         </div>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
         <div class="col-12 col-md-3">
-            <div class="card card-statistic" >
-                <div class="card-body p-0">
-                    <div class="d-flex flex-column">
-                        <div class='px-3 py-3 d-flex justify-content-between'>
-                            <h3 class='card-title'>Reviews</h3>
-                            <div class="card-right d-flex align-items-center">
-                                <p th:text="${countreviews}"></p>
+            <a th:href="@{/panel/reviews}">
+                <div class="card card-statistic" >
+                    <div class="card-body p-0">
+                        <div class="d-flex flex-column">
+                            <div class='px-3 py-3 d-flex justify-content-between'>
+                                <h3 class='card-title'>Reviews</h3>
+                                <div class="card-right d-flex align-items-center">
+                                    <p th:text="${countreviews}"></p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="chart-wrapper">
-                            <canvas id="canvas4" style="height:100px !important"></canvas>
+                            <div class="d-flex justify-content-center align-content-center pt-2 m-3">
+                                <i class="fa-sharp fa-solid fa-star fa-2xl" style="color: #fafafa;font-size: 3rem"></i>
+                            </div>
+<!--                            <div class="chart-wrapper">-->
+<!--                                <canvas id="canvas4" style="height:100px !important"></canvas>-->
+<!--                            </div>-->
                         </div>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
     </div>
     <div class="row mb-4">

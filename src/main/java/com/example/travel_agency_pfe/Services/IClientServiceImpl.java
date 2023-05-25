@@ -20,7 +20,7 @@ public class IClientServiceImpl implements IClientService {
 
     @Override
     public List<AppUser> getAllUsers() {
-        return iClientRepository.findAll();
+        return iClientRepository.getAllUsersExceptAdmin();
     }
 
     @Override

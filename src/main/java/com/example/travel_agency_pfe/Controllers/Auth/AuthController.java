@@ -1,9 +1,6 @@
 package com.example.travel_agency_pfe.Controllers.Auth;
 
-import com.example.travel_agency_pfe.Models.AppRole;
-import com.example.travel_agency_pfe.Models.AppUser;
-import com.example.travel_agency_pfe.Models.Subscriber;
-import com.example.travel_agency_pfe.Models.Utility;
+import com.example.travel_agency_pfe.Models.*;
 import com.example.travel_agency_pfe.Repositories.*;
 import com.example.travel_agency_pfe.Services.AccountServiceImpl;
 import com.example.travel_agency_pfe.Services.IClientServiceImpl;
@@ -36,6 +33,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Controller
@@ -57,6 +55,9 @@ public class AuthController {
     private IResevationRepository resevationRepository;
     @Autowired
     private IReviewRepository reviewRepository;
+
+    @Autowired
+    private IAgencyRepositry agencyRepositry;
 
     @GetMapping("/login")
     public String loginPage(Model model){
@@ -122,7 +123,6 @@ public class AuthController {
             return "pages/auth/auth-register";
         }
         ra.addFlashAttribute("message", "You have signed up successfully! Please check your email to verify your account.");
-
         accountService.addNewUser(
                 appUser.getUserName(),
                 appUser.getFirstName(),
@@ -131,9 +131,9 @@ public class AuthController {
                 appUser.getPassword(),
                 appUser.getPhone(),
                 appUser.getAdress(),
-                appUser.getCIN()
+                appUser.getCIN(),
+                appUser.getIsadmin()
         );
-        accountService.addRoleToUser(appUser.getUserName(),"USER");
         accountService.register(appUser, getSiteURL(request));
         return "redirect:/login";
     }
@@ -146,19 +146,23 @@ public class AuthController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         AppUser currentUser = iClientRepository.getAppUserByUserName(userDetails.getUsername());
+        System.out.println("=============================userid:"+currentUser.getUserId());
+        Agency agency = agencyRepositry.findFirstByOrderByName();
         model.addAttribute("user", currentUser);
+        model.addAttribute("agency", agency);
         return "pages/auth/auth-profile";
     }
     @PostMapping("/Auth/profile/update")
-    public String updateProfile(@Valid @ModelAttribute("user") AppUser appUser, BindingResult bindingResult, Model model){
+    public String updateProfile(@Valid @ModelAttribute("user") AppUser appUser, BindingResult bindingResult,Model model){
         if (bindingResult.hasErrors()) {
             // If there are validation errors, return the form with error messages
             return "pages/auth/auth-profile";
         }
         // Retrieve the existing user from the database using the user ID
-        AppUser existingUser = iAppUserRepository.getAppUserByUserId(appUser.getUserId());
+        AppUser existingUser = iAppUserRepository.findByUserName(appUser.getUserName());
         if (existingUser != null) {
             // Update the necessary fields
+            //existingUser.setUserId(appUser.getUserId());
             existingUser.setUserName(appUser.getUserName());
             existingUser.setCIN(appUser.getCIN());
             existingUser.setFirstName(appUser.getFirstName());
@@ -172,7 +176,7 @@ public class AuthController {
             iAppUserRepository.save(existingUser);
         }
         model.addAttribute("successUpdateProfile","Your Data Has been updated succussfully.");
-        return "pages/auth/auth-profile";
+        return "redirect:/Auth/profile";
     }
 
 
@@ -182,22 +186,18 @@ public class AuthController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         AppUser currentUser = iClientRepository.getAppUserByUserName(userDetails.getUsername());
-
         if(this.cryptPasswordEncoder.matches(oldpassword,currentUser.getPassword())){
-
             currentUser.setPassword(this.cryptPasswordEncoder.encode(newpassword));
             iClientRepository.save(currentUser);
             System.out.println("==============="+this.cryptPasswordEncoder.encode(newpassword));
             model.addAttribute("successUpdatePass","Your Password  updated succussfully.");
             model.addAttribute("user", currentUser);
-            return "pages/auth/auth-profile";
+            return  "redirect:/Auth/profile?successUpdatePass";
         }else{
             model.addAttribute("failold","The old Password not match!");
             model.addAttribute("user", currentUser);
-            return "pages/auth/auth-profile";
+            return  "redirect:/Auth/profile?failold";
         }
-
-
     }
 
     @PostMapping("/Auth/getpassword")

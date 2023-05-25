@@ -7,7 +7,7 @@ import com.example.travel_agency_pfe.Models.AppUser;
 
 public interface AccountService {
 
-    void addNewUser(String username, String firstn, String lastn, String email, String password, String phone, String adress,String cin);
+    void addNewUser(String username, String firstn, String lastn, String email, String password, String phone, String adress,String cin,Boolean isadmin);
 
     AppRole addNewRole(String role);
 

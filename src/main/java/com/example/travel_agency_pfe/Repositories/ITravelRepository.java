@@ -12,7 +12,5 @@ import java.util.List;
 public interface ITravelRepository extends JpaRepository<Travel,Long> {
     // Find the last travel record with true special offer sorted by createdAt in descending order
     Travel findFirstBySpecialOfferTrueOrderByCreatedAtDesc();
-    Travel findFirstByOrderById();
-    List<Travel> findByDestiantionOrTravelDateOrDays(String destination, LocalDate travelDate, Integer days);
     List<Travel> findByDestiantionContainsOrTravelDateOrDays(String destination, LocalDate travelDate, Integer days);
 }

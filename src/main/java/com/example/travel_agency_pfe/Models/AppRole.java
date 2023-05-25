@@ -14,6 +14,6 @@ import java.util.Set;
 @Table(name = "roles")
 public class AppRole {
     @Id
-    private String role;
+    private String role;   //USER AND ADMIN
 
 }
