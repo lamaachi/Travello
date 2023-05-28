@@ -143,7 +143,7 @@ public class TravelController {
         return  "pages/travels/searchTravel";
     }
     //Update travel
-    @PostMapping("panel/admin/travels/update")
+    @PostMapping("/panel/admin/travels/update")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String updateTravel(Authentication authentication, @ModelAttribute("travel") @Valid Travel updatedTravel,
                                @RequestParam(value = "file", required = false) MultipartFile image, BindingResult result, Model model,
@@ -159,15 +159,16 @@ public class TravelController {
         AppUser currentUser = appUserRepository.findByUserName(currentUsername);
 
         // Find the existing Travel object by ID
-        Travel existingTravel = travelService.getTravelById(updatedTravel.getId()).get();
+        Optional<Travel> optionalTravel = travelService.getTravelById(updatedTravel.getId());
+        if (!optionalTravel.isPresent()) {
+            // Handle the case when the travel is not found
+            return "redirect:/panel/admin/travels?error=notfound";
+        }
+        Travel existingTravel = optionalTravel.get();
 
         // Update the properties of the existing Travel object
         existingTravel.setTitle(updatedTravel.getTitle());
-        if (updatedTravel.getTravelDate() != null) {
-            existingTravel.setTravelDate(updatedTravel.getTravelDate());
-        }else{
-            existingTravel.setTravelDate(existingTravel.getTravelDate());
-        }
+        existingTravel.setTravelDate(updatedTravel.getTravelDate());
         existingTravel.setTravelType(updatedTravel.getTravelType());
         existingTravel.setExclus(updatedTravel.getExclus());
         existingTravel.setInclus(updatedTravel.getInclus());
@@ -186,22 +187,22 @@ public class TravelController {
         }
 
         if (!image.isEmpty()) {
-            // Remove the old image file
-            if (existingTravel.getImage() != null) {
-                String oldImageFilePath = "src/main/resources/static/travel-images/" + existingTravel.getImage();
-                FileUplaodUtil.deleteFile(oldImageFilePath);
-            }
+            // Create a new Image object and save it
+            Image newImage = Image.builder()
+                    .name(image.getOriginalFilename())
+                    .type(image.getContentType())
+                    .imageData(ImageUtil.compressImage(image.getBytes()))
+                    .build();
 
-            String originalFilename = StringUtils.cleanPath(Objects.requireNonNull(image.getOriginalFilename()));
-            String filename = System.currentTimeMillis() + "_" + originalFilename;
-            //existingTravel.setImage(filename);
-
-            String upload = "src/main/resources/static/travel-images";
-            FileUplaodUtil.saveFile(upload, filename, image);
+            // Update the existing Travel object's image
+            existingTravel.setImage(newImage);
         }
+
         travelService.save(existingTravel);
+
         // Redirect to the travel list page
         return "redirect:/panel/admin/travels?successUpdate";
     }
+
 
 }
