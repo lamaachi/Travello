@@ -1,17 +1,16 @@
-# Stage 1: Build stage
-FROM ubuntu:latest AS build
+FROM maven:3.8.4-openjdk-17-slim AS build
 
-RUN apt-get update
-RUN apt-get install openjdk-17-jdk -y
-COPY . .
+WORKDIR /app
+COPY pom.xml .
+RUN mvn dependency:go-offline
 
-RUN ./gradlew bootJar --no-daemon
+COPY src ./src
+RUN mvn package -DskipTests
 
-# Stage 2: Production stage
 FROM openjdk:17-jdk-slim
 
 EXPOSE 8080
 
-COPY --from=build /build/libs/demo-1.jar app.jar
+COPY --from=build /app/target/demo-1.jar app.jar
 
 ENTRYPOINT ["java", "-jar", "app.jar"]
