@@ -21,7 +21,7 @@
                     <div class="single-package-item">
                         <a class="" th:href="@{'/booknow/travel/'+${travel.id} }">
                             <div class="image-container">
-                                <img style="object-fit: fill" th:src="@{|${travelImageMap[travel.id]}|}" alt="package-place">
+                                <img loading="lazy" style="object-fit: fill" th:src="@{|${travelImageMap[travel.id]}|}" alt="package-place">
                             </div>
                         </a>
                         <div class="single-package-item-txt">
