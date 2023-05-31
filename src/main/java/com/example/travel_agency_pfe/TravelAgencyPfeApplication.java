@@ -17,7 +17,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @SpringBootApplication
 @EnableJpaAuditing
-//@ComponentScan("com.example.travel_agency_pfe.Models")
 public class TravelAgencyPfeApplication {
     public static void main(String[] args) {
         SpringApplication.run(TravelAgencyPfeApplication.class, args);
