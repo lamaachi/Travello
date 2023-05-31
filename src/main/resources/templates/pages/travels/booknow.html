@@ -20,6 +20,7 @@
             <div class="card card-form">
               <div class="card-header bg-light">
                   <img class="card-img-top" th:src="@{|${imageUrl}|}"/>
+                  <p  class="item-fix h2 title-card" style="border-radius: 0; cursor: default;overflow-wrap: break-word;" th:text="${travel.title}"></p>
                   <div class="row item-fix text-capitalize display-5">
                     <div class="col-md-4">
                       <i class="fa-solid fa-hotel" style="color: #ff881a;"></i> HOTEL
@@ -31,7 +32,6 @@
                       <i class="fa-solid fa-bowl-food" style="color: #f4861f;"></i> food facilities
                     </div>
                   </div>
-                  <p  class="item-fix h2 btn btn-primary btn-block " style="border-radius: 0; cursor: default;overflow-wrap: break-word;" th:text="${travel.title}"></p>
               </div>
               <div class="card-body  item-fix">
                 <h3  class="badge badge-pill badge-primary">Destinations</h3>
