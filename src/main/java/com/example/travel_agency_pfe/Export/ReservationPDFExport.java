@@ -59,13 +59,16 @@ public class ReservationPDFExport {
             table.addCell(String.valueOf(reservation.getNumberOfChildren()));
             table.addCell(String.valueOf(reservation.getTotalAmount()));
             table.addCell(String.valueOf(reservation.getAppUser().getUserName()));
-            if(reservation.getPayed()) {
+
+            Boolean isPaid = reservation.getPayed();
+            if (isPaid != null && isPaid.booleanValue()) {
                 table.addCell("Yes");
-            }else{
+            } else {
                 table.addCell("NO");
             }
         }
     }
+
 
     public void export(HttpServletResponse response) throws DocumentException, IOException {
         Document document = new Document(PageSize.A4);
@@ -88,7 +91,6 @@ public class ReservationPDFExport {
 
         writeTableHeader(table);
         writeTableData(table);
-
         document.add(table);
 
         document.close();

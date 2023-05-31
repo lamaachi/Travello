@@ -1,7 +1,9 @@
 package com.example.travel_agency_pfe;
 
+import com.example.travel_agency_pfe.Models.Travel;
 import com.example.travel_agency_pfe.Services.AccountService;
 import com.example.travel_agency_pfe.Services.AccountServiceImpl;
+import com.example.travel_agency_pfe.Services.ITravelServiceImpl;
 import com.example.travel_agency_pfe.Services.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -14,6 +16,8 @@ import org.springframework.context.event.EventListener;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.time.LocalDate;
 
 @SpringBootApplication
 @EnableJpaAuditing
@@ -33,11 +37,9 @@ public class TravelAgencyPfeApplication {
             if (!accountService.roleExists("SUPER_ADMIN")) {
                 accountService.addNewRole("SUPER_ADMIN");
             }
-
             if (!accountService.userExists("admin")) {
                 accountService.addNewUser( "admin","adminFirstName","adminLastName","admin@mail.com","admin","00000000000","adminAddress","CIN",true);
             }
-
             if (!accountService.hasRole("admin", "ADMIN")) {
                 accountService.addRoleToUser("admin", "ADMIN");
             }

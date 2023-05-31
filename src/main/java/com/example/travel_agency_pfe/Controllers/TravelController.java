@@ -109,17 +109,21 @@ public class TravelController {
         // details
         @GetMapping("/panel/admin/travels/{id}")
         @PreAuthorize("hasRole('ROLE_ADMIN')")
-        public String detailsPage(@PathVariable("id") Long id, Model model){
-            Travel travel = travelService.getTravelById(id).get();
-            model.addAttribute("travel", travel);
-            // Get the image for the travel
-            Image image = travel.getImage();
-            byte[] imageData = ImageUtil.decompressImage(image.getImageData());
-            String base64Image = Base64.getEncoder().encodeToString(imageData);
-            String imageUrl = "data:" + image.getType() + ";base64," + base64Image;
-            model.addAttribute("imageUrl", imageUrl);
+        public String detailsPage(@PathVariable("id") Long id, Model model) {
+            Travel travel = travelService.getTravelById(id).orElse(null); // Use orElse(null) to handle the case where the travel is not found
+            if (travel != null) {
+                model.addAttribute("travel", travel);
+                Image image = travel.getImage();
+                if (image != null) {
+                    byte[] imageData = ImageUtil.decompressImage(image.getImageData());
+                    String base64Image = Base64.getEncoder().encodeToString(imageData);
+                    String imageUrl = "data:" + image.getType() + ";base64," + base64Image;
+                    model.addAttribute("imageUrl", imageUrl);
+                }
+            }
             return "pages/travels/travelDetails";
         }
+
     @GetMapping("/search/travel")
     public String searchPage(@RequestParam(value = "destination", required = false) String destination,
                              @RequestParam(value = "traveldate", required = false) LocalDate travelDate,

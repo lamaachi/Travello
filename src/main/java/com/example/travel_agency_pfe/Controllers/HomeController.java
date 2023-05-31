@@ -32,15 +32,18 @@ public class HomeController{
 
     @GetMapping(value = {"/","/index","/pages/"})
     public String index(Model model, @RequestParam(value = "page",defaultValue = "0") int page,@RequestParam(value = "size",defaultValue = "3") int size){
-        Page<Travel> travelList = travelRepository.findAll(PageRequest.of(page,size));
-        if(!travelList.isEmpty()){
+        Page<Travel> travelList = travelRepository.findAll(PageRequest.of(page, size));
+        System.out.println("=============================================" + travelList.getSize());
+        if (!travelList.isEmpty()) {
             Map<Long, String> travelImageMap = new HashMap<>();
             for (Travel travel : travelList) {
                 Image image = travel.getImage();
-                byte[] imageData = ImageUtil.decompressImage(image.getImageData());
-                String base64Image = Base64.getEncoder().encodeToString(imageData);
-                String imageUrl = "data:" + image.getType() + ";base64," + base64Image;
-                travelImageMap.put(travel.getId(), imageUrl);
+                if (image != null) {
+                    byte[] imageData = ImageUtil.decompressImage(image.getImageData());
+                    String base64Image = Base64.getEncoder().encodeToString(imageData);
+                    String imageUrl = "data:" + image.getType() + ";base64," + base64Image;
+                    travelImageMap.put(travel.getId(), imageUrl);
+                }
             }
             model.addAttribute("travelImageMap", travelImageMap);
         }
@@ -48,14 +51,16 @@ public class HomeController{
         List<Review> reviews = reviewService.getAtiveReviews();
         Subscriber subscriber = new Subscriber();
 
-        Travel specialOffer =  travelRepository.findFirstBySpecialOfferTrueOrderByCreatedAtDesc();
-        if(specialOffer!=null){
+        Travel specialOffer = travelRepository.findFirstBySpecialOfferTrueOrderByCreatedAtDesc();
+        if (specialOffer != null) {
             Image image = specialOffer.getImage();
-            byte[] imageData = ImageUtil.decompressImage(image.getImageData());
-            String base64Image = Base64.getEncoder().encodeToString(imageData);
-            String imageUrl = "data:" + image.getType() + ";base64," + base64Image;
-            model.addAttribute("imageUrl", imageUrl);
-            model.addAttribute("specialOffer",specialOffer);
+            if (image != null) {
+                byte[] imageData = ImageUtil.decompressImage(image.getImageData());
+                String base64Image = Base64.getEncoder().encodeToString(imageData);
+                String imageUrl = "data:" + image.getType() + ";base64," + base64Image;
+                model.addAttribute("imageUrl", imageUrl);
+            }
+            model.addAttribute("specialOffer", specialOffer);
         }
         model.addAttribute("travels",travelList.getContent());
         model.addAttribute("pages",new int[travelList.getTotalPages()]);
