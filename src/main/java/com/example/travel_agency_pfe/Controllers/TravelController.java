@@ -147,7 +147,8 @@ public class TravelController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String updateTravel(Authentication authentication, @ModelAttribute("travel") @Valid Travel updatedTravel,
                                @RequestParam(value = "file", required = false) MultipartFile image, BindingResult result, Model model,
-                               @RequestParam(value = "specialOffer", required = false) Boolean specialOffer) throws IOException {
+                               @RequestParam(value = "specialOffer", required = false) Boolean specialOffer,
+                               @RequestParam(value = "traveldate",required = false) LocalDate date ) throws IOException {
         if (result.hasErrors()) {
             // Add error messages to the Thymeleaf model
             model.addAttribute("errors", result.getAllErrors());
@@ -165,7 +166,6 @@ public class TravelController {
             return "redirect:/panel/admin/travels?error=notfound";
         }
         Travel existingTravel = optionalTravel.get();
-
         // Update the properties of the existing Travel object
         existingTravel.setTitle(updatedTravel.getTitle());
         existingTravel.setTravelDate(updatedTravel.getTravelDate());
@@ -178,6 +178,13 @@ public class TravelController {
         existingTravel.setDestiantion(updatedTravel.getDestiantion());
         existingTravel.setNights(updatedTravel.getNights());
         existingTravel.setDays(updatedTravel.getDays());
+        if(updatedTravel.getTravelDate()==null){
+            existingTravel.setTravelDate(date);
+        }
+        else{
+            existingTravel.setTravelDate(updatedTravel.getTravelDate());
+        }
+
         existingTravel.setAppUser(currentUser);
 
         if (specialOffer == null) {
@@ -203,6 +210,4 @@ public class TravelController {
         // Redirect to the travel list page
         return "redirect:/panel/admin/travels?successUpdate";
     }
-
-
 }

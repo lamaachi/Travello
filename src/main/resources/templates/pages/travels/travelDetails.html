@@ -74,6 +74,7 @@
               <label for="travelDate">Travel Date:<span th:text="${travel.travelDate}" class="px-2 btn btn-primary py-0 m-1 "></span></label>
               <input th:errorClass="is-invalid" type="date" class="form-control" id="travelDate" th:field="*{travelDate}" />
               <span class="invalid-feedback" th:if="${#fields.hasErrors('travelDate')}" th:errors="*{travelDate}"></span>
+              <input type="hidden" th:value="${travel.travelDate}" name="traveldate">
             </div>
           </div>
 

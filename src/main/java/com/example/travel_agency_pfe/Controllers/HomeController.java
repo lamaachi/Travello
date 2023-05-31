@@ -33,14 +33,18 @@ public class HomeController{
     @GetMapping(value = {"/","/index","/pages/"})
     public String index(Model model, @RequestParam(value = "page",defaultValue = "0") int page,@RequestParam(value = "size",defaultValue = "3") int size){
         Page<Travel> travelList = travelRepository.findAll(PageRequest.of(page,size));
-        Map<Long, String> travelImageMap = new HashMap<>();
-        for (Travel travel : travelList) {
-            Image image = travel.getImage();
-            byte[] imageData = ImageUtil.decompressImage(image.getImageData());
-            String base64Image = Base64.getEncoder().encodeToString(imageData);
-            String imageUrl = "data:" + image.getType() + ";base64," + base64Image;
-            travelImageMap.put(travel.getId(), imageUrl);
+        if(!travelList.isEmpty()){
+            Map<Long, String> travelImageMap = new HashMap<>();
+            for (Travel travel : travelList) {
+                Image image = travel.getImage();
+                byte[] imageData = ImageUtil.decompressImage(image.getImageData());
+                String base64Image = Base64.getEncoder().encodeToString(imageData);
+                String imageUrl = "data:" + image.getType() + ";base64," + base64Image;
+                travelImageMap.put(travel.getId(), imageUrl);
+            }
+            model.addAttribute("travelImageMap", travelImageMap);
         }
+
         List<Review> reviews = reviewService.getAtiveReviews();
         Subscriber subscriber = new Subscriber();
 
@@ -58,7 +62,7 @@ public class HomeController{
         model.addAttribute("curruntpage",page);
         model.addAttribute("reviews",reviews);
         model.addAttribute("subscriber",subscriber);
-        model.addAttribute("travelImageMap", travelImageMap);
+
         return "index";
     }
     @GetMapping("/booknow/travel/{id}")
