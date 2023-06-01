@@ -18,9 +18,9 @@
         <div class="packages-content" th:if="${travels!=null}">
             <div class="row">
                 <div class="col-md-4 col-sm-6" th:each="travel:${travels}">
-                    <div class="single-package-item">
+                    <div class="single-package-item" style="border-radius:10px ; ">
                         <a class="" th:href="@{'/booknow/travel/'+${travel.id} }">
-                            <div class="image-container">
+                            <div class="image-container" style="border-radius:10px ;">
                                 <img loading="lazy" style="object-fit: fill" th:src="@{|${travelImageMap[travel.id]}|}" alt="package-place">
                             </div>
                         </a>

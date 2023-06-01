@@ -29,7 +29,7 @@ body{
     padding: 50px 20px;
     -webkit-box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.3);
     box-shadow: 0px 5px 20px -5px rgba(0, 0, 0, 0.3);
-    border-radius: 4px;
+    border-radius: 10px;
 }
 
 .booking-form .form-group {
@@ -112,8 +112,12 @@ body{
     -webkit-transform: rotate(90deg);
     transform: rotate(90deg);
 }
-
+.card-img-top{
+    width: 100%;
+    border-radius: 10px;
+}
 .booking-form .form-label {
+    border-radius: 5px;
     display: inline-block;
     color: #3e485c;
     font-weight: 700;

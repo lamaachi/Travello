@@ -50,8 +50,8 @@
 
                             <div class="offer-btn-group">
                                 <div class="about-btn">
-                                    <a th:href="@{'/booknow/travel/'+${specialOffer.id}}"  class="about-view">
-                                        book now
+                                    <a th:href="@{'/booknow/travel/'+${specialOffer.id}}" >
+                                        <span class="pull-right btn btn-danger btn-lg" style=" border-radius: 0; cursor: pointer;" th:text="${specialOffer.price}+'MAD'"></span>
                                     </a>
                                 </div><!--/.about-btn-->
                             </div><!--/.offer-btn-group-->
