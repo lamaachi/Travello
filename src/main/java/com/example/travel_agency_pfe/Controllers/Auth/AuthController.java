@@ -182,7 +182,8 @@ public class AuthController {
 
     @PostMapping("/Auth/profile/changePassword")
     public String changePassword(@RequestParam("newpassword") String newpassword,@RequestParam("oldpassword") String oldpassword, Model model){
-
+        System.out.println("============================old"+oldpassword);
+        System.out.println("============================new"+newpassword);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         AppUser currentUser = iClientRepository.getAppUserByUserName(userDetails.getUsername());
@@ -190,13 +191,15 @@ public class AuthController {
             currentUser.setPassword(this.cryptPasswordEncoder.encode(newpassword));
             iClientRepository.save(currentUser);
             System.out.println("==============="+this.cryptPasswordEncoder.encode(newpassword));
+            System.out.println("===============Password canged");
             model.addAttribute("successUpdatePass","Your Password  updated succussfully.");
             model.addAttribute("user", currentUser);
-            return  "redirect:/Auth/profile?successUpdatePass";
+            return  "redirect:/Auth/profile";
         }else{
             model.addAttribute("failold","The old Password not match!");
             model.addAttribute("user", currentUser);
-            return  "redirect:/Auth/profile?failold";
+            System.out.println("===============Password not canged");
+            return  "redirect:/Auth/profile";
         }
     }
 

@@ -1,10 +1,8 @@
 package com.example.travel_agency_pfe.Controllers;
 
 import com.example.travel_agency_pfe.Configurations.ImageUtil;
-import com.example.travel_agency_pfe.Models.Image;
-import com.example.travel_agency_pfe.Models.Review;
-import com.example.travel_agency_pfe.Models.Subscriber;
-import com.example.travel_agency_pfe.Models.Travel;
+import com.example.travel_agency_pfe.Models.*;
+import com.example.travel_agency_pfe.Repositories.IAgencyRepositry;
 import com.example.travel_agency_pfe.Repositories.ITravelRepository;
 import com.example.travel_agency_pfe.Services.IReviewServiceImpl;
 import com.example.travel_agency_pfe.Services.ITravelService;
@@ -29,6 +27,7 @@ public class HomeController{
     private ITravelService travelService;
     private IReviewServiceImpl reviewService;
     private ITravelRepository travelRepository;
+    private IAgencyRepositry iAgencyRepositry;
 
     @GetMapping(value = {"/","/index","/pages/"})
     public String index(Model model, @RequestParam(value = "page",defaultValue = "0") int page,@RequestParam(value = "size",defaultValue = "3") int size){
@@ -62,6 +61,8 @@ public class HomeController{
             }
             model.addAttribute("specialOffer", specialOffer);
         }
+        Agency agency = iAgencyRepositry.findById(1L).get();
+        model.addAttribute("agency",agency);
         model.addAttribute("travels",travelList.getContent());
         model.addAttribute("pages",new int[travelList.getTotalPages()]);
         model.addAttribute("curruntpage",page);

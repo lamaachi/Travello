@@ -67,6 +67,4 @@ public class ClientController {
         ra.addAttribute("updateMessage","The user has been updated successfully.");
         return "redirect:/panel/admin/clients";
     }
-
-
 }

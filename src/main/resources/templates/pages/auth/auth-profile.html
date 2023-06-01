@@ -83,11 +83,11 @@
       <form th:action="@{/Auth/profile/changePassword}" method="post">
         <div class="card">
           <div class="card-body">
-            <div th:if="${failold}" class="alert alert-danger alert-dismissible fade show" role="alert">
+            <div th:if="${param.failold}" class="alert alert-danger alert-dismissible fade show" role="alert">
               <strong>Faild!</strong>The Old Password Not Correct
               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-            <div th:if="${successUpdatePass}" class="alert alert-info alert-dismissible fade show" role="alert">
+            <div th:if="${param.successUpdatePass}" class="alert alert-info alert-dismissible fade show" role="alert">
               <strong>Congrats!</strong>Your Password Has Been Changed Succufully
               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>

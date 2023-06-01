@@ -15,7 +15,7 @@
                     <div class="single-footer-item">
                         <div class="footer-logo">
                             <a th:href="@{/}">
-                                tour<span>Nest</span>
+                                <span th:text="${agency.name}"></span>
                             </a>
                             <p>
                                 best travel agency
@@ -51,14 +51,13 @@
                         </div><!--/.single-footer-txt-->
                     </div><!--/.single-footer-item-->
                 </div><!--/.col-->
-
                 <div class="col-sm-3">
                     <div class="single-footer-item text-center">
                         <h2 class="text-left">contacts</h2>
                         <div class="single-footer-txt text-left">
-                            <p>+212 (6) 1234 6543</p>
-                            <p class="foot-email"><a href="#">info@lamaachi.com</a></p>
-                            <p>Ait Amira, Morocco</p>
+                            <p th:text="${agency.phone}"></p>
+                            <p class="foot-email" >Conatct@agency.com</p>
+                            <p th:text="${agency.adress}">Ait Amira, Morocco</p>
                         </div><!--/.single-footer-txt-->
                     </div><!--/.single-footer-item-->
                 </div><!--/.col-->
