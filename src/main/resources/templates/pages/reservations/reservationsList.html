@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/_template}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/_template}">
 <head>
   <meta charset="UTF-8">
   <title>Travels list - Tournest</title>
@@ -31,7 +31,7 @@
   </div>
   <section class="section">
     <div class="card">
-      <div class="card-header">
+      <div class="card-header" sec:authorize="hasRole('ADMIN')">
         <a th:href="@{/panel/reservations/export/pdf}" class="btn btn-primary">Export <i class="fa-solid fa-cloud-arrow-down"></i></a>
       </div>
 
