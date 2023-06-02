@@ -2,6 +2,7 @@ package com.example.travel_agency_pfe.Controllers;
 
 import com.example.travel_agency_pfe.Export.ReservationPDFExport;
 import com.example.travel_agency_pfe.Models.*;
+import com.example.travel_agency_pfe.Repositories.IAgencyRepositry;
 import com.example.travel_agency_pfe.Repositories.IAppUserRepository;
 import com.example.travel_agency_pfe.Repositories.IInvoiceRepository;
 import com.example.travel_agency_pfe.Services.IInvoiceServiceImpl;
@@ -34,6 +35,7 @@ public class ReservationController {
     private IInvoiceRepository invoiceRepository;
     private IReservationServiceImpl reservationService;
     private IInvoiceServiceImpl invoiceService;
+    private IAgencyRepositry iAgencyRepositry;
 
     @GetMapping("/reserve")
     public String passeReservation(@RequestParam("childs") int childs, @RequestParam("adults") int adults ,@RequestParam("id") Long id, Model model){
@@ -46,6 +48,8 @@ public class ReservationController {
             model.addAttribute("travel",travel);
             model.addAttribute("amount",amount);
             model.addAttribute("reservation",reservation);
+            Agency agency = iAgencyRepositry.findById(1L).get();
+            model.addAttribute("agency",agency);
             model.addAttribute("subscriber",subscriber);
             return "pages/reservations/reservation-suc";
     }
@@ -73,6 +77,8 @@ public class ReservationController {
         Subscriber subscriber = new Subscriber();
         model.addAttribute("subscriber",subscriber);
         model.addAttribute("user",currentUser);
+        Agency agency = iAgencyRepositry.findById(1L).get();
+        model.addAttribute("agency",agency);
         //send email
         reservationService.sendReservationEmail(currentUser,getSiteURL(request),reservation);
         //Redirect to a success page or return a success message

@@ -2,10 +2,8 @@ package com.example.travel_agency_pfe.Controllers;
 
 import com.example.travel_agency_pfe.Configurations.FileUplaodUtil;
 import com.example.travel_agency_pfe.Configurations.ImageUtil;
-import com.example.travel_agency_pfe.Models.AppUser;
-import com.example.travel_agency_pfe.Models.Image;
-import com.example.travel_agency_pfe.Models.Subscriber;
-import com.example.travel_agency_pfe.Models.Travel;
+import com.example.travel_agency_pfe.Models.*;
+import com.example.travel_agency_pfe.Repositories.IAgencyRepositry;
 import com.example.travel_agency_pfe.Repositories.IAppUserRepository;
 import com.example.travel_agency_pfe.Repositories.ITravelRepository;
 import com.example.travel_agency_pfe.Services.ITravelServiceImpl;
@@ -33,7 +31,7 @@ public class TravelController {
     private ITravelServiceImpl travelService;
     private ITravelRepository travelRepository;
 
-    private ImageService imageService;
+    private IAgencyRepositry iAgencyRepositry;
 
 
     @GetMapping("/panel/admin/travels")
@@ -139,11 +137,10 @@ public class TravelController {
             String imageUrl = "data:" + image.getType() + ";base64," + base64Image;
             travelImageMap.put(travel.getId(), imageUrl);
         }
-        //List<Travel> travels = new ArrayList<>();
+        Agency agency = iAgencyRepositry.findById(1L).get();
+        model.addAttribute("agency",agency);
         model.addAttribute("travels",travels);
         model.addAttribute("travelImageMap", travelImageMap);
-        System.out.println(travels);
-//        return  "pages/travels/searchTravel";
         return  "pages/travels/searchTravel";
     }
     //Update travel

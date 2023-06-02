@@ -32,7 +32,6 @@ public class HomeController{
     @GetMapping(value = {"/","/index","/pages/"})
     public String index(Model model, @RequestParam(value = "page",defaultValue = "0") int page,@RequestParam(value = "size",defaultValue = "3") int size){
         Page<Travel> travelList = travelRepository.findAll(PageRequest.of(page, size));
-        System.out.println("=============================================" + travelList.getSize());
         if (!travelList.isEmpty()) {
             Map<Long, String> travelImageMap = new HashMap<>();
             for (Travel travel : travelList) {
@@ -81,6 +80,8 @@ public class HomeController{
         String imageUrl = "data:" + image.getType() + ";base64," + base64Image;
         model.addAttribute("imageUrl", imageUrl);
         model.addAttribute("travel",travelService.getTravelById(id).get());
+        Agency agency = iAgencyRepositry.findById(1L).get();
+        model.addAttribute("agency",agency);
         return "pages/travels/booknow";
     }
 }
