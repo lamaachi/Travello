@@ -9,7 +9,6 @@ import org.springframework.web.servlet.ModelAndView;
 public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public String handleException(HttpServletRequest request, Exception ex) {
-        // Handle the exception and return an appropriate view or redirect
         return "pages/errors/_404";
     }
 }
