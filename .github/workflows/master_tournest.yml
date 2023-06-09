@@ -49,5 +49,5 @@ jobs:
         with:
           app-name: 'Tournest'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_4EA413560A624970BA4F9F764A4ACF85 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_DE98DD2D6FB243ECAFA95016885A5F80 }}
           package: '*.jar'
