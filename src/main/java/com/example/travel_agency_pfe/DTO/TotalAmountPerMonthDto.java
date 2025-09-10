@@ -6,5 +6,5 @@ import lombok.Data;
 public class TotalAmountPerMonthDto {
     private int month;
     private double amount;
-
+    
 }
