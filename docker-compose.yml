@@ -1,12 +1,11 @@
-version: '3.8' # This version tag is obsolete but harmless
+version: '3.8' 
 
 services:
   travello-app:
-    build: . # Tells it to build the Dockerfile in the current directory
+    build: . 
     ports:
       - "8081:8081"
     environment:
-      # Use environment variables to pass database credentials (Best Practice!)
       - DB_URL=jdbc:mysql://mysql-db:3306/travel_agency?allowPublicKeyRetrieval=true&useSSL=false
       - DB_USER=root
       - DB_PASS=lamaachi
